@@ -14,11 +14,46 @@
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 $factory->define(App\User::class, function (Faker\Generator $faker) {
     static $password;
+    $types = ['Entrepreneur', 'Client', 'Ouvrier'];//tableau contenant les types
+    $typeRand = $types[rand(0,2)];//choix du type aleatoirement
+    $type = factory('App\\'.$types[rand(0,2)])->create();
+   
+
 
     return [
-        'name' => $faker->name,
+        'nom' => $faker->name,
+        'prenom' => $faker->firstName,
+        'numTel' => $faker->phoneNumber,
+        'wilaya' =>rand(1,48),
+        'region' => $faker->city,
+        'dateNaiss' => $faker->dateTime,
+        'userable_id' => $type->id,
+        'userable_type' => $typeRand,
         'email' => $faker->unique()->safeEmail,
         'password' => $password ?: $password = bcrypt('secret'),
         'remember_token' => str_random(10),
     ];
+});
+$factory->define('App\Entrepreneur', function(Faker\Generator $faker){
+	return [
+		'experience' => rand(0,100),
+		'disponibilite' => $faker->boolean,
+		'materiel' => $faker->paragraph,
+		'reputation' => $faker->randomNumber()
+	];
+});
+$factory->define('App\Client', function(Faker\Generator $faker){
+	return[
+
+
+	];
+});
+$factory->define('App\Ouvrier', function(Faker\Generator $faker){
+	return[
+		'diplome' => $faker->boolean,
+		'experience' => rand(0,100),
+		'reputation' =>$faker->randomNumber(),
+		'fonction' => $faker->word,
+		'prixApprox' => $faker->randomNumber()
+	];
 });

@@ -15,11 +15,11 @@ class CreateEntrepreneursTable extends Migration
     {
         Schema::create('entrepreneurs', function (Blueprint $table) {
             $table->increments('id');
-            $table->timestamps();
             $table->integer('experience');
             $table->boolean('disponibilite');
             $table->string('materiel');
             $table->double('reputation');
+             $table->timestamps();
         });
     }
 
