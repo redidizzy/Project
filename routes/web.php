@@ -18,3 +18,9 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+
+//cette route permettra a l'utilisateur de voir son/un profil
+Route::get('/profil/{id}', 'UtilisateurController@show')->name('utilisateur.profil');
+
+

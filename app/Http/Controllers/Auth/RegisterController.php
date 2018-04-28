@@ -73,15 +73,16 @@ class RegisterController extends Controller
         switch($data['type'])
         {
             /** @todo indiquer le reste des types possible et finir le formulaire*/
-            case 'entrepreneur' : 
+            case 'Entrepreneur' : 
                 $utilisateur = Entrepreneur::create([
                     'experience' => 0,
                     'disponibilite' => true,
                     'materiel' => '',
                     'reputation' => 0
                 ]);
+                
                 break;
-            case 'ouvrier' :
+            case 'Ouvrier' :
                 $utilisateur= Ouvrier::create([
                     'diplome' => isset($data['diplome']),
                     'experience' => 0,
@@ -90,7 +91,7 @@ class RegisterController extends Controller
                     'prixApprox' => 0
                 ]);
                 break;
-            case 'client' :
+            case 'Client' :
                 $utilisateur= Client::create();
         }
         return User::create([

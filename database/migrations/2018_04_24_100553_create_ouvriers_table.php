@@ -15,12 +15,12 @@ class CreateOuvriersTable extends Migration
     {
         Schema::create('ouvriers', function (Blueprint $table) {
             $table->increments('id');
-            $table->timestamps();
             $table->boolean('diplome');
             $table->integer('experience');
             $table->double('reputation');
             $table->string('fonction');
             $table->string('prixApprox');
+             $table->timestamps();
         });
     }
 

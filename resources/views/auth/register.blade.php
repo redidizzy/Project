@@ -135,9 +135,9 @@
 
                             <div class="col-md-6">
                                 <select name="type" id="type" class="form-control">
-                                        <option value="entrepreneur" id="entrepreneur">Entrepreneur </option>
-                                        <option value="client" id="client">Client</option>
-                                        <option value="ouvrier" id ="ouvrier">Ouvrier</option>
+                                        <option value="Entrepreneur" id="entrepreneur">Entrepreneur </option>
+                                        <option value="Client" id="client">Client</option>
+                                        <option value="Ouvrier" id ="ouvrier">Ouvrier</option>
                                 </select>
                                 @if ($errors->has('type'))
                                     <span class="help-block">
