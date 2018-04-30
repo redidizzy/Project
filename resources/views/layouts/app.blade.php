@@ -54,7 +54,11 @@
       <nav id="nav-menu-container">
         <ul class="nav-menu">
           <li class="menu-active"><a href="#intro">Accueil</a></li>
+<<<<<<< HEAD
+          <li><a href="#utilite">Comment ca marche</a></li>
+=======
           <li><a href="#utilite">A quoi ca sert ?!</a></li>
+>>>>>>> afac610c0a731f0b4e013c5c25815ee841349ac2
           <li><a href="#a-propos">A propos de nous</a></li>
           <li><a href="#inscription">S'inscrire</a></li>
           <li><a href="#connexion">Se connecter</a></li>
