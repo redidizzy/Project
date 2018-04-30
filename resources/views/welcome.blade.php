@@ -38,11 +38,9 @@
               <div class="carousel-content">
                 <h2>Soif de projets ?</h2>
                 <p>Vous etes entrepreneur et vous voullez trouver des projets rapidement ? c'est simple ! PFE vous dispose d'un systeme de recherche de projet efficace qui vous permettra de trouver les projets les plus interessent selon vos criteres</p>
-<<<<<<< HEAD
+
                 <a href="#featured-services" class="btn-get-started scrollto">Commencer</a>
-=======
-                <a href="#featured-services" class="btn-get-started scrollto">Get Started</a>
->>>>>>> afac610c0a731f0b4e013c5c25815ee841349ac2
+
               </div>
             </div>
           </div>
@@ -52,11 +50,9 @@
               <div class="carousel-content">
                 <h2>Soyez le meilleur !</h2>
                 <p>Que vous soyez entrepreneur ou ouvrier, vos client pourront noter votre qualite de travail ! soyez le meilleur dans votre domaine pour augmenter votre reputation et apparaitre parmis les premiers lors des recherches ! </p>
-<<<<<<< HEAD
+
                 <a href="#featured-services" class="btn-get-started scrollto">Commencer</a>
-=======
-                <a href="#featured-services" class="btn-get-started scrollto">Get Started</a>
->>>>>>> afac610c0a731f0b4e013c5c25815ee841349ac2
+
               </div>
             </div>
           </div>
@@ -66,11 +62,11 @@
               <div class="carousel-content">
                 <h2>Attendez vous a des changements</h2>
                 <p>Cette application est en constante evolution ! attendez vous a des outils de plus en plus performant pour vos projets !</p>
-<<<<<<< HEAD
+
                 <a href="#featured-services" class="btn-get-started scrollto">Commencer</a>
-=======
+
                 <a href="#featured-services" class="btn-get-started scrollto">Get Started</a>
->>>>>>> afac610c0a731f0b4e013c5c25815ee841349ac2
+
               </div>
             </div>
           </div>
@@ -100,7 +96,7 @@
       <div class="container">
         <div class="row">
 
-<<<<<<< HEAD
+
           <div class="col-lg-6 box">
             <i class="ion-ios-bookmarks-outline"></i>
             <h4 class="title"><a href="">Un systeme de recherche performant</a></h4>
@@ -111,24 +107,6 @@
             <i class="ion-ios-stopwatch-outline"></i>
             <h4 class="title"><a href="">Plus de temps a perdre</a></h4>
             <p class="description">Vous n'aurez desormais plus de temps a perdre dans la recherche de gens competents pour votre projet. trouves les en quelques clics !</p>
-=======
-          <div class="col-lg-4 box">
-            <i class="ion-ios-bookmarks-outline"></i>
-            <h4 class="title"><a href="">Lorem Ipsum Delino</a></h4>
-            <p class="description">Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident</p>
-          </div>
-
-          <div class="col-lg-4 box box-bg">
-            <i class="ion-ios-stopwatch-outline"></i>
-            <h4 class="title"><a href="">Dolor Sitema</a></h4>
-            <p class="description">Minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat tarad limino ata</p>
-          </div>
-
-          <div class="col-lg-4 box">
-            <i class="ion-ios-heart-outline"></i>
-            <h4 class="title"><a href="">Sed ut perspiciatis</a></h4>
-            <p class="description">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur</p>
->>>>>>> afac610c0a731f0b4e013c5c25815ee841349ac2
           </div>
 
         </div>
@@ -138,28 +116,21 @@
     <!--==========================
       Services Section
     ============================-->
-<<<<<<< HEAD
+
     <section id="utilite">
       <div class="container">
 
         <header class="section-header wow fadeInUp">
           <h3>Comment ca marche ?!</h3>
           <p>PFE est une application web qui permet de faciliter le contact entre le client, l'entrepreneur et les ouvriers.</p>
-=======
-    <section id="services">
-      <div class="container">
 
-        <header class="section-header wow fadeInUp">
-          <h3>Services</h3>
-          <p>Laudem latine persequeris id sed, ex fabulas delectus quo. No vel partiendo abhorreant vituperatoribus, ad pro quaestio laboramus. Ei ubique vivendum pro. At ius nisl accusam lorenta zanos paradigno tridexa panatarel.</p>
->>>>>>> afac610c0a731f0b4e013c5c25815ee841349ac2
         </header>
 
         <div class="row">
 
           <div class="col-lg-4 col-md-6 box wow bounceInUp" data-wow-duration="1.4s">
             <div class="icon"><i class="ion-ios-analytics-outline"></i></div>
-<<<<<<< HEAD
+
             <h4 class="title"><a href="#inscription">Inscrivez vous</a></h4>
             <p class="description">inscrivez vous et joignez vous a une communaute de plus d'une centaine d'utilisateurs qui ont le meme but que vous : construire</p>
           </div>
@@ -187,35 +158,7 @@
             <div class="icon"><i class="ion-ios-people-outline"></i></div>
             <h4 class="title"><a href="">Aidez nous</a></h4>
             <p class="description">Donnez nous votre avis sur l'application et recommendez-nous des ameliorations. nous vous en serons reconnaissants</p>
-=======
-            <h4 class="title"><a href="">Lorem Ipsum</a></h4>
-            <p class="description">Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident</p>
-          </div>
-          <div class="col-lg-4 col-md-6 box wow bounceInUp" data-wow-duration="1.4s">
-            <div class="icon"><i class="ion-ios-bookmarks-outline"></i></div>
-            <h4 class="title"><a href="">Dolor Sitema</a></h4>
-            <p class="description">Minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat tarad limino ata</p>
-          </div>
-          <div class="col-lg-4 col-md-6 box wow bounceInUp" data-wow-duration="1.4s">
-            <div class="icon"><i class="ion-ios-paper-outline"></i></div>
-            <h4 class="title"><a href="">Sed ut perspiciatis</a></h4>
-            <p class="description">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur</p>
-          </div>
-          <div class="col-lg-4 col-md-6 box wow bounceInUp" data-wow-delay="0.1s" data-wow-duration="1.4s">
-            <div class="icon"><i class="ion-ios-speedometer-outline"></i></div>
-            <h4 class="title"><a href="">Magni Dolores</a></h4>
-            <p class="description">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
-          </div>
-          <div class="col-lg-4 col-md-6 box wow bounceInUp" data-wow-delay="0.1s" data-wow-duration="1.4s">
-            <div class="icon"><i class="ion-ios-barcode-outline"></i></div>
-            <h4 class="title"><a href="">Nemo Enim</a></h4>
-            <p class="description">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque</p>
-          </div>
-          <div class="col-lg-4 col-md-6 box wow bounceInUp" data-wow-delay="0.1s" data-wow-duration="1.4s">
-            <div class="icon"><i class="ion-ios-people-outline"></i></div>
-            <h4 class="title"><a href="">Eiusmod Tempor</a></h4>
-            <p class="description">Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi</p>
->>>>>>> afac610c0a731f0b4e013c5c25815ee841349ac2
+
           </div>
 
         </div>
@@ -350,7 +293,7 @@
                 <div class="col-lg-3 col-6 text-center">
             <span data-toggle="counter-up">274</span>
             <p>Clients</p>
-<<<<<<< HEAD
+
                 </div>
 
           <div class="col-lg-3 col-6 text-center">
@@ -367,6 +310,7 @@
             <span data-toggle="counter-up">18</span>
             <p>Hard Workers</p>
                 </div>
+
 
             </div>
 
@@ -790,6 +734,15 @@
         </div>
 
       </div>
+=======
+            </div>
+
+        <div class="facts-img">
+          <img src="{{asset('templateFiles/img/facts-img.png')}}" alt="" class="img-fluid">
+        </div>
+
+      </div>
+>>>>>>> afac610c0a731f0b4e013c5c25815ee841349ac2
     </section><!-- #facts -->
 
     <!--==========================
@@ -1179,6 +1132,9 @@
 
         </div>
 
+<<<<<<< HEAD
+>>>>>>> afac610c0a731f0b4e013c5c25815ee841349ac2
+=======
 >>>>>>> afac610c0a731f0b4e013c5c25815ee841349ac2
         <div class="form">
           <div id="sendmessage">Your message has been sent. Thank you!</div>
