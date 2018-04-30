@@ -115,11 +115,13 @@
 
     <!--=====
       Services Section
+<<<<<<< HEAD
 
     -->
 
 
     <section id="services">
+
       <div class="container">
 
         <header class="section-header wow fadeInUp">
@@ -323,9 +325,11 @@
       </div>
     </section><!-- #facts -->
 
+
     <!--=====
       Portfolio Section
     -->
+
     <section id="portfolio"  class="section-bg" >
       <div class="container">
 
@@ -486,9 +490,11 @@
       </div>
     </section><!-- #portfolio -->
 
+
     <!--=====
       Clients Section
     -->
+
     <section id="clients" class="wow fadeInUp">
       <div class="container">
 
@@ -510,9 +516,11 @@
       </div>
     </section><!-- #clients -->
 
+
     <!--=====
       Clients Section
     -->
+
     <section id="testimonials" class="section-bg wow fadeInUp">
       <div class="container">
 
@@ -582,9 +590,11 @@
       </div>
     </section><!-- #testimonials -->
 
+
     <!--=====
       Team Section
     -->
+
     <section id="team">
       <div class="container">
         <div class="section-header wow fadeInUp">
@@ -626,7 +636,6 @@
                     <a href=""><i class="fa fa-linkedin"></i></a>
                   </div>
 
-                </div>
 
           <div class="col-lg-3 col-6 text-center">
             <span data-toggle="counter-up">421</span>
@@ -719,6 +728,87 @@
         </div>
 
 
+          <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.2s">
+            <div class="member">
+              <img src="{{asset('templateFiles/img/team-3.jpg')}}" class="img-fluid" alt="">
+              <div class="member-info">
+                <div class="member-info-content">
+                  <h4>William Anderson</h4>
+                  <span>CTO</span>
+                  <div class="social">
+                    <a href=""><i class="fa fa-twitter"></i></a>
+                    <a href=""><i class="fa fa-facebook"></i></a>
+                    <a href=""><i class="fa fa-google-plus"></i></a>
+                    <a href=""><i class="fa fa-linkedin"></i></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+            <div class="member">
+              <img src="{{asset('templateFiles/img/team-4.jpg')}}" class="img-fluid" alt="">
+              <div class="member-info">
+                <div class="member-info-content">
+                  <h4>Amanda Jepson</h4>
+                  <span>Accountant</span>
+                  <div class="social">
+                    <a href=""><i class="fa fa-twitter"></i></a>
+                    <a href=""><i class="fa fa-facebook"></i></a>
+                    <a href=""><i class="fa fa-google-plus"></i></a>
+                    <a href=""><i class="fa fa-linkedin"></i></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- #team -->
+
+    <!--==========================
+      Contact Section
+    ============================-->
+    <section id="contact" class="section-bg wow fadeInUp">
+      <div class="container">
+
+        <div class="section-header">
+          <h3>Contact Us</h3>
+          <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque</p>
+        </div>
+
+        <div class="row contact-info">
+
+          <div class="col-md-4">
+            <div class="contact-address">
+              <i class="ion-ios-location-outline"></i>
+              <h3>Address</h3>
+              <address>A108 Adam Street, NY 535022, USA</address>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="contact-phone">
+              <i class="ion-ios-telephone-outline"></i>
+              <h3>Phone Number</h3>
+              <p><a href="tel:+155895548855">+1 5589 55488 55</a></p>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="contact-email">
+              <i class="ion-ios-email-outline"></i>
+              <h3>Email</h3>
+              <p><a href="mailto:info@example.com">info@example.com</a></p>
+            </div>
+          </div>
+
+        </div>
+
+
           <div class="col-lg-3 col-6 text-center">
             <span data-toggle="counter-up">1,364</span>
             <p>Hours Of Support</p>
@@ -736,11 +826,7 @@
         </div>
 
       </div>
-<<<<<<< HEAD
 
-=======
-=======
->>>>>>> 183176d7b7acd8a6a9b3b8f98a6d029947b8bf3b
             </div>
 
         <div class="facts-img">
@@ -748,11 +834,7 @@
         </div>
 
       </div>
-<<<<<<< HEAD
 
-=======
->>>>>>> afac610c0a731f0b4e013c5c25815ee841349ac2
->>>>>>> 183176d7b7acd8a6a9b3b8f98a6d029947b8bf3b
     </section><!-- #facts -->
 
     <!--=====
@@ -1141,18 +1223,7 @@
           </div>
 
         </div>
-
-<<<<<<< HEAD
-
-
-
-
-=======
-<<<<<<< HEAD
->>>>>>> afac610c0a731f0b4e013c5c25815ee841349ac2
-=======
->>>>>>> afac610c0a731f0b4e013c5c25815ee841349ac2
->>>>>>> 183176d7b7acd8a6a9b3b8f98a6d029947b8bf3b
+        
         <div class="form">
           <div id="sendmessage">Your message has been sent. Thank you!</div>
           <div id="errormessage"></div>
