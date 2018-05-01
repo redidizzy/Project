@@ -58,9 +58,9 @@
 
           <li><a href="#services">Comment ca marche</a></li>
           <li><a href="#about">A propos de nous</a></li>
-          <li><a href="#inscription">S'inscrire</a></li>
-          <li><a href="#connexion">Se connecter</a></li>
-          <li><a href="#contact">Contactez nous !</a></li>
+          <li><a href="#contact">S'inscrire</a></li>
+          <li><a href="#team">Se connecter</a></li>
+          <li><a href="#footer">Contactez nous !</a></li>
         </ul>
       </nav><!-- #nav-menu-container -->
     </div>
@@ -78,31 +78,30 @@
 
           <div class="col-lg-3 col-md-6 footer-info">
             <h3>PFE</h3>
-            <p>Cras fermentum odio eu feugiat lide par naso tierra. Justo eget nada terra videa magna derita valies darta donna mare fermentum iaculis eu non diam phasellus. Scelerisque felis imperdiet proin fermentum leo. Amet volutpat consequat mauris nunc congue.</p>
+            <p>Nous sommes ravis de pouvoir aider le peuple a aboutir leur projets personnel, suivez nous ! vous ne le regretterez pas </p>
           </div>
 
-          <div class="col-lg-3 col-md-6 footer-links">
+          <div class="col-lg-4 col-md-6 footer-links">
             <h4>Useful Links</h4>
             <ul>
-              <li><i class="ion-ios-arrow-right"></i> <a href="#">Home</a></li>
-              <li><i class="ion-ios-arrow-right"></i> <a href="#">About us</a></li>
-              <li><i class="ion-ios-arrow-right"></i> <a href="#">Services</a></li>
-              <li><i class="ion-ios-arrow-right"></i> <a href="#">Terms of service</a></li>
-              <li><i class="ion-ios-arrow-right"></i> <a href="#">Privacy policy</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="#">Acceuil</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="#about">A propos de nous</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="#services">Comment ca marche</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="#contact">S'inscrire</a></li>
             </ul>
           </div>
 
-          <div class="col-lg-3 col-md-6 footer-contact">
-            <h4>Contact Us</h4>
+          <div class="col-lg-5 col-md-6 footer-contact">
+            <h4>Contactez nous</h4>
             <p>
               A108 Adam Street <br>
               New York, NY 535022<br>
               United States <br>
-              <strong>Phone:</strong> +1 5589 55488 55<br>
-              <strong>Email:</strong> info@example.com<br>
+              <strong>Telephone:</strong> 0542658943<br>
+              <strong>Email:</strong> z.rediane24@gmail.com<br>
             </p>
 
-            <div class="social-links">
+            <div class="social-links text-center">
               <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
               <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
               <a href="#" class="instagram"><i class="fa fa-instagram"></i></a>
@@ -112,13 +111,6 @@
 
           </div>
 
-          <div class="col-lg-3 col-md-6 footer-newsletter">
-            <h4>Our Newsletter</h4>
-            <p>Tamen quem nulla quae legam multos aute sint culpa legam noster magna veniam enim veniam illum dolore legam minim quorum culpa amet magna export quem marada parida nodela caramase seza.</p>
-            <form action="" method="post">
-              <input type="email" name="email"><input type="submit"  value="Subscribe">
-            </form>
-          </div>
 
         </div>
       </div>
@@ -126,7 +118,7 @@
 
     <div class="container">
       <div class="copyright">
-        &copy; Copyright <strong>BizPage</strong>. All Rights Reserved
+        &copy; Copyright <strong>PFE</strong>. Tout Droits Reserves
       </div>
       <div class="credits">
         <!--
