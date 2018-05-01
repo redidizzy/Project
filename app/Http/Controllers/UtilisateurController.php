@@ -48,7 +48,7 @@ class UtilisateurController extends Controller
     	}
     	$user->nom = $request->nom;
     	$user->prenom = $request->prenom;
-    
+    	$user->dateNaiss = $request->dataNaiss;
     	$user->wilaya = $request->wilaya;
     	$user->region = $request->region;
     	$user->photoProfil = $url;
