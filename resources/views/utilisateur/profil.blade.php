@@ -8,17 +8,25 @@
                 <div class="panel-heading">Information General</div>
 
                 <div class="panel-body">
-                    <ul>
-                        
-                        <li>nom : {{$user->nom}}</li>
-                        <li>prenom : {{$user->prenom}}</li>
-                        <li>date de naissance : {{$user->dateNaiss}} </li>
-                        <li>email : {{$user->email}} </li>
-                        <li>wilaya : {{$user->wilaya}}</li>
-                        <li>region : {{$user->region}}</li>
-                        <li>numero de telephone : {{$user->numTel}}</li> 
-                        <li>Type d'utilisateur : {{$user->userable_type}}</li>
-                    </ul>
+                    <div class="row">
+                        <ul class="col-md-6">
+                            
+                            <li>nom : {{$user->nom}}</li>
+                            <li>prenom : {{$user->prenom}}</li>
+                            <li>date de naissance : {{$user->dateNaiss}} </li>
+                            <li>email : {{$user->email}} </li>
+                            <li>wilaya : {{$user->wilaya}}</li>
+                            <li>region : {{$user->region}}</li>
+                            <li>numero de telephone : {{$user->numTel}}</li> 
+                            <li>Type d'utilisateur : {{$user->userable_type}}</li>
+                        </ul>
+                        <div class="col-md-4 col-md-offset-2">
+                            <img src="{{asset($user->photoProfil)}}" style="height : 200px; " />
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <a href="{{route('utilisateur.edit')}}" class="btn btn-success">Editer</a>
+                    </div>
                 </div>
             </div>
         </div>

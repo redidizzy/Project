@@ -9,6 +9,7 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use App\Entrepreneur;
 use App\Client;
 use App\Ouvrier;
+use Illuminate\Support\Facades\Storage;
 
 
 class RegisterController extends Controller
@@ -70,6 +71,7 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         $utilisateur;
+        
         switch($data['type'])
         {
             /** @todo indiquer le reste des types possible et finir le formulaire*/
@@ -102,6 +104,7 @@ class RegisterController extends Controller
             'region' => $data['region'],
             'dateNaiss' => $data['dateNaiss'],
             'email' => $data['email'],
+            'photoProfil' => config('images.path').'/default.png',
             'userable_id' => $utilisateur->id,
             'userable_type' => $data['type'],
             'password' => bcrypt($data['password']),

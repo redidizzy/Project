@@ -21,6 +21,7 @@ class CreateUsersTable extends Migration
             $table->integer('wilaya');
             $table->string('region');
             $table->string('email', 191)->unique();
+            $table->string('photoProfil');
             $table->string('password');
             $table->date('dateNaiss');
             $table->rememberToken();

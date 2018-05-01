@@ -19,8 +19,12 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-
+//cette route permettra a l'utilisateur d'editer son profil 
+Route::get('/profil/edit', 'UtilisateurController@edit')->name('utilisateur.edit');
 //cette route permettra a l'utilisateur de voir son/un profil
 Route::get('/profil/{id}', 'UtilisateurController@show')->name('utilisateur.profil');
+Route::post('/profil/{id}', 'UtilisateurController@saveChange')->name('utilisateur.saveChange');
+
+
 
 

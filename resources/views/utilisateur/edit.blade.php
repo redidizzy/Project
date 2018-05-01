@@ -8,14 +8,14 @@
                 <div class="panel-heading">Register</div>
 
                 <div class="panel-body">
-                    <form class="form-horizontal" method="POST" action="{{ route('register') }}">
+                    <form class="form-horizontal" method="POST" enctype="multipart/form-data" action="{{ route('utilisateur.saveChange', $user->id) }}">
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('nom') ? ' has-error' : '' }}">
                             <label for="nom" class="col-md-4 control-label">Nom</label>
 
                             <div class="col-md-6">
-                                <input id="nom" type="text" class="form-control" name="nom" value="{{ old('nom') }}" required autofocus>
+                                <input id="nom" type="text" class="form-control" name="nom" value="{{ $user->nom }}" required autofocus>
 
                                 @if ($errors->has('nom'))
                                     <span class="help-block">
@@ -29,7 +29,7 @@
                             <label for="prenom" class="col-md-4 control-label">Prenom</label>
 
                             <div class="col-md-6">
-                                <input id="prenom" type="text" class="form-control" name="prenom" value="{{ old('prenom') }}" required autofocus>
+                                <input id="prenom" type="text" class="form-control" name="prenom" value="{{ $user->prenom }}" required autofocus>
 
                                 @if ($errors->has('prenom'))
                                     <span class="help-block">
@@ -39,24 +39,11 @@
                             </div>
                         </div>
 
-                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-4 control-label">Adresse e-mail</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
-
-                                @if ($errors->has('email'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
                         <div class="form-group{{ $errors->has('dateNaiss') ? ' has-error' : '' }}">
                             <label for="dateNaiss" class="col-md-4 control-label">Prenom</label>
 
                             <div class="col-md-6">
-                                <input id="dateNaiss" type="date" class="form-control" name="dateNaiss" value="{{ old('dateNaiss') }}" required autofocus>
+                                <input id="dateNaiss" type="date" class="form-control" name="dateNaiss" value="{{ $user->dateNaiss }}" required autofocus>
 
                                 @if ($errors->has('dateNaiss'))
                                     <span class="help-block">
@@ -70,7 +57,7 @@
                             <label for="numTel" class="col-md-4 control-label">Numero de telephone</label>
 
                             <div class="col-md-6">
-                                <input id="numTel" type="tel" class="form-control" name="numTel" value="{{ old('numTel') }}" required>
+                                <input id="numTel" type="tel" class="form-control" name="numTel" value="{{ $user->numTel }}" required>
 
                                 @if ($errors->has('numTel'))
                                     <span class="help-block">
@@ -106,7 +93,7 @@
                             <label for="photo" class="col-md-4 control-label">Photo : </label>
 
                             <div class="col-md-6">
-                                <input id="photo" type="file" class="form-control" name="photo" value="{{ old('photo') }}" required>
+                                <input id="photo" type="file" class="form-control" name="photo"  required>
 
                                 @if ($errors->has('photo'))
                                     <span class="help-block">
@@ -119,7 +106,7 @@
                             <label for="wilaya" class="col-md-4 control-label">Wilaya</label>
 
                             <div class="col-md-6">
-                                <input id="wilaya" type="number" class="form-control" name="wilaya" value="{{ old('wilaya') }}" required>
+                                <input id="wilaya" type="number" class="form-control" name="wilaya" value="{{ $user->wilaya }}" required>
 
                                 @if ($errors->has('wilaya'))
                                     <span class="help-block">
@@ -133,7 +120,7 @@
                             <label for="region" class="col-md-4 control-label">Region</label>
 
                             <div class="col-md-6">
-                                <input id="region" type="text" class="form-control" name="region" value="{{ old('region') }}" required>
+                                <input id="region" type="text" class="form-control" name="region" value="{{ $user->region }}" required>
 
                                 @if ($errors->has('region'))
                                     <span class="help-block">
@@ -142,58 +129,7 @@
                                 @endif
                             </div>
                         </div>
-
-                        <div class="form-group{{ $errors->has('type') ? ' has-error' : '' }}">
-                            <label for="type" class="col-md-4 control-label">Type d'utilisateur</label>
-
-                            <div class="col-md-6">
-                                <select name="type" id="type" class="form-control">
-                                        <option value="Entrepreneur" id="entrepreneur">Entrepreneur </option>
-                                        <option value="Client" id="client">Client</option>
-                                        <option value="Ouvrier" id ="ouvrier">Ouvrier</option>
-                                </select>
-                                @if ($errors->has('type'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('type') }}</strong>
-                                    </span>
-                                @endif
-
-                            </div>
-                        </div>
-                        <!-- /////////////////////////////////////////////Info ouvriers////////////////-->
-                        <div id="Info_Ouvrier" class="collapse ">
-                            <div class="form-group{{ $errors->has('fonction') ? ' has-error' : '' }}">
-                                <label for="fonction" class="col-md-4 control-label">Profession</label>
-
-                                <div class="col-md-6">
-                                    <select name="fonction" id="fonction" class="form-control">
-                                            <option value="plombier" id="plombier">Plombier </option>
-                                            <option value="peintre" id="peintre">Peintre</option>
-                                            <option value="menuisier" id ="menuisier">Menuisier</option>
-                                    </select>
-                                    @if ($errors->has('fonction'))
-                                        <span class="help-block">
-                                            <strong>{{ $errors->first('fonction') }}</strong>
-                                        </span>
-                                    @endif
-
-                                </div>
-                            </div>
-                            <div class="form-group{{ $errors->has('diplome') ? ' has-error' : '' }}">
-
-                                <div class="col-md-6">
-                                    <input type="checkbox" name="diplome" id="diplome" />
-                                    <label for="diplome">Je suis diplome</label>
-                                    @if ($errors->has('fonction'))
-                                        <span class="help-block">
-                                            <strong>{{ $errors->first('fonction') }}</strong>
-                                        </span>
-                                    @endif
-
-                                </div>
-                            </div>
-                        </div>
-
+                        
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">
@@ -207,18 +143,5 @@
         </div>
     </div>
 </div>
- <script src="{{ asset('js/JQuery.js') }}"></script>
-    <script href="{{ asset('css/Bootstrap/js/bootstrap.js') }}"></script>
-<script>
-    $(function(){
-        $("#type").change(function(){
-                if($("#type").val() === "ouvrier")
-                    $("#Info_Ouvrier").collapse("show");
-                else
-                    $("#Info_Ouvrier").collapse("hide");
-            
-                
-        });
-    });
-</script>
+ 
 @endsection
