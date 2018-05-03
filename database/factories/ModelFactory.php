@@ -27,6 +27,7 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'wilaya' =>rand(1,48),
         'region' => $faker->city,
         'dateNaiss' => $faker->dateTime,
+        'photoProfil' => config('images.path').'/default.png',
         'userable_id' => $type->id,
         'userable_type' => $typeRand,
         'email' => $faker->unique()->safeEmail,

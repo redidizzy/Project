@@ -24,9 +24,17 @@
                             <img src="{{asset($user->photoProfil)}}" style="height : 200px; " />
                         </div>
                     </div>
+                    
+                    <?php if(Auth::user()->id === $user->id )
+                    {
+                    ?>
                     <div class="text-center">
                         <a href="{{route('utilisateur.edit')}}" class="btn btn-success">Editer</a>
                     </div>
+                    <?php
+                    }
+                    ?>
+                    
                 </div>
             </div>
         </div>
@@ -34,7 +42,7 @@
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
                     <div class="panel-heading">Informations professionnel</div>
-0
+
                     <div class="panel-body">
                             
                             <li>reputation : {{$user->userable->reputation}}</li>

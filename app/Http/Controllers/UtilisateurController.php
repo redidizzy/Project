@@ -16,8 +16,9 @@ class UtilisateurController extends Controller
 	public function show($user_id)
 	{
 		$user = User::find($user_id);
+
 		
-		return view('utilisateur.profil', compact('user', 'photo'));
+		return view('utilisateur.profil', compact('user'));
 	}
 	public function edit()
 	{
@@ -27,7 +28,7 @@ class UtilisateurController extends Controller
     public function saveChange(Request $request)
     {
     	$user = Auth::user();
-
+        
     	if($request->hasFile('photo'))
     	{
     		$img = $request->file('photo');
@@ -48,7 +49,7 @@ class UtilisateurController extends Controller
     	}
     	$user->nom = $request->nom;
     	$user->prenom = $request->prenom;
-    	$user->dateNaiss = $request->dataNaiss;
+    	$user->dateNaiss = $request->dateNaiss;
     	$user->wilaya = $request->wilaya;
     	$user->region = $request->region;
     	$user->photoProfil = $url;
