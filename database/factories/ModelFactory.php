@@ -50,11 +50,18 @@ $factory->define('App\Client', function(Faker\Generator $faker){
 	];
 });
 $factory->define('App\Ouvrier', function(Faker\Generator $faker){
+    $fonction = factory('App\TypeOuvrier')->create();
 	return[
 		'diplome' => $faker->boolean,
 		'experience' => rand(0,100),
 		'reputation' =>$faker->randomNumber(),
-		'fonction' => $faker->word,
+		'fonction' => $fonction->designation,
 		'prixApprox' => $faker->randomNumber()
 	];
+});
+$factory->define('App\TypeOuvrier', function(Faker\Generator $faker){
+    return[
+        'designation' => $faker->word,
+        'description' => $faker->paragraph
+    ];
 });

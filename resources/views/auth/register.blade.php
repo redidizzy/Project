@@ -167,9 +167,9 @@
 
                                 <div class="col-md-6">
                                     <select name="fonction" id="fonction" class="form-control">
-                                            <option value="plombier" id="plombier">Plombier </option>
-                                            <option value="peintre" id="peintre">Peintre</option>
-                                            <option value="menuisier" id ="menuisier">Menuisier</option>
+                                            @foreach($fonctions as $fonction)
+                                                <option value="{{$fonction->designation}}" id="$fonction->designation">{{$fonction->designation}} </option>
+                                            @endforeach
                                     </select>
                                     @if ($errors->has('fonction'))
                                         <span class="help-block">
@@ -212,7 +212,7 @@
 <script>
     $(function(){
         $("#type").change(function(){
-                if($("#type").val() === "ouvrier")
+                if($("#type").val() === "Ouvrier")
                     $("#Info_Ouvrier").collapse("show");
                 else
                     $("#Info_Ouvrier").collapse("hide");

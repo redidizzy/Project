@@ -20,6 +20,13 @@ class GestionUtilisateurTest extends TestCase
 
 
     }
+    /** @test */
+    public function un_invite_ne_peut_pas_acceder_aux_informations_d_un_utilisateur()
+    {
+        $this->expectException('Illuminate\Auth\AuthenticationException');
+        $user = factory('App\User')->create();
+        $this->get(route('utilisateur.profil', $user->id));
+    }
      /** @test */
      public function les_informations_d_un_entrepreneur_sont_juste()
    {
@@ -44,4 +51,5 @@ class GestionUtilisateurTest extends TestCase
      		->assertSee($user->userable->prixApprox);
      	}
      }
+     
 }

@@ -18,8 +18,11 @@ class CreateOuvriersTable extends Migration
             $table->boolean('diplome');
             $table->integer('experience');
             $table->double('reputation');
-            $table->string('fonction');
+            $table->string('fonction', 191);
             $table->string('prixApprox');
+            $table->foreign('fonction')
+                ->references('designation')
+                ->on('type_ouvriers');
              $table->timestamps();
         });
     }
