@@ -23,6 +23,7 @@ class CreateOuvriersTable extends Migration
             $table->foreign('fonction')
                 ->references('designation')
                 ->on('type_ouvriers');
+
              $table->timestamps();
         });
     }

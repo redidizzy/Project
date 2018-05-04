@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
-
 use Illuminate\Support\Facades\Auth;
 
 class UtilisateurController extends Controller
@@ -16,8 +15,6 @@ class UtilisateurController extends Controller
 	public function show($user_id)
 	{
 		$user = User::find($user_id);
-
-		
 		return view('utilisateur.profil', compact('user'));
 	}
 	public function edit()

@@ -5,6 +5,7 @@ namespace Tests\Unit;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+
 use App\TypeOuvrier;
 
 class UserTest extends TestCase
@@ -18,6 +19,7 @@ class UserTest extends TestCase
     	$fonction = TypeOuvrier::find($ouvrier->userable->fonction);
 
     	$this->assertInstanceOf(TypeOuvrier::class, $fonction);
+
 
     }
 }

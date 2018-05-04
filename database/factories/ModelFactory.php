@@ -16,9 +16,8 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
     static $password;
     $types = ['Entrepreneur', 'Client', 'Ouvrier'];//tableau contenant les types
     $typeRand = $types[rand(0,2)];//choix du type aleatoirement
-    $type = factory('App\\'.$typeRand)->create();
-   
 
+    $type = factory('App\\'.$typeRand)->create();
 
     return [
         'nom' => $faker->name,
@@ -50,7 +49,9 @@ $factory->define('App\Client', function(Faker\Generator $faker){
 	];
 });
 $factory->define('App\Ouvrier', function(Faker\Generator $faker){
+
     $fonction = factory('App\TypeOuvrier')->create();
+
 	return[
 		'diplome' => $faker->boolean,
 		'experience' => rand(0,100),
@@ -64,4 +65,5 @@ $factory->define('App\TypeOuvrier', function(Faker\Generator $faker){
         'designation' => $faker->word,
         'description' => $faker->paragraph
     ];
+
 });

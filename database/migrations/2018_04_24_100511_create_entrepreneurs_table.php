@@ -20,6 +20,7 @@ class CreateEntrepreneursTable extends Migration
             $table->string('materiel');
             $table->double('reputation');
             $table->timestamps();
+
         });
     }
 

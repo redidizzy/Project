@@ -15,11 +15,14 @@ class GestionUtilisateurTest extends TestCase
     {	
     	$user= factory('App\User')->create();
     	$this->be($user);
+
     	$this->get(route('utilisateur.profil', $user->id))
+
     	->assertSee($user->nom);
 
 
     }
+
     /** @test */
     public function un_invite_ne_peut_pas_acceder_aux_informations_d_un_utilisateur()
     {
@@ -52,4 +55,5 @@ class GestionUtilisateurTest extends TestCase
      	}
      }
      
+
 }
