@@ -16,8 +16,10 @@ class UserTest extends TestCase
     {
     	$ouvrierInst = factory('App\Ouvrier')->create();
     	$ouvrier = factory('App\User')->create(['userable_type' => 'Ouvrier', 'userable_id' => $ouvrierInst->id]);
-    	$fonction = TypeOuvrier::find($ouvrier->userable->fonction);
 
+    	$fonction = TypeOuvrier::find($ouvrierInst->fonction);
+
+    	
     	$this->assertInstanceOf(TypeOuvrier::class, $fonction);
 
 

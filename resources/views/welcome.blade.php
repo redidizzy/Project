@@ -241,7 +241,8 @@
 
         <div class="form">
           
-          <form action="{{route('register')}}" method="POST" role="form" class="contactForm">
+          <form action="{{route('register')}}" method="POST" >
+            {{csrf_field()}}
             <div class="form-row">
               <div class="form-group col-md-6">
                 <input type="text" name="nom" class="form-control" id="nom" placeholder="Votre Nom" data-rule="minlen:3" data-msg="Veuillez rentrer au moins 3 caracteres" />
@@ -326,9 +327,9 @@
 
                       <select name="type" id="type" class="form-control">
                               <option value="" disabled selected hidden>Type d'utilisateur</option>
-                              <option value="entrepreneur" id="entrepreneur">Entrepreneur </option>
-                              <option value="client" id="client">Client</option>
-                              <option value="ouvrier" id ="ouvrier">Ouvrier</option>
+                              <option value="Entrepreneur" id="entrepreneur">Entrepreneur </option>
+                              <option value="Client" id="client">Client</option>
+                              <option value="Ouvrier" id ="ouvrier">Ouvrier</option>
                       </select>
                       @if ($errors->has('type'))
                           <span class="help-block">
@@ -341,12 +342,11 @@
             <div id="Info_Ouvrier" class="collapse">
               <div class="form-row">
                   <div class="col-md-6 form-group{{ $errors->has('fonction') ? ' has-error' : '' }}">
-
-                      
                           <select name="fonction" id="fonction" class="form-control">
-                                  <option value="plombier" id="plombier">Plombier </option>
-                                  <option value="peintre" id="peintre">Peintre</option>
-                                  <option value="menuisier" id ="menuisier">Menuisier</option>
+                                  @foreach($fonctions as $fonction)
+
+                                  <option value="{{$fonction->designation}}" id="{{$fonction->designation}}">{{$fonction->designation}}</option>
+                                  @endforeach
                           </select>
                           @if ($errors->has('fonction'))
                               <span class="help-block">
@@ -458,7 +458,7 @@
 <script>
     $(function(){
         $("#type").change(function(){
-                if($("#type").val() === "ouvrier")
+                if($("#type").val() === "Ouvrier")
                     $("#Info_Ouvrier").collapse("show");
                 else
                     $("#Info_Ouvrier").collapse("hide");

@@ -1,4 +1,4 @@
-<!-- Ce template est destine aux gens ne s'etant pas encore connecte -->
+<!-- Ce template est destine aux gens connectes -->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -49,24 +49,64 @@
   ============================-->
   <header id="header">
     <div class="container-fluid">
-
+     
       <div id="logo" class="pull-left">
         <h1><a href="#intro" class="scrollto">PFE</a></h1>
+        
         <!-- Uncomment below if you prefer to use an image logo -->
         <!-- <a href="#intro"><img src="img/logo.png" alt="" title="" /></a>-->
       </div>
+      <div id="recherche" class="col-md-4">
+      <form method="POST" class="form-inline">
+          
+              <input type="text" name="recherche"  class="form-control" />
 
+              <input type="submit" value="Rechercher" class = "btn btn-success"/>
+
+        </form>
+      </div>
+     
       <nav id="nav-menu-container">
+
         <ul class="nav-menu">
-          <li class="menu-active"><a href="#intro">Accueil</a></li>
+            <li><a href="/home">Accueil</a></li>
+            <li><a href="#">Mon profil</a></li>
+          @if(Auth::user()->userable_type === "Entrepreneur")
+            <li><a href="#">Mes offres</a></li>
+            <li class="menu-has-children"><a href="#">Recherche Avancee</a>
+              <ul>
+                <li><a href="#">Rechercher Ouvrier</a></li>
+                <li><a href="#">Rechercher Projet</a></li>
+              </ul>
+            </li> 
+          @elseif(Auth::user()->userable_type === "Ouvrier")
+          
+            <li><a href="#">Demande D'Emploi</a></li>
+            <li class="menu-has-children"><a href="#">Recherche Avancee</a>
+              <ul>
+                <li><a href="#">Rechercher Projet</a></li>
+                <li><a href="#">Rechercher Entrepreneur</a></li>
+              </ul>
+            </li> 
 
-
-          <li><a href="#services">Comment ca marche</a></li>
-          <li><a href="#about">A propos de nous</a></li>
-          <li><a href="#contact">S'inscrire</a></li>
-          <li><a href="#team">Se connecter</a></li>
-          <li><a href="#footer">Contactez nous !</a></li>
+          @else
+            <li class="menu-has-children"><a href="#">Recherche Avancee</a>
+              <ul>
+                <li><a href="#">Rechercher Ouvrier</a></li>
+                <li><a href="#">Rechercher Entrepreneur</a></li>
+              </ul>
+            </li> 
+          @endif
+          <li>
+            <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('frm-logout').submit();">
+             Se deconnecter
+            </a>    
+            <form id="frm-logout" action="{{ route('logout') }}" method="POST" style="display: none;">
+                {{ csrf_field() }}
+            </form>
+          </li>
         </ul>
+        
       </nav><!-- #nav-menu-container -->
     </div>
   </header><!-- #header -->

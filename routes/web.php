@@ -12,8 +12,9 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
+	$fonctions = App\TypeOuvrier::all();
+    return view('welcome', compact('fonctions'));
+})->middleware('guest');
 
 Auth::routes();
 
