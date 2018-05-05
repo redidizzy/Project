@@ -15,8 +15,8 @@ class CreateProjetsTable extends Migration
     {
         Schema::create('projets', function (Blueprint $table) {
             $table->integer('type_id');
-            $table->integer('user_id');
-            $table->integer('entrepreneur_id');
+            $table->integer('client_id');
+            $table->integer('entrepreneur_id')->nullable();
             $table->text('description');
             $table->double('superficie');
             $table->integer('wilaya');

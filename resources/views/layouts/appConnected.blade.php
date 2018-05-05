@@ -17,12 +17,12 @@
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Montserrat:300,400,500,700" rel="stylesheet">
 
   <!-- Bootstrap CSS File -->
-  <link href="{{asset('templateFiles/lib/bootstrap/css/bootstrap.css')}}" rel="stylesheet">
+  <link href="{{asset('templateFiles/lib/bootstrap/css/bootstrap.css?version=1')}}" rel="stylesheet">
 
 
     <!-- Styles -->
 
-    <link href="{{ asset('css/additional.css') }}" rel="stylesheet" />
+    <link href="{{ asset('css/additional.css?version=1') }}" rel="stylesheet" />
 
   <!-- Libraries CSS Files -->
   <link href="{{asset('templateFiles/lib/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet">
@@ -57,8 +57,8 @@
         <!-- <a href="#intro"><img src="img/logo.png" alt="" title="" /></a>-->
       </div>
       <div id="recherche" class="col-md-4">
-      <form method="POST" class="form-inline">
-          
+      <form method="POST" class="form-inline" action="{{route('recherche.rapide')}}">
+              {{csrf_field()}}
               <input type="text" name="recherche"  class="form-control" />
 
               <input type="submit" value="Rechercher" class = "btn btn-success"/>
@@ -69,8 +69,8 @@
       <nav id="nav-menu-container">
 
         <ul class="nav-menu">
-            <li><a href="/home">Accueil</a></li>
-            <li><a href="#">Mon profil</a></li>
+            <li><a href="{{route('home')}}">Accueil</a></li>
+            <li><a href="{{route('utilisateur.profil', Auth::user()->id) }}">Mon profil</a></li>
           @if(Auth::user()->userable_type === "Entrepreneur")
             <li><a href="#">Mes offres</a></li>
             <li class="menu-has-children"><a href="#">Recherche Avancee</a>

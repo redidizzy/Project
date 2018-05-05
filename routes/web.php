@@ -29,3 +29,5 @@ Route::post('/profil/{id}', 'UtilisateurController@saveChange')->name('utilisate
 //cette route permettra a l'utilisateur de voir son/un profil
 Route::get('/profil/{id}', 'UtilisateurController@show')->name('utilisateur.profil');
 
+//ces routes concerneront la recherche
+Route::post('/rechercheRapide', 'RechercheController@rapide')->name('recherche.rapide');
