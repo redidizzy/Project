@@ -11,5 +11,9 @@ class Projet extends Model
 	{
 		return $this->belongsTo('App\Client');
 	}
+	public function type()
+	{
+		return $this->belongsTo(TypeProjet::class);
+	}
     //
 }

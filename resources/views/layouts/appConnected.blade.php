@@ -22,7 +22,7 @@
 
     <!-- Styles -->
 
-    <link href="{{ asset('css/additional.css?version=1') }}" rel="stylesheet" />
+    <link href="{{ asset('css/additional.css?version=1.1') }}" rel="stylesheet" />
 
   <!-- Libraries CSS Files -->
   <link href="{{asset('templateFiles/lib/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet">
@@ -90,6 +90,7 @@
             </li> 
 
           @else
+            <li> <a href="{{route('projets.index', Auth::user()->id)}}">Projets</a></li>
             <li class="menu-has-children"><a href="#">Recherche Avancee</a>
               <ul>
                 <li><a href="#">Rechercher Ouvrier</a></li>

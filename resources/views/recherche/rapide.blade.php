@@ -14,7 +14,7 @@
 	                		<ul>
 	                			<li>Description : {{$resultat->description}}</li>
 	                			<li>Superficie : {{$resultat->superficie}}</li>
-	                			<li>wilaya : {{$resultat->wilaya}}</li>
+	                			<li>Wilaya : {{$resultat->wilaya}}</li>
 	                			<li>Region : {{$resultat->region}}</li>
 	                			<li>budget : {{$resultat->budget}}</li>
 	                			<li>Delai : {{$resultat->delai}}</li>

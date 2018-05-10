@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Client;
 use App\Projet;
+use App\TypeProjet;
 use App\Ouvrier;
 use App\Entrepreneur;
 use App\User;
@@ -29,38 +30,21 @@ class RechercheController extends Controller
 			case 'Entrepreneur':
 				//dans le cas d'un entrepreneur, la recherche rapide concernera les projets
 
-				//pour ce faire, l'utilisateur devra logiquement rechercher le nom ou prenom des clients qui ont cree le projet
+				//pour ce faire, l'utilisateur devra logiquement rechercher le projet par type
+				$type = TypeProjet::where('designation', '=', $recherche)->first();
 
-				$clients = User::where('userable_type', '=', 'Client')->where('nom', 'like', $recherche)->orWhere('prenom', 'like', $recherche)->get();//a verifier
-				//pour chaque client, on aura besoin de la liste de ces projets
-				$projets = [];
-				foreach($clients as $client)
-				{
-					
-						if($client->userable->projets != null)
-						{
-							foreach($client->userable->projets as $projet)
-								$projets[] = $projet;
-						}
-				}
-				$resultats = $projets;
+				//la puissance d'eloquent visible dans  cette instruction :
+				
+				$resultats = $type->projets;
+
+				// on retourne la vue recherche/rapide.blade.php
 				return view('recherche.rapide', compact('resultats'));
 				break;
+
 			case 'Ouvrier':
 				//dans le cas d'un ouvrier, la recherche rapide concernera aussi les projets
-				$clients = User::where('userable_type', '=', 'Client')->where('nom', 'like', $recherche)->orWhere('prenom', 'like', $recherche)->get();//a verifier
-				//pour chaque client, on aura besoin de la liste de ces projets
-				$projets = [];
-				foreach($clients as $client)
-				{
-					
-						if($client->userable->projets != null)
-						{
-							foreach($client->userable->projets as $projet)
-								$projets[] = $projet;
-						}
-				}
-				$resultats = $projets;
+				$type = TypeProjet::where('designation', '=', $recherche)->first();
+				$resultats = $type->projets;
 				return view('recherche.rapide', compact('resultats'));
 				break;
 			case 'Client':
