@@ -63,10 +63,45 @@
               </div>
             </div>
           </div>
-		  @elseif(Auth::user()->userable_type ==="Client")
+		  @elseif(Auth::user()->userable_type ==="Ouvrier")
+		  
 		  
 			  
+		     <?php $introCarousel = asset('templateFiles/img/intro-carousel/1.jpg'); ?>
+          <div class="carousel-item active" style="background-image: url('{{$introCarousel}}');">
+            <div class="carousel-container">
+              <div class="carousel-content">
+               <h2>Mettez a jour votre profil !</h2>
+                <p>Ajoutez, modifiez vos informations personnelles et proffessionnelles ici !</p>
+
+                <a href="#" class="btn-get-started scrollto">Editer Profil</a> 
+              </div>
+            </div>
+          </div>
+		  <?php $introCarousel = asset('templateFiles/img/intro-carousel/2.jpg'); ?>
+          <div class="carousel-item" style="background-image: url('{{$introCarousel}}');">
+            <div class="carousel-container">
+              <div class="carousel-content">
+                 <h2>Recherchez-vous du travail?!</h2>
+                <p>plombier ? menuisier ? ou quelconque ouvrier dans le domaine de la construction ? <strong>PFE</strong> vous permettra de trouver plus facilement ce qui vous convient .Vous pourrez poster des demandes d'emploi ou meme rechercher des projets ne necessitant pas d'entrepreneur.</p>
+                <a href="#" class="btn-get-started scrollto">Trouver</a>
+              </div>
+            </div>
+          </div>
+          <?php $introCarousel = asset('templateFiles/img/entre_client_ouvrier/im4.jpg'); ?>
+          <div class="carousel-item" style="background-image: url('{{$introCarousel}}');">
+            <div class="carousel-container">
+              <div class="carousel-content">
+                <h2>Soyez le meilleur !</h2>
+                <p>Vos client pourront noter votre qualite de travail ! soyez le meilleur dans votre domaine pour augmenter votre reputation et apparaitre parmis les premiers lors des recherches ! </p>
+              </div>
+            </div>
+          </div>
 		  
+		  
+		  @else
+		
+          
 			   <?php $introCarousel = asset('templateFiles/img/intro-carousel/1.jpg'); ?>
           <div class="carousel-item active" style="background-image: url('{{$introCarousel}}');">
             <div class="carousel-container">
@@ -107,41 +142,6 @@
 
                 <a href="#featured-services" class="btn-get-started scrollto">Noter</a>
 
-              </div>
-            </div>
-          </div>
-		  
-		  @else
-		
-          <?php $introCarousel = asset('templateFiles/img/intro-carousel/1.jpg'); ?>
-          <div class="carousel-item" style="background-image: url('{{$introCarousel}}');">
-            <div class="carousel-container">
-              <div class="carousel-content">
-			  <h2>Mettez a jour votre profil !</h2>
-                <p>Ajoutez, modifiez vos informations personnelles et proffessionnelles ici !</p>
-
-                <a href="#" class="btn-get-started scrollto">Editer Profil</a>
-                
-              </div>
-            </div>
-          </div>
-		  <?php $introCarousel = asset('templateFiles/img/intro-carousel/2.jpg'); ?>
-          <div class="carousel-item" style="background-image: url('{{$introCarousel}}');">
-            <div class="carousel-container">
-              <div class="carousel-content">
-                <h2>Recherchez-vous du travail?!</h2>
-                <p>plombier ? menuisier ? ou quelconque ouvrier dans le domaine de la construction ? <strong>PFE</strong> vous permettra de trouver plus facilement ce qui vous convient .Vous pourrez poster des demandes d'emploi ou meme rechercher des projets ne necessitant pas d'entrepreneur.</p>
-                <a href="#" class="btn-get-started scrollto">Trouver</a>
-
-              </div>
-            </div>
-          </div>
-		  <?php $introCarousel = asset('templateFiles/img/entre_client_ouvrier/im4.jpg'); ?>
-          <div class="carousel-item" style="background-image: url('{{$introCarousel}}');">
-            <div class="carousel-container">
-              <div class="carousel-content">
-                <h2>Soyez le meilleur !</h2>
-                <p>Vos client pourront noter votre qualite de travail ! soyez le meilleur dans votre domaine pour augmenter votre reputation et apparaitre parmis les premiers lors des recherches ! </p>
               </div>
             </div>
           </div>
