@@ -49,7 +49,13 @@ class RechercheController extends Controller
 				break;
 			case 'Client':
 				//dans le cas d'un client, la recherche rapide concernera les entrepreneurs
-				$entrepreneurs = User::where('userable_type', '=', 'Entrepreneur')->where('nom', 'like', $recherche)->orWhere('prenom', 'like', $recherche)->get();
+				$entrepreneurs = collect();
+				foreach(Entrepreneur::dispo() as $d)
+				{
+					if($d->user->nom == $recherche or $d->user->prenom == $recherche)
+					$entrepreneurs->push($d->user);
+				}
+				
 				return view('recherche.rapide.entrepreneur', compact('entrepreneurs'));
 		}
 		
