@@ -11,5 +11,9 @@ class Ouvrier extends Model
 	{
 		return $this->morphOne('App\User', 'userable');
 	}
+	public function diplomes()
+	{
+		return $this->hasMany('App\Diplome');
+	}
     //
 }
