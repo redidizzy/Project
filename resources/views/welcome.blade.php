@@ -390,7 +390,7 @@
         </div>
         <div class="form" style="margin-left:  20%;">
           <form class="form-horizontal " method="POST" action="{{ route('login') }}">
-                        {{ csrf_field() }}
+                        {!! csrf_field() !!}
                       <div class="form-row">
                         <div class="col-md-6 form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                             <label for="email" class="col-md-4 control-label">Adresse E-mail</label>

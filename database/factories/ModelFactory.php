@@ -38,7 +38,7 @@ $factory->define('App\Entrepreneur', function(Faker\Generator $faker){
 	return [
 		'experience' => rand(0,100),
 		'disponibilite' => $faker->boolean,
-		'materiel' => $faker->paragraph,
+		'materiel' => $faker->sentence,
 		'reputation' => $faker->randomNumber()
 	];
 });
@@ -62,8 +62,30 @@ $factory->define('App\Ouvrier', function(Faker\Generator $faker){
 });
 $factory->define('App\TypeOuvrier', function(Faker\Generator $faker){
     return[
-        'designation' => $faker->word,
+        'designation' => $faker->unique()->word,
         'description' => $faker->paragraph
     ];
 
+});
+$factory->define('App\Projet', function(Faker\Generator $faker){
+    $client = factory('App\Client')->create();
+    $user = factory('App\User')->create(['userable_type' => 'Client', 'userable_id' => $client->id]);
+    $type = factory('App\TypeProjet')->create();
+    return [
+        'client_id' => $client->id,
+        'description' => $faker->paragraph,
+        'superficie' => $faker->randomNumber() ,
+        'wilaya' => $faker->randomNumber(),
+        'budget' => $faker->randomNumber(),
+        'delai' => $faker->sentence,
+        'necessiteEntrepreneur' => $faker->boolean,
+        'type_id' => $type->id,
+        'region' => $faker->word
+    ];
+});
+$factory->define('App\TypeProjet', function(Faker\Generator $faker){
+    return [
+        'designation' => $faker->unique()->word,
+        'description' => $faker->paragraph
+    ];
 });

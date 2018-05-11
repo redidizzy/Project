@@ -1,0 +1,59 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Client;
+use App\Projet;
+use App\TypeProjet;
+use App\Ouvrier;
+use App\Entrepreneur;
+use App\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\Collection;
+
+class RechercheController extends Controller
+{
+	public function __construct()
+	{
+		$this->middleware('auth');
+	}
+	//le code commence vraiment a devenir illisible, envisager de commencer a faire des repository et a simplifier le code
+	public function rapide(Request $researchRequest)
+	{
+		$recherche = $researchRequest->recherche;
+		$resultats; //le resultat sera stocke ici
+		//les recherches rapides varieront selon le type de l'utilisateur connecte
+
+		switch(Auth::user()->userable_type)
+		{
+			case 'Entrepreneur':
+				//dans le cas d'un entrepreneur, la recherche rapide concernera les projets
+
+				//pour ce faire, l'utilisateur devra logiquement rechercher le projet par type
+				$type = TypeProjet::where('designation', '=', $recherche)->first();
+
+				//la puissance d'eloquent visible dans  cette instruction :
+				
+				$resultats = $type->projets;
+
+				// on retourne la vue recherche/rapide.blade.php
+				return view('recherche.rapide', compact('resultats'));
+				break;
+
+			case 'Ouvrier':
+				//dans le cas d'un ouvrier, la recherche rapide concernera aussi les projets
+				$type = TypeProjet::where('designation', '=', $recherche)->first();
+				$resultats = $type->projets;
+				return view('recherche.rapide', compact('resultats'));
+				break;
+			case 'Client':
+				//dans le cas d'un client, la recherche rapide concernera les entrepreneurs
+				$entrepreneurs = User::where('userable_type', '=', 'Entrepreneur')->where('nom', 'like', $recherche)->orWhere('prenom', 'like', $recherche)->get();
+				return view('recherche.rapide.entrepreneur', compact('entrepreneurs'));
+		}
+		
+	}
+    //
+
+}

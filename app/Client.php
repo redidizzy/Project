@@ -10,5 +10,9 @@ class Client extends Model
 	{
 		return $this->morphOne('App\User', 'userable');
 	}
+	public function projets()
+	{
+		return $this->hasMany('App\Projet');
+	}
     //
 }

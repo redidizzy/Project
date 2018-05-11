@@ -29,3 +29,13 @@ Route::post('/profil/{id}', 'UtilisateurController@saveChange')->name('utilisate
 //cette route permettra a l'utilisateur de voir son/un profil
 Route::get('/profil/{id}', 'UtilisateurController@show')->name('utilisateur.profil');
 
+//ces routes concerneront la recherche
+Route::post('/rechercheRapide', 'RechercheController@rapide')->name('recherche.rapide');
+
+
+//ces routes concerneront les projets
+Route::resource('/{id}/projets', 'ProjetsController',['except' => ['create', 'update', 'destroy', 'edit']]);
+Route::get('projets/create', 'ProjetsController@create')->name('projets.create');
+Route::get('/projets/{id}/edit', 'ProjetsController@edit')->name('projets.edit');
+Route::delete('/projets/{id}/', 'ProjetsController@destroy')->name('projets.destroy');
+Route::post('/projets/{id}', 'ProjetsController@update')->name('projets.update');
