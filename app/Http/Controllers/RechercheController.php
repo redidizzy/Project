@@ -32,10 +32,10 @@ class RechercheController extends Controller
 
 				//pour ce faire, l'utilisateur devra logiquement rechercher le projet par type
 				$type = TypeProjet::where('designation', '=', $recherche)->first();
-
+				$resultats = collect();
 				//la puissance d'eloquent visible dans  cette instruction :
-				
-				$resultats = $type->projets;
+				if($type != null)
+					$resultats = $type->projets;
 
 				// on retourne la vue recherche/rapide.blade.php
 				return view('recherche.rapide', compact('resultats'));
