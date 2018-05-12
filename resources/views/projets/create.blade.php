@@ -87,6 +87,19 @@
                                         @endif
                                     </div>
                                 </div>
+                                <div class="form-group{{ $errors->has('adresse') ? ' has-error' : '' }}">
+                                    <label for="adresse" class="col-md-4 control-label">Adresse : </label>
+
+                                    <div class="col-md-6">
+                                        <input id="adresse" type="text" class="form-control" name="adresse"  required>
+
+                                        @if ($errors->has('adresse'))
+                                            <span class="help-block">
+                                                <strong>{{ $errors->first('adresse') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+                                </div>
                                 <div class="form-group{{ $errors->has('budget') ? ' has-error' : '' }}">
                                     <label for="budget" class="col-md-4 control-label">Budget : </label>
 

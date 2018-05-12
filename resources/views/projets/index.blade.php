@@ -16,6 +16,7 @@
 	                			<li>Superficie : {{$projet->superficie}}</li>
 	                			<li>Wilaya : {{$projet->wilaya}}</li>
 	                			<li>Region : {{$projet->region}}</li>
+	                			<li>Adresse : {{$projet->adresse}} </li>
 	                			<li>Budget : {{$projet->budget}}</li>
 	                			<li>Delai : {{$projet->delai}}</li>
 	                			<li>{{$projet->necessiteEntrepreneur ? 'Ce Projet necessite un entrepreneur' : 'Ce projet ne necessite pas d\'entrepreneur'}}</li>

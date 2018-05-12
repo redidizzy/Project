@@ -60,6 +60,53 @@ class RechercheController extends Controller
 		}
 		
 	}
-    //
+    public function rechercheDeProjet()
+    {
+    	$projets = Projet::all();
+    	$types = TypeProjet::all();
+    	return view('recherche.projet', compact('projets', 'types'));
+    }
+    public function rechercheDeProjetFiltre(Request $recherche)
+    {
+    	$resultat = new Projet;
 
+    	if($recherche->nom != null)
+    	{
+    		$resultat = $resultat->nomClient($recherche->nom);
+    	}
+    	if($recherche->prenom != null)
+    	{
+    		$resultat = $resultat->prenomClient($recherche->prenom);
+    	}
+    	if($recherche->superficieMin != null)
+    	{
+    		$resultat = $resultat->superficie('>=', $recherche->superficieMin);
+    	}
+    	if($recherche->superficieMax!= null)
+    	{
+    		$resultat = $resultat->superficie('<=', $recherche->superficieMax);
+    	}
+    	if($recherche->budgetMin != null)
+    	{
+    		$resultat = $resultat->budget('>=', $recherche->budgetMin);
+    	}
+    	if($recherche->budgetMax != null)
+    	{
+    		$resultat = $resultat->budget('<=', $recherche->budgetMax);
+    	}
+    	if($recherche->region != null)
+    	{
+    		$resultat = $resultat->region($recherche->region);
+    	}
+    	if($recherche->wilaya != null)
+    	{
+    		$resultat = $resultat->wilaya($recherche->wilaya);
+    	}
+    	if(isset($recherche->type) and $recherche->type != null)
+    	{
+    		$resultat = $resultat->categorie($recherche->type);
+    	}
+    	
+    	return view('recherche.projet', ['projets' => $resultat->get(), 'types' => TypeProjet::all()]);
+    }
 }

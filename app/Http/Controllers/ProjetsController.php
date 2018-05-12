@@ -57,6 +57,7 @@ class ProjetsController extends Controller
             'description' => $request->description,
             'wilaya' => $request->wilaya,
             'region' => $request->region,
+            'adresse' => $request->adresse,
             'superficie' => $request->superficie,
             'budget' => $request->budget,
             'delai' => $request->delai,

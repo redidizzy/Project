@@ -10,9 +10,7 @@
       <div id="introCarousel" class="carousel  slide carousel-fade" data-ride="carousel">
 
         <ol class="carousel-indicators"></ol>
-        /** 
-          *@todo des carousels differents pour chaque type d'utilisateur
-        */ 
+        
         <div class="carousel-inner" role="listbox">
             <?php $introCarousel = asset('templateFiles/img/intro-carousel/1.jpg'); ?>
           <div class="carousel-item active" style="background-image: url('{{$introCarousel}}');">

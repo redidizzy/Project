@@ -32,6 +32,8 @@ Route::get('/profil/{id}', 'UtilisateurController@show')->name('utilisateur.prof
 //ces routes concerneront la recherche
 Route::post('/rechercheRapide', 'RechercheController@rapide')->name('recherche.rapide');
 
+Route::get('/recherche/projets', 'RechercheController@rechercheDeProjet')->name('recherche.projet');
+Route::post('/recherche/projets', 'RechercheController@rechercheDeProjetFiltre')->name('doRecherche.projet');
 
 //ces routes concerneront les projets
 Route::resource('/{id}/projets', 'ProjetsController',['except' => ['create', 'update', 'destroy', 'edit']]);

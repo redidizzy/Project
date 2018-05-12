@@ -40,3 +40,16 @@
 {
 	float:left;
 }
+.floatRight
+{
+	float:right;
+}
+.flexed
+
+{
+	display : flex;
+}
+.resultats
+{
+	margin-bottom: 20px;
+}
