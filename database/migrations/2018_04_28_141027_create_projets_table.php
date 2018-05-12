@@ -16,14 +16,14 @@ class CreateProjetsTable extends Migration
         Schema::create('projets', function (Blueprint $table) {
             $table->integer('type_id');
             $table->integer('client_id');
-            $table->integer('entrepreneur_id')->nullable();
             $table->text('description');
             $table->double('superficie');
             $table->integer('wilaya');
             $table->string('region');
             $table->double('budget');
             $table->string('delai');
-            $table->boolean('necessiteEntrepreneur');            
+            $table->boolean('necessiteEntrepreneur'); 
+            $table->string('adresse');           
             $table->increments('id');
             $table->timestamps();
         });

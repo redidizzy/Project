@@ -32,10 +32,10 @@ class RechercheController extends Controller
 
 				//pour ce faire, l'utilisateur devra logiquement rechercher le projet par type
 				$type = TypeProjet::where('designation', '=', $recherche)->first();
-
+				$resultats = collect();
 				//la puissance d'eloquent visible dans  cette instruction :
-				
-				$resultats = $type->projets;
+				if($type != null)
+					$resultats = $type->projets;
 
 				// on retourne la vue recherche/rapide.blade.php
 				return view('recherche.rapide', compact('resultats'));
@@ -49,11 +49,64 @@ class RechercheController extends Controller
 				break;
 			case 'Client':
 				//dans le cas d'un client, la recherche rapide concernera les entrepreneurs
-				$entrepreneurs = User::where('userable_type', '=', 'Entrepreneur')->where('nom', 'like', $recherche)->orWhere('prenom', 'like', $recherche)->get();
+				$entrepreneurs = collect();
+				foreach(Entrepreneur::dispo() as $d)
+				{
+					if($d->user->nom == $recherche or $d->user->prenom == $recherche)
+					$entrepreneurs->push($d->user);
+				}
+				
 				return view('recherche.rapide.entrepreneur', compact('entrepreneurs'));
 		}
 		
 	}
-    //
+    public function rechercheDeProjet()
+    {
+    	$projets = Projet::all();
+    	$types = TypeProjet::all();
+    	return view('recherche.projet', compact('projets', 'types'));
+    }
+    public function rechercheDeProjetFiltre(Request $recherche)
+    {
+    	$resultat = new Projet;
 
+    	if($recherche->nom != null)
+    	{
+    		$resultat = $resultat->nomClient($recherche->nom);
+    	}
+    	if($recherche->prenom != null)
+    	{
+    		$resultat = $resultat->prenomClient($recherche->prenom);
+    	}
+    	if($recherche->superficieMin != null)
+    	{
+    		$resultat = $resultat->superficie('>=', $recherche->superficieMin);
+    	}
+    	if($recherche->superficieMax!= null)
+    	{
+    		$resultat = $resultat->superficie('<=', $recherche->superficieMax);
+    	}
+    	if($recherche->budgetMin != null)
+    	{
+    		$resultat = $resultat->budget('>=', $recherche->budgetMin);
+    	}
+    	if($recherche->budgetMax != null)
+    	{
+    		$resultat = $resultat->budget('<=', $recherche->budgetMax);
+    	}
+    	if($recherche->region != null)
+    	{
+    		$resultat = $resultat->region($recherche->region);
+    	}
+    	if($recherche->wilaya != null)
+    	{
+    		$resultat = $resultat->wilaya($recherche->wilaya);
+    	}
+    	if(isset($recherche->type) and $recherche->type != null)
+    	{
+    		$resultat = $resultat->categorie($recherche->type);
+    	}
+    	
+    	return view('recherche.projet', ['projets' => $resultat->get(), 'types' => TypeProjet::all()]);
+    }
 }

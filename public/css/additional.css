@@ -28,3 +28,28 @@
 {
 	margin : auto;
 }
+.researchFloat
+{
+	float:right;
+}
+.researchFloat img
+{
+	width : 50px;
+}
+.floatLeft
+{
+	float:left;
+}
+.floatRight
+{
+	float:right;
+}
+.flexed
+
+{
+	display : flex;
+}
+.resultats
+{
+	margin-bottom: 20px;
+}
