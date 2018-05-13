@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateEntrepreneursTable extends Migration
+class AddDateDebEtFinDispoToEntrepreneurs extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,9 @@ class CreateEntrepreneursTable extends Migration
      */
     public function up()
     {
-        Schema::create('entrepreneurs', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('experience');
-            $table->string('materiel');
-            $table->double('reputation');
-            $table->timestamps();
-
+        Schema::table('entrepreneurs', function (Blueprint $table) {
+            $table->date('dateFinDispo')->after('id')->nullable();
+            $table->date('dateDebutDispo')->after('id')->nullable();
         });
     }
 
@@ -30,6 +26,8 @@ class CreateEntrepreneursTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('entrepreneurs');
+        Schema::table('entrepreneurs', function (Blueprint $table) {
+            //
+        });
     }
 }

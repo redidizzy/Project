@@ -54,6 +54,8 @@
                                         <li>experience : {{$user->userable->experience}}</li>
                                     
                                         @if($user->userable_type === "Entrepreneur")
+                                            <li>nom de l'entreprise : {{$user->userable->nom_entreprise}}</li>
+                                            <li>description de l'entreprise: {{$user->userable->description_entreprise}}</li>
                                             <li>{{$user->userable->disponibilite ? 'Vous etes Disponible' : 'Vous N\'etes Pas Disponible' }}</li>
                                             <li>materiel : {{$user->userable->materiel}} </li>
                                         @else
@@ -66,6 +68,7 @@
                                 </div>
                             </div>
                         </div>
+                        @if($user->id == Auth::user()->id)
                         <div class="col-md-6">
                             <div class="panel panel-success">
                                 <div class="panel-heading">Boite a outils</div>
@@ -73,7 +76,7 @@
 
                                     @if($user->userable_type === "Entrepreneur")
                                         <a href="#" class="btn btn-primary btn-block">Importer attestation de bonne execution </a>
-                                        <a href="#" class="btn btn-warning btn-block">Remplir materiel</a>
+                                        <a href="#" class="btn btn-warning btn-block">Rajouter des informations sur l'entreprise</a>
                                         <a href="#" class="btn btn-danger btn-block">Changer Disponibilite</a>
                                     @else
                                         <a href="#" class="btn btn-primary btn-block">Ajouter Diplome</a>
@@ -87,6 +90,7 @@
                                 </div>
                             </div>
                         </div>
+                        @endif
                     </div>
                 @endif
 

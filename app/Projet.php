@@ -63,5 +63,9 @@ class Projet extends Model
 			$t->where('designation', $type);
 		});
 	}
+	public function scopeNecessiteEntrepreneur($query, $bool)
+	{
+		$query->where('necessiteEntrepreneur', $bool);
+	}
 
 }

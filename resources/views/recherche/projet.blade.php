@@ -85,7 +85,7 @@
               <div class="col-lg-4 col-md-6 box wow bounceInUp" data-wow-duration="1.4s">
                 <div class="icon"><i class="ion-ios-paper-outline"></i></div>
                 <h4 class="title"><a href="">Adresse</a></h4>
-                <p class="description">{{$projet->adresse}}</p>
+                <p class="description">{{$projet->adresse}}-{{$projet->region}}-{{$projet->wilaya}}</p>
               </div>
               <div class="col-lg-4 col-md-6 box wow bounceInUp" data-wow-delay="0.1s" data-wow-duration="1.4s">
                 <div class="icon"><i class="ion-ios-speedometer-outline"></i></div>

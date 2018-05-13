@@ -76,17 +76,17 @@
               <li><a href="#">Mes offres</a></li>
               <li class="menu-has-children"><a href="#">Recherche Avancee</a>
                 <ul>
-                  <li><a href="#">Rechercher Ouvrier</a></li>
+                  <li><a href="{{route('recherche.ouvrier')}}">Rechercher Ouvrier</a></li>
                   <li><a href="{{route('recherche.projet')}}">Rechercher Projet</a></li>
                 </ul>
               </li> 
             @elseif(Auth::user()->userable_type === "Ouvrier")
             
-              <li><a href="#">Demande D'Emploi</a></li>
+              <li><a href="#">Demandes D'Emplois</a></li>
               <li class="menu-has-children"><a href="#">Recherche Avancee</a>
                 <ul>
-                  <li><a href="#">Rechercher Projet</a></li>
-                  <li><a href="#">Rechercher Entrepreneur</a></li>
+                  <li><a href="{{route('recherche.projet')}}">Rechercher Projet</a></li>
+                  <li><a href="{{route('recherche.entrepreneur')}}">Rechercher Entrepreneur</a></li>
                 </ul>
               </li> 
 
@@ -94,8 +94,8 @@
               <li> <a href="{{route('projets.index', Auth::user()->id)}}">Projets</a></li>
               <li class="menu-has-children"><a href="#">Recherche Avancee</a>
                 <ul>
-                  <li><a href="#">Rechercher Ouvrier</a></li>
-                  <li><a href="#">Rechercher Entrepreneur</a></li>
+                  <li><a href="{{route('recherche.ouvrier')}}">Rechercher Ouvrier</a></li>
+                  <li><a href="{{route('recherche.entrepreneur')}}">Rechercher Entrepreneur</a></li>
                 </ul>
               </li> 
             @endif

@@ -6,7 +6,7 @@
         <div class="container">
 	        <div class="row">
 	            <div class="col-md-12">
-	            	<h1 class="page-header">Projets de $projet->client->nom</h1>
+	            	<h1 class="page-header">Projets de {{$user->nom}}</h1>
 	            	@forelse($projets as $projet)
 	                <div class="panel panel-success">
 	                	<div class="panel-heading">Projet de {{$projet->type->designation}}</div>
