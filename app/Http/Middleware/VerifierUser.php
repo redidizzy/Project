@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 
-class CheckRole
+class VerifierUser
 {
     /**
      * Handle an incoming request.
@@ -13,11 +13,11 @@ class CheckRole
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next,$role)
+    public function handle($request, Closure $next,$typeUser)
     {
-		if(! $request->user()->hasRole($role) )
+		if($request->user()->userable_type == $typeUser )
 		{	
-			return redirect('home');
+			return redirect('/home');
         }
 		return $next($request);
     }

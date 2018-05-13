@@ -82,7 +82,7 @@
               </li> 
             @elseif(Auth::user()->userable_type === "Ouvrier")
             
-              <li><a href="#">Demande D'Emploi</a></li>
+              <li><a href="{{route('demandes.index', Auth::user()->id) }}">Demande D'Emploi</a></li>
               <li class="menu-has-children"><a href="#">Recherche Avancee</a>
                 <ul>
                   <li><a href="#">Rechercher Projet</a></li>

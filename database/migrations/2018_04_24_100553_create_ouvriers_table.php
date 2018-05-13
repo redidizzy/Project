@@ -22,7 +22,9 @@ class CreateOuvriersTable extends Migration
             $table->string('prixApprox');
             $table->foreign('fonction')
                 ->references('designation')
-                ->on('type_ouvriers');
+                ->on('type_ouvriers')
+				->onDelete('cascade')
+				->onUpdate('cascade');
 
              $table->timestamps();
         });

@@ -41,3 +41,11 @@ Route::get('projets/create', 'ProjetsController@create')->name('projets.create')
 Route::get('/projets/{id}/edit', 'ProjetsController@edit')->name('projets.edit');
 Route::delete('/projets/{id}/', 'ProjetsController@destroy')->name('projets.destroy');
 Route::post('/projets/{id}', 'ProjetsController@update')->name('projets.update');
+
+
+//ces routes concerneront les demandes
+Route::resource('/{id}/demandes', 'DemandeController',['except' => ['create', 'update', 'destroy', 'edit']]);
+Route::get('demandes/create', 'DemandeController@create')->name('demandes.create');
+Route::get('/demandes/{id}/edit', 'DemandeController@edit')->name('demandes.edit');
+Route::delete('/demandes/{id}/', 'DemandeController@destroy')->name('demandes.destroy');
+Route::post('/demandes/{id}', 'DemandeController@update')->name('demandes.update');

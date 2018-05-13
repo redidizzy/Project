@@ -82,7 +82,7 @@ class RechercheController extends Controller
     	{
     		$resultat = $resultat->superficie('>=', $recherche->superficieMin);
     	}
-    	if($recherche->superficieMax!= null)
+    	if($recherche->superficieMax != null)
     	{
     		$resultat = $resultat->superficie('<=', $recherche->superficieMax);
     	}
