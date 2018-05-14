@@ -20,6 +20,7 @@ class ProjetsController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+		$this->middleware('typeUser:Client');
         //TODO : ajout de middleware de verification : l'utilisateur est un client
     }
     public function index($id)

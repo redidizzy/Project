@@ -82,7 +82,9 @@
               </li> 
             @elseif(Auth::user()->userable_type === "Ouvrier")
             
+
               <li><a href="#">Demandes D'Emplois</a></li>
+
               <li class="menu-has-children"><a href="#">Recherche Avancee</a>
                 <ul>
                   <li><a href="{{route('recherche.projet')}}">Rechercher Projet</a></li>

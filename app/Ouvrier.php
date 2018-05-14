@@ -11,6 +11,7 @@ class Ouvrier extends Model
 	{
 		return $this->morphOne('App\User', 'userable');
 	}
+<<<<<<< HEAD
     public function scopeFonction($query, $fonction)
     {
     	return $query->where('fonction', $fonction);
@@ -55,6 +56,10 @@ class Ouvrier extends Model
    {
    	return $query->where('diplome', $bool);
    }
-
-
+	
+	
+	public function diplomes()
+	{
+		return $this->hasMany('App\Diplome');
+	}
 }
