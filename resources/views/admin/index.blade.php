@@ -9,7 +9,7 @@
 				<ul>
 					<li><a href="#">Gerer les utilisateurs</a>
 						<ul>
-							<li><a href="#" style="color : rgb(120, 150, 120);">-Voir tout les utilisateurs</a></li>
+							<li><a href="{{route('')}}" style="color : rgb(120, 150, 120);">-Voir tous les utilisateurs</a></li>
 							<li><a href="#" style="color : rgb(120, 150, 120);">-Voir les utilisateurs signales</a></li>
 						</ul>
 					</li>
