@@ -89,7 +89,8 @@
           <div class="col-lg-4 col-md-6 box wow bounceInUp" data-wow-duration="1.4s">
             <div class="icon"><i class="ion-ios-bookmarks-outline"></i></div>
             <h4 class="title"><a href="">Nombre d'etoiles</a></h4>
-            <p class="description">Les gens ont note cette entrepreneur avec {{$entrepreneur->reputation }}</p>
+            <p class="description">Les gens ont note cette entrepreneur avec <span class="rateit" id="essai" data-rateit-value="{{$entrepreneur->reputation}}" data-rateit-readonly="true" data-rateit-ispreset="true" ></span></p>
+
           </div>
           <div class="col-lg-4 col-md-6 box wow bounceInUp" data-wow-duration="1.4s">
             <div class="icon"><i class="ion-ios-paper-outline"></i></div>
@@ -122,4 +123,9 @@
 
     </div>
 </div>
+<script src="{{ asset('js/JQuery.js') }}"></script>
+<script src="{{asset('rateit\jquery.rateit.js')}}"></script>
+
+
+
 @endsection

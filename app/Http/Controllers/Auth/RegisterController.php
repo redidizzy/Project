@@ -59,7 +59,8 @@ class RegisterController extends Controller
             'dateNaiss' => 'required|date|before:today', 
             'numTel' => 'required|digits:10',
             'wilaya' => 'integer|min:1|max:48|required',
-            'region' => 'required|alpha|max:26',
+            'region' => 'required|max:26',
+            'adresse' => 'required|string',
             'password' => 'required|string|min:6|confirmed',
         ]);
         return $validator;
@@ -74,22 +75,22 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         $utilisateur;
-        
         switch($data['type'])
         {
             /** @todo indiquer le reste des types possible et finir le formulaire*/
             case 'Entrepreneur' : 
                 $utilisateur = Entrepreneur::create([
                     'experience' => 0,
-                    'disponibilite' => true,
-                    'materiel' => '',
-                    'reputation' => 0
+                    'materiel' => $data['materiel'],
+                    'reputation' => 0,
+                    'nom_entreprise' => $data['nomEntreprise'],
+                    'description_entreprise' => $data['descEntreprise']
+
                 ]);
                 
                 break;
             case 'Ouvrier' :
                 $utilisateur= Ouvrier::create([
-                    'diplome' => isset($data['diplome']),
                     'experience' => 0,
                     'reputation' => 0,
                     'fonction' => $data['fonction'],
@@ -105,6 +106,7 @@ class RegisterController extends Controller
             'numTel' => $data['numTel'],
             'wilaya' => $data['wilaya'],
             'region' => $data['region'],
+            'adresse' => $data['adresse'],
             'dateNaiss' => $data['dateNaiss'],
             'email' => $data['email'],
             'photoProfil' => config('images.path').'/default.png',

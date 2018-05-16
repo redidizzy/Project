@@ -24,7 +24,10 @@ Route::get('/home', 'HomeController@index')->name('home');
 //cette route permettra a l'utilisateur d'editer son profil 
 Route::get('/profil/edit', 'UtilisateurController@edit')->name('utilisateur.edit');
 Route::post('/profil/{id}', 'UtilisateurController@saveChange')->name('utilisateur.saveChange');
-
+Route::post('/changeEntrepreneurInfo', 'UtilisateurController@changeEntrepreneurInfo')->name('ajouterInfoEntreprise');
+Route::post('/changeDispoEntrepreneur', 'UtilisateurController@changeEntrepreneurDispo')->name('changerDispoEntrepreneur');
+Route::post('/changePassword', 'UtilisateurController@changePassword')->name('changePassword');	
+RoutesAjouterAttestationEntrepreneu
 
 //cette route permettra a l'utilisateur de voir son/un profil
 Route::get('/profil/{id}', 'UtilisateurController@show')->name('utilisateur.profil');
@@ -55,3 +58,9 @@ Route::get('demandes/create', 'DemandeController@create')->name('demandes.create
 Route::get('/demandes/{id}/edit', 'DemandeController@edit')->name('demandes.edit');
 Route::delete('/demandes/{id}/', 'DemandeController@destroy')->name('demandes.destroy');
 Route::post('/demandes/{id}', 'DemandeController@update')->name('demandes.update');
+
+
+//Ces routes concernent tout ce qui est ajax
+Route::get('ajax/getCommunes/{id}', function($id){
+	return config('variables.communes.'.$id);
+});

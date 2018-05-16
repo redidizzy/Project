@@ -16,8 +16,7 @@ class DemandeController extends Controller
 	public function __construct()
 	{
 		$this->middleware('auth');
-		$this->middleware('typeUser:Client');
-		$this->middleware('typeUser:Entrepreneur');
+		$this->middleware('typeUser:Ouvrier');
 	}
     /**
      * Display a listing of the resource.

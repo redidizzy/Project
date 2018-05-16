@@ -11,10 +11,10 @@ class Entrepreneur extends Model
 	{
 		return $this->morphOne('App\User', 'userable');
 	}
-	public static function dispo()
-	{
-		return self::where('disponibilite', 1)->get();
-	}
 
+	public function attestations()
+	{
+		return $this->hasMany('App\AttestationEntrepreneur');
+	}
     //
 }

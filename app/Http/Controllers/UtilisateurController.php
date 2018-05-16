@@ -57,4 +57,33 @@ class UtilisateurController extends Controller
     	return redirect(route('utilisateur.profil', $user->id));
 
     }
+    public function changeEntrepreneurInfo(Request $request)
+    {
+        $user = Auth::user();
+
+        $user->userable->nom_entreprise = $request->nom_entreprise;
+        $user->userable->description_entreprise = $request->description_entreprise;
+        $user->userable->materiel = $request->materiel;
+
+        $user->userable->save();
+
+        return redirect()->route('utilisateur.profil', $user->id);
+    }
+    public function changeEntrepreneurDispo(Request $request)
+    {
+        $user = Auth::user();
+        $user->userable->dateDebutDispo = $request->dateDebutDispo;
+        $user->userable->dateFinDispo = $request->dateFinDispo;
+
+        $user->userable->save();
+
+        return redirect()->route('utilisateur.profil', $user->id);
+    }
+    public function changePassword(Request $request)
+    {
+        $user = Auth::user();
+
+        return "TODO";
+    }
+
 }

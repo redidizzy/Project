@@ -30,6 +30,7 @@
   <link href="{{asset('templateFiles/lib/ionicons/css/ionicons.min.css')}}" rel="stylesheet">
   <link href="{{asset('templateFiles/lib/owlcarousel/assets/owl.carousel.min.css')}}" rel="stylesheet">
   <link href="{{asset('templateFiles/lib/lightbox/css/lightbox.min.css')}}" rel="stylesheet">
+ 
 
   <!-- Main Stylesheet File -->
   <link href="{{asset('templateFiles/css/style.css')}}" rel="stylesheet">
@@ -141,7 +142,7 @@
   <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
 
   <!-- JavaScript Libraries -->
-  <script src="{{asset('templateFiles/lib/jquery/jquery.min.js')}}"></script>
+
   <script src="{{asset('templateFiles/lib/jquery/jquery-migrate.min.js')}}"></script>
   <script src="{{asset('templateFiles/lib/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
   <script src="{{asset('templateFiles/lib/easing/easing.min.js')}}"></script>
@@ -159,6 +160,9 @@
 
   <!-- Template Main Javascript File -->
   <script src="{{asset('templateFiles/js/main.js')}}"></script>
+
+
+ <script src="{{asset('js/customize.js') }}"></script>
 
 </body>
 </html>

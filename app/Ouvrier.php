@@ -11,7 +11,10 @@ class Ouvrier extends Model
 	{
 		return $this->morphOne('App\User', 'userable');
 	}
-<<<<<<< HEAD
+  public function demandes()
+  {
+    return $this->hasMany('App\DemandeEmploi');
+  }
     public function scopeFonction($query, $fonction)
     {
     	return $query->where('fonction', $fonction);

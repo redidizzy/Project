@@ -20,7 +20,6 @@ class CreateProjetsTable extends Migration
             $table->double('superficie');
             $table->integer('wilaya');
             $table->string('region');
-            $table->string('adresse');
             $table->double('budget');
             $table->string('delai');
             $table->boolean('necessiteEntrepreneur'); 

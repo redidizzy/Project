@@ -9,6 +9,7 @@
   <meta content="" name="keywords">
   <meta content="" name="description">
 
+
   <!-- Favicons -->
   <link href="{{asset('templateFiles/img/favicon.png')}}" rel="icon">
   <link href="{{asset('templateFiles/img/apple-touch-icon.png')}}" rel="apple-touch-icon">
@@ -30,9 +31,13 @@
   <link href="{{asset('templateFiles/lib/ionicons/css/ionicons.min.css')}}" rel="stylesheet">
   <link href="{{asset('templateFiles/lib/owlcarousel/assets/owl.carousel.min.css')}}" rel="stylesheet">
   <link href="{{asset('templateFiles/lib/lightbox/css/lightbox.min.css')}}" rel="stylesheet">
+  <!-- select2 -->
+  <link href="{{asset('select2/css/select2.min.css')}}" rel="stylesheet" />
 
   <!-- Main Stylesheet File -->
   <link href="{{asset('templateFiles/css/style.css')}}" rel="stylesheet">
+
+  <link href="{{asset('rateit/rateit.css')}}" rel="stylesheet">
 
 
   <!-- =======================================================
@@ -83,7 +88,7 @@
             @elseif(Auth::user()->userable_type === "Ouvrier")
             
 
-              <li><a href="#">Demandes D'Emplois</a></li>
+              <li><a href="{{route('demandes.index', Auth::user()->id)}}">Demandes D'Emplois</a></li>
 
               <li class="menu-has-children"><a href="#">Recherche Avancee</a>
                 <ul>
@@ -187,7 +192,7 @@
 
   <!-- JavaScript Libraries -->
   <script src="{{asset('templateFiles/lib/jquery/jquery.min.js')}}"></script>
-  <script src="{{asset('templateFiles/lib/jquery/jquery-migrate.min.js')}}"></script>
+<script src="{{asset('templateFiles/lib/jquery/jquery-migrate.min.js')}}"></script>
   <script src="{{asset('templateFiles/lib/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
   <script src="{{asset('templateFiles/lib/easing/easing.min.js')}}"></script>
   <script src="{{asset('templateFiles/lib/superfish/hoverIntent.js')}}"></script>
@@ -204,6 +209,10 @@
 
   <!-- Template Main Javascript File -->
   <script src="{{asset('templateFiles/js/main.js')}}"></script>
+ <script src="{{asset('js/customize.js') }}"></script>  
+
+ @yield("script")
+
 
 </body>
 </html>

@@ -15,7 +15,7 @@ class VerifierUser
      */
     public function handle($request, Closure $next,$typeUser)
     {
-		if($request->user()->userable_type == $typeUser )
+		if($request->user()->userable_type != $typeUser )
 		{	
 			return redirect('/home');
         }

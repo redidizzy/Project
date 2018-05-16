@@ -23,7 +23,7 @@
             <div class="carousel-container">
               <div class="carousel-content">
                 <h2>Mettez a jour votre profil !</h2>
-                <p>Ajoutez, modifiez vos informations personnelles et proffessionnelles ici !</p>
+                <p>Ajoutez, modifiez vos informations personnelles et professionnelles ici !</p>
 
                 <a href="#" class="btn-get-started scrollto">Editer Profil</a> 
               </div>
@@ -72,7 +72,7 @@
             <div class="carousel-container">
               <div class="carousel-content">
                <h2>Mettez a jour votre profil !</h2>
-                <p>Ajoutez, modifiez vos informations personnelles et proffessionnelles ici !</p>
+                <p>Ajoutez, modifiez vos informations personnelles et professionnelles ici !</p>
 
                 <a href="#" class="btn-get-started scrollto">Editer Profil</a> 
               </div>

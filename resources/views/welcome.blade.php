@@ -298,8 +298,12 @@
             </div>
             <div class="form-row">
               <div class="col-md-4 form-group{{ $errors->has('wilaya') ? ' has-error' : '' }}">
-                    <input id="wilaya" type="number" class="form-control" placeholder="Wilaya" name="wilaya" value="{{ old('wilaya') }}" required>
-
+                    <select id="wilaya" class="form-control" name="wilaya" required>
+                      <option value="0" selected hidden disabled>Choisir une wilaya</option>
+                    @foreach(config('variables.wilayas') as $nwil=>$wil)
+                        <option value="{{$nwil}}" id="{{$nwil}}">{{$nwil}}-{{$wil}}</option>
+                    @endforeach
+                    </select>
                     @if ($errors->has('wilaya'))
                         <span class="help-block">
                             <strong>{{ $errors->first('wilaya') }}</strong>
@@ -309,7 +313,9 @@
               <div class="col-md-4 form-group{{ $errors->has('region') ? ' has-error' : '' }}">
 
                   
-                      <input id="region" type="text" class="form-control" placeholder="Region" name="region" value="{{ old('region') }}" required>
+                      <select name="region" id="region" class="form-control">
+                        <option value="0" selected hidden disabled>Choisir Une commune</option>
+                      </select>
 
                       @if ($errors->has('region'))
                           <span class="help-block">
@@ -318,6 +324,11 @@
                       @endif
                   
               </div>
+              <div class="col-md-4 form-group {{ $errors->has('adresse') ? 'has-error' : '' }}">
+                <input type="text" name="adresse" id="adresse" placeholder="votre adresse" class="form-control" />
+              </div>
+            </div>
+            <div class="form-row">
                <div class="col-md-4 form-group{{ $errors->has('type') ? ' has-error' : '' }}">
 
                       <select name="type" id="type" class="form-control">
@@ -332,16 +343,32 @@
                           </span>
                       @endif
                 </div>
+              </div>
             </div>
-
+            <div id="Info_Entrepreneur" class="collapse">
+              <div class="form-row">
+                <div class="col-md-6 form-group {{$errors->has('nomEntreprise') ? 'has-error' : '' }}">
+                  <input type="text" name="nomEntreprise" id="e" class="form-control" placeholder="Le nom de votre entreprise" />
+                </div>
+                <div class="col-md-6 form-group {{$errors->has('materiel') ? 'has-error' : '' }}">
+                  <textarea class="form-control" name="materiel" id="materiel" placeholder="Decrivez aux gens le materiel dont vous possedez !"></textarea>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="col-md-12 form-group {{$errors->has('descEntreprise') ? 'has-error' : '' }}">
+                   <textarea class="form-control" name="descEntreprise" id="descEntreprise" placeholder="Decrivez brievement aux gens votre entreprise et ses employes"></textarea>
+                 </div>
+               </div>
+            </div>
             <div id="Info_Ouvrier" class="collapse">
               <div class="form-row">
                   <div class="col-md-6 form-group{{ $errors->has('fonction') ? ' has-error' : '' }}">
                           <select name="fonction" id="fonction" class="form-control">
-                                  @foreach($fonctions as $fonction)
+                            <option value="0" selected disabled hidden>Quelle est votre specialite ?</option> 
+                            @foreach($fonctions as $fonction)
 
-                                  <option value="{{$fonction->designation}}" id="{{$fonction->designation}}">{{$fonction->designation}}</option>
-                                  @endforeach
+                            <option value="{{$fonction->designation}}" id="{{$fonction->designation}}">{{$fonction->designation}}</option>
+                            @endforeach
                           </select>
                           @if ($errors->has('fonction'))
                               <span class="help-block">
@@ -352,20 +379,8 @@
                       
                   </div>
                 </div>
-                  <div class="col-md-6 form-group{{ $errors->has('diplome') ? ' has-error' : '' }}">
-
-                      
-                          <input type="checkbox" name="diplome" id="diplome" />
-                          <label for="diplome">Je suis diplome</label>
-                          @if ($errors->has('fonction'))
-                              <span class="help-block">
-                                  <strong>{{ $errors->first('diplome') }}</strong>
-                              </span>
-                          @endif
-                        
-
-                  </div>
-                </div>
+                  
+              </div>
                
                     
                       <div class="text-center">
@@ -449,17 +464,30 @@
 
   </main>
   <script src="{{ asset('js/JQuery.js') }}"></script>
-    <script href="{{ asset('css/Bootstrap/js/bootstrap.js') }}"></script>
+  <script src="{{ asset('css/Bootstrap/js/bootstrap.js') }}"></script>
+ 
 <script>
     $(function(){
         $("#type").change(function(){
                 if($("#type").val() === "Ouvrier")
+                {
+                    $("#Info_Entrepreneur").collapse("hide");
                     $("#Info_Ouvrier").collapse("show");
-                else
+                }
+                else if($("#type").val() === "Entrepreneur")
+                {
                     $("#Info_Ouvrier").collapse("hide");
+                    $("#Info_Entrepreneur").collapse("show");
+                }
+                else
+                {
+                    $("#Info_Ouvrier").collapse("hide");
+                    $("#Info_Entrepreneur").collapse("hide");
+                }
             
                 
         });
     });
 </script>
+
 @endsection

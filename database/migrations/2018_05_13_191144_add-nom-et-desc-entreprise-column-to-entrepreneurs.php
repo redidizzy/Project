@@ -14,8 +14,8 @@ class AddNomEtDescEntrepriseColumnToEntrepreneurs extends Migration
     public function up()
     {
         Schema::table('entrepreneurs', function (Blueprint $table) {
-            $table->string('nom_entreprise')->after('id');
-            $table->text('description_entreprise');
+            $table->string('nom_entreprise')->nullable()->after('id');
+            $table->text('description_entreprise')->nullable();
         });
     }
 
