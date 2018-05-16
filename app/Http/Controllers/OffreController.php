@@ -9,15 +9,15 @@ use App\TypeOuvrier;
 use App\Client;
 use App\User;
 use Auth;
-use App\DemandeEmploi;
-
-class DemandeController extends Controller
+use App\OffreEmploi;
+class OffreController extends Controller
 {
+	
 	public function __construct()
 	{
 		return $this->middleware('auth');
+		return $this->middleware('typeUser:Ouvrier',['except'=>'index']);
 		return $this->middleware('notEntrepreneur');
-		return $this->middleware('notOuvrier',['except'=>'index']);
 	}
     /**
      * Display a listing of the resource.
@@ -26,12 +26,14 @@ class DemandeController extends Controller
      */
     public function index($id)
     {
-        //
-		$demandes= User::find($id)->userable->demandes;
+		
+        $offres= User::find($id)->userable->offres;
 		$user= User::find($id);
-		return view('demandes.index',compact('demandes','user'));
+		return view('offres.index',compact('offres','user'));
+		
     }
-
+	
+	
     /**
      * Show the form for creating a new resource.
      *
@@ -39,8 +41,8 @@ class DemandeController extends Controller
      */
     public function create()
     {
-        //
-		return view('demandes.create');
+		$types = TypeOuvrier::all();
+        return view ('offres.create', compact('types'));
     }
 
     /**
@@ -51,15 +53,14 @@ class DemandeController extends Controller
      */
     public function store(Request $request)
     {
-        $utilisateur = Auth::user()->userable->id;
-       
-        DemandeEmploi::create([
-            
-            'ouvrier_id' => $utilisateur,
-            'contenu' => $request->contenu
-        ]); 
-
-        return redirect()->route('demandes.index', Auth::user()->id);
+       $utilisateur=Auth::user()->userable->id;
+	   OffreEmploi::create([
+			'type_id' => TypeOuvrier::find($request->type)->designation,
+			'entrepreneur_id' => $utilisateur,
+			'contenu' => $request->contenu
+		]);
+	   
+	   return redirect()->route('offres.index', Auth::user()->id);
     }
 
     /**
@@ -70,7 +71,10 @@ class DemandeController extends Controller
      */
     public function show($id)
     {
-        //
+		$offres = OffreEmploi::find($id);
+        $postulants = $offres->ouvriers->withPivot();
+		
+		return view('offre.index');
     }
 
     /**
@@ -81,8 +85,10 @@ class DemandeController extends Controller
      */
     public function edit($id)
     {
-        $demande=DemandeEmploi::find($id);
-		return view('demandes.edit',compact('demande'));
+		$offre=OffreEmploi::find($id);
+		$types = TypeOuvrier::all();
+		
+        return view('offres.edit',compact('offre','types'));
     }
 
     /**
@@ -94,11 +100,15 @@ class DemandeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $demande= DemandeEmploi::find($id);
-		$demande->contenu = $request->contenu;
 		
-		$demande->save();
-		return redirect()->route('demandes.index', Auth::user()->id);
+        $offre=OffreEmploi::find($id);
+		
+		$offre->type = TypeOuvrier::where('designation', '=', $request->type)->first()->id;
+		$offre->contenu = $request->contenu;
+		
+		$offre->save();
+		return redirect()->route('offres.index',Auth::user()->id);
+		
     }
 
     /**
@@ -109,7 +119,16 @@ class DemandeController extends Controller
      */
     public function destroy($id)
     {
-       DemandeEmploi::find($id)->delete();
-        return redirect()->route('demandes.index', Auth::user()->id); 
+        OffreEmploi::find($id)->delete();
+		return redirect()->route('offres.index', Auth::user()->id);
+		
     }
+	public function addPostulant($id)
+	{
+		$utilisateur=Auth::user()->userable->id;
+		$offre = OffreEmploi::find($id);
+		$utilisateur->offre->attach($id);
+		return redirect()->route('offres.index',Auth::user()->id);
+	}
+	
 }

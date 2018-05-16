@@ -6,7 +6,7 @@
         <div class="container">
 	        <div class="row">
 	            <div class="col-md-12">
-	            	<h1 class="page-header" style="color:black">Demandes d'emploi de {{$user->nom}}  {{$user->prenom}}</h1>
+	            	<h1 class="page-header" style="color:rgb(0,255,128)">Demandes d'emploi de {{$user->nom}}  {{$user->prenom}}</h1>
 	            	@forelse($demandes as $demande)
 	                <div class="panel panel-success">
 	                	<div class="panel-heading">Fonction : {{$demande->ouvrier->fonction}}</div>
@@ -29,7 +29,7 @@
 	                <div class="panel panel-danger">
 	                	<div class="panel-heading">Aucun resultat</div>
 	                	<div class="panel-body">
-	                		Nous n'avons trouve aucun element satisfaisant vos criteres.
+	                		Nous n'avons trouve aucune demande.
 	                	</div>
 	                </div>
 	                @endforelse

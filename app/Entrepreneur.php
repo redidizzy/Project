@@ -15,6 +15,10 @@ class Entrepreneur extends Model
 	{
 		return self::where('disponibilite', 1)->get();
 	}
-
-    //
+	
+	public function offres()
+	{
+		return $this->hasMany('App\OffreEmploi');
+	}
+    
 }

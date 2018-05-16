@@ -73,7 +73,7 @@
               <li><a href="{{route('home')}}">Accueil</a></li>
               <li><a href="{{route('utilisateur.profil', Auth::user()->id) }}">Mon profil</a></li>
             @if(Auth::user()->userable_type === "Entrepreneur")
-              <li><a href="#">Mes offres</a></li>
+              <li><a href="{{route('offres.index', Auth::user()->id)}}">Mes offres</a></li>
               <li class="menu-has-children"><a href="#">Recherche Avancee</a>
                 <ul>
                   <li><a href="#">Rechercher Ouvrier</a></li>

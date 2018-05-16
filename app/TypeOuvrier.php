@@ -12,5 +12,9 @@ class TypeOuvrier extends Model
 	{
 		return $this->hasMany('App\Ouvrier');
 	}
-    //
+    
+	public function offres()
+	{
+		return $this->hasMany('App\OffreEmploi');
+	}
 }

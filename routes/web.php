@@ -14,7 +14,7 @@
 Route::get('/', function () {
 	$fonctions = App\TypeOuvrier::all();
     return view('welcome', compact('fonctions'));
-})->middleware('guest');
+})->name('welcome')->middleware('guest');
 
 Auth::routes();
 
@@ -49,3 +49,13 @@ Route::get('demandes/create', 'DemandeController@create')->name('demandes.create
 Route::get('/demandes/{id}/edit', 'DemandeController@edit')->name('demandes.edit');
 Route::delete('/demandes/{id}/', 'DemandeController@destroy')->name('demandes.destroy');
 Route::post('/demandes/{id}', 'DemandeController@update')->name('demandes.update');
+
+
+//ces routes concerneront les offres
+Route::resource('/{id}/offres', 'OffreController',['except' => ['create', 'update', 'destroy', 'edit']]);
+Route::get('offres/create', 'OffreController@create')->name('offres.create');
+Route::get('/offres/{id}/edit', 'OffreController@edit')->name('offres.edit');
+Route::delete('/offres/{id}/', 'OffreController@destroy')->name('offres.destroy');
+Route::post('/offres/{id}', 'OffreController@update')->name('offres.update');
+Route::get('/offres/{id}/postuler', 'OffreController@postuler')->name('offres.postuler');
+
