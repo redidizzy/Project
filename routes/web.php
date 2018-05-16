@@ -61,3 +61,4 @@ Route::get('/offres/{id}/postuler', 'OffreController@postuler')->name('offres.po
 
 //ces routes concerneront l'administration
 Route::get('/admin', 'AdminController@index')->name('admin.index');
+Route::get('/admin/{id}', 'AdminController@showAll')->name('admin.showAll');
