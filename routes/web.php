@@ -59,3 +59,5 @@ Route::delete('/offres/{id}/', 'OffreController@destroy')->name('offres.destroy'
 Route::post('/offres/{id}', 'OffreController@update')->name('offres.update');
 Route::get('/offres/{id}/postuler', 'OffreController@postuler')->name('offres.postuler');
 
+//ces routes concerneront l'administration
+Route::get('/admin', 'AdminController@index')->name('admin.index');

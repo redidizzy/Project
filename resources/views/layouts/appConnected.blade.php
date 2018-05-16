@@ -130,12 +130,13 @@
           </div>
 
           <div class="col-lg-4 col-md-6 footer-links">
-            <h4>Useful Links</h4>
+            <h4>Liens utiles</h4>
             <ul>
               <li><i class="ion-ios-arrow-right"></i> <a href="#">Acceuil</a></li>
               <li><i class="ion-ios-arrow-right"></i> <a href="#about">A propos de nous</a></li>
               <li><i class="ion-ios-arrow-right"></i> <a href="#services">Comment ca marche</a></li>
-              <li><i class="ion-ios-arrow-right"></i> <a href="#contact">S'inscrire</a></li>
+			  <li> <i class="ion-ios-arrow-right"></i> <a href="{{route('admin.index')}}">Acceder a l'espace admin </a></li>
+              
             </ul>
           </div>
 
