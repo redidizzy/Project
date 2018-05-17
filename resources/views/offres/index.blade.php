@@ -12,6 +12,7 @@
 	                	<div class="panel-heading">Poste : {{$offre->type->designation}}</div>
 	                	<div class="panel-body">
 	                		<p>Le contenu : </br></br>{{$offre->contenu}}</p>
+							<p><small >cree le : {{$offre->created_at}} </small></p>
 	    
 	                		@if(Auth::user()->id == $user->id )
 								@if(Auth::user()->userable_type === "Entrepreneur")
@@ -30,7 +31,7 @@
 									
 									<div class="col-md-4">
 								
-										<a href="{{route('#.postuler', $offre->id)}}" class="btn btn-success">Postuler</a>
+										<a href="{{route('offres.addPostulant', $offre->id)}}" class="btn btn-success">Postuler</a>
 										
 									</div>
 								@endif

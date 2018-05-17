@@ -15,9 +15,9 @@ class OffreController extends Controller
 	
 	public function __construct()
 	{
-		return $this->middleware('auth');
-		return $this->middleware('typeUser:Ouvrier',['except'=>'index']);
-		return $this->middleware('notEntrepreneur');
+		 $this->middleware('auth');
+		 //$this->middleware('typeUser:Ouvrier',['except'=>'index']);
+		 $this->middleware('typeUser:Entrepreneur');
 	}
     /**
      * Display a listing of the resource.
@@ -103,7 +103,7 @@ class OffreController extends Controller
 		
         $offre=OffreEmploi::find($id);
 		
-		$offre->type = TypeOuvrier::where('designation', '=', $request->type)->first()->id;
+		$offre->type_id = TypeOuvrier::where('designation', '=', $request->type)->first()->designation;
 		$offre->contenu = $request->contenu;
 		
 		$offre->save();
@@ -129,6 +129,18 @@ class OffreController extends Controller
 		$offre = OffreEmploi::find($id);
 		$utilisateur->offre->attach($id);
 		return redirect()->route('offres.index',Auth::user()->id);
+	}
+	public function afficherPostulants($id)
+	
+	{
+		$postulants=DB::table('ouvriers')
+
+            ->join('offre_emploi_ouvrier', 'ouvriers.id', '=', 'offre_emploi_ouvrier.ouvrier_id')
+
+            ->join('offre_emploi', 'offreEmploi.id', '=', 'offre_emploi_ouvrier.offreEmploi_id')
+
+            ->get();
+		return view('postulants.index',compact('postulants'));
 	}
 	
 }
