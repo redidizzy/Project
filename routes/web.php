@@ -63,7 +63,21 @@ Route::delete('/demandes/{id}/', 'DemandeController@destroy')->name('demandes.de
 Route::post('/demandes/{id}', 'DemandeController@update')->name('demandes.update');
 
 
+
 //Ces routes concernent tout ce qui est ajax
 Route::get('ajax/getCommunes/{id}', function($id){
 	return config('variables.communes.'.$id);
 });
+
+//ces routes concerneront les offres
+// Route::resource('/{id}/offres', 'OffreController',['except' => ['create', 'update', 'destroy', 'edit']]);
+// Route::get('offres/create', 'OffreController@create')->name('offres.create');
+// Route::get('/offres/{id}/edit', 'OffreController@edit')->name('offres.edit');
+// Route::delete('/offres/{id}/', 'OffreController@destroy')->name('offres.destroy');
+// Route::post('/offres/{id}', 'OffreController@update')->name('offres.update');
+// Route::get('/offres/{id}/postuler', 'OffreController@postuler')->name('offres.postuler');
+
+//ces routes concerneront l'administration
+Route::get('/admin', 'AdminController@index')->name('admin.index');
+Route::get('/admin/{id}', 'AdminController@showAll')->name('admin.showAll');
+

@@ -23,6 +23,14 @@ class UtilisateurController extends Controller
         $types = TypeOuvrier::all();
 		return view('utilisateur.profil', compact('user', 'types'));
 	}
+	
+	public function showAll($user_id)
+	{
+		$user = User::find($user_id);
+		$utilisateurs = User::all();
+		return view('admin.index', compact('utilisateurs','user'));
+	}
+	
 	public function edit()
 	{
 		$user = Auth::user();

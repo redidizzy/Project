@@ -16,5 +16,12 @@ class Entrepreneur extends Model
 	{
 		return $this->hasMany('App\AttestationEntrepreneur');
 	}
-    //
+
+	
+	// public function offres()
+	// {
+	// 	return $this->hasMany('App\OffreEmploi');
+	// }
+    
+
 }

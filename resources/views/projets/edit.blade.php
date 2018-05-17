@@ -18,13 +18,14 @@
 
                                     <div class="col-md-6">
                                         @php $typeAct = $projet->type->designation @endphp
+									
+										
                                         <select name="type" class="form-control">
                                             @foreach($types as $type)
                                                 
                                                 <option value="{{$type->designation}}" id="{{$type->designation}}" {{$typeAct == $type->designation ? 'selected' : ''}}>{{$type->designation}}</option>
                                             @endforeach
                                         </select>
-
                                         @if ($errors->has('type'))
                                             <span class="help-block">
                                                 <strong>{{ $errors->first('type') }}</strong>
