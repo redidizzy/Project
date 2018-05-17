@@ -35,7 +35,11 @@
                         ?>
                         <div class="text-center">
                             <a href="{{route('utilisateur.edit')}}" class="btn btn-success">Editer</a>
+                            @if($user->userable_type == "Client")
+                            <a href="#" class="btn btn-info" id="togglePasswordChange">Changer mot de passe</a>
+                            @endif 
                         </div>
+
                         <?php
                         }
                         ?>
@@ -52,16 +56,16 @@
 
                                 <div class="panel-body">
                                     <ul>    
-                                        <li>Reputation : {{$user->userable->reputation}}</li>
-                                        <li>Experience : {{$user->userable->experience}} attestations</li>
+                                        <li>Reputation : <span class="rateit" id="essai" data-rateit-value="{{$user->userable->reputation}}" data-rateit-readonly="true" data-rateit-ispreset="true" ></span></li>
+                                        <li>Experience : <a href="#" id="toggleVoirAttestations">{{$user->userable->attestations->count()}} attestations {{$user->userable_type =="Entrepreneur" ? 'de bonne execution' : ($user->userable_type=="Ouvrier" ? 'd\'affiliation a la CNAS' : '')}}</a></li>
                                     
                                         @if($user->userable_type === "Entrepreneur")
                                             <li>Nom de l'entreprise : {{$user->userable->nom_entreprise}}</li>
-                                            <li>Description de l'entreprise: <div class="well">{{$user->userable->description_entreprise}}</div></li>
+                                            <li>Description de l'entreprise: {{$user->userable->description_entreprise}}</li>
                                             <li>Vous etes actuellement disponible du : {{$user->userable->dateDebutDispo}} au : {{$user->userable->dateFinDispo}}</li>
-                                            <li>Materiel : <div class="well">{{$user->userable->materiel}} </div></li>
+                                            <li>Materiel : {{$user->userable->materiel}} </li>
                                         @else
-                                            <li>Diplomes : a faire</li>
+                                            <li>Diplomes : <a href="#" id ="toggleVoirDiplomes">{{$user->userable->diplomes->count()}}(Afficher)</a></li>
                                             <li>Profession : {{$user->userable->fonction}}</li>
                                             <li>Prix Journalier Moyen : {{$user->userable->prixApprox}}</li>
                                         @endif
@@ -77,17 +81,19 @@
                                 <div class="panel-body text-center">
 
                                     @if($user->userable_type === "Entrepreneur")
-                                        <a href="#" class="btn btn-primary btn-block">Importer attestation de bonne execution </a>
-                                        <a href="#" id="toggleInfoEntrModal"class="btn btn-warning btn-block">Rajouter des informations sur l'entreprise</a>
-                                        <a href="#" id="toggleDispoEntrepreneur"class="btn btn-danger btn-block">Changer Disponibilite</a>
+                                        <a href="#" class="btn btn-success btn-block" id = "toggleAjouterAttestationEntrepreneur">Importer attestation de bonne execution </a>
+                                        <a href="#" id="toggleInfoEntrModal"class="btn btn-success btn-block">Rajouter des informations sur l'entreprise</a>
+                                        <a href="#" id="toggleDispoEntrepreneur"class="btn btn-success btn-block">Changer Disponibilite</a>
                                     @else
-                                        <a href="#" class="btn btn-primary btn-block">Ajouter Diplome</a>
-                                        <a href="#" class="btn btn-warning btn-block">Changer de Profession</a>
-                                        <a href="#" class="btn btn-danger btn-block">Changer de Prix Approximatif</a>
+                                        <a href="#" id ="toggleAjouterDiplome"class="btn btn-success btn-block">Ajouter Diplome</a>
+                                        <a href="#" id="toggleChangerProfession" class="btn btn-success btn-block">Changer de Profession</a>
+                                        <a href="#" id="toggleChangerPrix"class="btn btn-success btn-block">Changer de Prix Approximatif</a>
+                                        <a href="#" class="btn btn-success btn-block" id = "toggleAjouterAttestationEntrepreneur">Importer attestation d'affiliation a la CNAS </a>
 
                                     @endif
 
-                                    <a href="#" class="btn btn-info btn-block" id="togglePasswordChange">Changer mot de passe</a>
+                                    <a href="#" class="btn btn-success btn-block" id="togglePasswordChange">Changer mot de passe</a>
+
                                 </div>
 
                             </div>
@@ -210,7 +216,7 @@
             <button type="button" class="close" data-dismiss="modal">&times;</button>
           </div>
           <div class="modal-body">
-            <form action="{{route('AjouterAttestationEntrepreneur', $user->userable)}}" method="POST" id="AjouterAttestationEntrepreneurForm">
+            <form action="{{route('AjouterAttestation', $user->userable)}}" method="POST" id="AjouterAttestationEntrepreneurForm" enctype="multipart/form-data">
                 {{csrf_field()}}
                 <div class="form-group col-md-10">
                     <input type="file" name="attestation" id="attestation"  class="form-control"/>
@@ -226,6 +232,144 @@
 
       </div>
     </div> 
+    @if($user->userable_type == "Entrepreneur" or $user->userable_type == "Ouvrier")
+    <div class="modal fade" id ="voirAttestations" role="dialog">
+     <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            
+            <h4 class="modal-title">voir les {{$user->userable->attestations->count()}} attestations</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+          <div class="modal-body">
+            @foreach($user->userable->attestations as $attestation)
+            
+                <img src="{{asset($attestation->photo_url)}}" style="width:100px;" />
+            @endforeach
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+
+      </div>
+    </div> 
+
+    <!-- pour l'ouvrier -->
+    <div class="modal fade" id ="ajouterDiplome" role="dialog">
+     <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            
+            <h4 class="modal-title">Importer un diplome</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+          <div class="modal-body">
+            <form action="{{route('ajouteDiplome', $user->userable)}}" method="POST" id="ajouterDiplomeForm" enctype="multipart/form-data">
+                {{csrf_field()}}
+                <div class="form-group col-md-10">
+                    <input type="file" name="diplome" id="diplome"  class="form-control"/>
+                    <input type="text" name="titre" id="titre"  class="form-control" placeholder="Titre du diplome"/>
+                </div>
+                
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-success" id="ajouterDiplomeSubmit" >Confirmer</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="modal fade" id ="changerProfession" role="dialog">
+     <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            
+            <h4 class="modal-title">Changer de profession</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+          <div class="modal-body">
+            <form action="{{route('changerProfession')}}" method="POST" id="changerProfessionForm" enctype="multipart/form-data">
+                {{csrf_field()}}
+                <div class="form-group col-md-10">
+                    <select id="types" name="profession" class="form-control">
+                    @foreach($types as $type)
+                        <option value="{{$type->designation}}">{{$type->designation}}</option>
+                    @endforeach
+                    </select>
+                </div>
+                
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-success" id="changeProfessionSubmit" >Confirmer</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="modal fade" id ="changerPrix" role="dialog">
+     <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            
+            <h4 class="modal-title">Changer de prix journalier</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+          <div class="modal-body">
+            <form action="{{route('changerPrix')}}" method="POST" id="changerPrixForm" enctype="multipart/form-data">
+                {{csrf_field()}}
+                <div class="form-group col-md-10">
+                    <input type="number" name="prix" placeholder="votre nouveau prix journalier" class="form-control" />
+                </div>
+                
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-success" id="changerPrixSubmit" >Confirmer</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    @if($user->userable_type == "Ouvrier")
+    <div class="modal fade" id ="voirDiplomes" role="dialog">
+     <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            
+            <h4 class="modal-title">voir les {{$user->userable->diplomes->count()}} attestations</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+          <div class="modal-body">
+            @foreach($user->userable->diplomes as $diplome)
+            
+                <img src="{{asset($diplome->photoDiplome)}}" style="width:300px;" />
+            @endforeach
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    @endif 
+    @endif
 @endsection
  @section("script")   
     <script>
@@ -261,9 +405,44 @@
             $("#AjouterAttestationEntrepreneur").fadeOut();
             $("#AjouterAttestationEntrepreneurForm").submit();
         });
-        $("#toggleAjouterAttestationEntrepreneurSubmit").on("click", function(e){
+        $("#toggleAjouterAttestationEntrepreneur").on("click", function(e){
             e.preventDefault();
             $("#AjouterAttestationEntrepreneur").modal();
         });
+        $("#toggleVoirAttestations").on("click", function(e){
+            e.preventDefault();
+            $("#voirAttestations").modal();
+        });
+        $("#ajouterDiplomeSubmit").on("click", function(e){
+            e.preventDefault();
+            $("#ajouterDiplomeForm").submit();
+        });
+         $("#toggleAjouterDiplome").on("click", function(e){
+            e.preventDefault();
+            $("#ajouterDiplome").modal();
+        });
+         $("#toggleVoirDiplomes").on("click", function(e){
+            e.preventDefault();
+            $("#voirDiplomes").modal();
+        });
+         $("#toggleChangerProfession").on("click", function(e){
+            e.preventDefault();
+            $("#changerProfession").modal()
+         });
+         $("#changeProfessionSubmit").on("click", function(e){
+            e.preventDefault();
+            $("#changerProfession").fadeOut();
+            $("#changerProfessionForm").submit();
+         });
+        $("#toggleChangerPrix").on("click", function(e){
+            e.preventDefault();
+            $("#changerPrix").modal()
+         });
+         $("#changerPrixSubmit").on("click", function(e){
+            e.preventDefault();
+            $("#changerPrix").fadeOut();
+            $("#changerPrixForm").submit();
+         });
     </script>
+     <script src="{{asset('rateit\jquery.rateit.js')}}"></script>
 @endsection

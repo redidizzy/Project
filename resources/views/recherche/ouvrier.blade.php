@@ -40,7 +40,7 @@
                                     <input type="text" name="reputationMin" id="reputationMin" placeholder="Nombre d'etoiles minimal" class="form-control" />
                                 </div>
                                  <div class="form-group col-md-3">
-                                    <input type="text" name="reputationMax" id="reputationMax" placeholder="Nombre d'etoiles minimal" class="form-control" />
+                                    <input type="text" name="reputationMax" id="reputationMax" placeholder="Nombre d'etoiles maximal" class="form-control" />
                                 </div>
                                  <div class="form-group col-md-3">
                                     <input type="text" name="prixApproxMin" id="prixApproxMin" placeholder="Prix journalier minimal" class="form-control" />
@@ -92,8 +92,8 @@
 
           <div class="col-lg-4 col-md-6 box wow bounceInUp" data-wow-duration="1.4s">
             <div class="icon"><i class="ion-ios-analytics-outline"></i></div>
-            <h4 class="title"><a href="">{{$ouvrier->diplome ? 'Diplome' : 'Non Diplme'}}</a></h4>
-            <p class="description">Cet ouvrier  {{$ouvrier->diplome ? 'est' : 'n\'est pas diplome' }} </p>
+            <h4 class="title"><a href="">{{$ouvrier->diplomes->first() ? 'Diplome' : 'Non Diplome'}}</a></h4>
+            <p class="description">Cet ouvrier  a {{$ouvrier->diplomes->count()}} diplomes</p>
           </div>
           <div class="col-lg-4 col-md-6 box wow bounceInUp" data-wow-duration="1.4s">
             <div class="icon"><i class="ion-ios-bookmarks-outline"></i></div>
@@ -108,7 +108,7 @@
           <div class="col-lg-4 col-md-6 box wow bounceInUp" data-wow-delay="0.1s" data-wow-duration="1.4s">
             <div class="icon"><i class="ion-ios-speedometer-outline"></i></div>
             <h4 class="title"><a href="">Experience</a></h4>
-            <p class="description">Cet ouvrier a {{$ouvrier->exeprience}} attestations d'affiliation a la CNAS</p>
+            <p class="description">Cet ouvrier a {{$ouvrier->attestations->count()}} attestations d'affiliation a la CNAS</p>
           </div>
           <div class="col-lg-4 col-md-6 box wow bounceInUp" data-wow-delay="0.1s" data-wow-duration="1.4s">
             <div class="icon"><i class="ion-ios-barcode-outline"></i></div>

@@ -4,7 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\AttestationEntrepreneur;
+use App\AttestationOuvrier;
+use App\Diplome;
+use App\TypeOuvrier;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class UtilisateurController extends Controller
 {
@@ -15,7 +20,8 @@ class UtilisateurController extends Controller
 	public function show($user_id)
 	{
 		$user = User::find($user_id);
-		return view('utilisateur.profil', compact('user'));
+        $types = TypeOuvrier::all();
+		return view('utilisateur.profil', compact('user', 'types'));
 	}
 	public function edit()
 	{
@@ -83,7 +89,86 @@ class UtilisateurController extends Controller
     {
         $user = Auth::user();
 
-        return "TODO";
+        if(Hash::check($request->oldPassword, $user->password) and $request->newPassword == $request->rnewPassword)
+        {
+            $user->password = bcrypt($request->newPassword);
+            $user->save();
+        }
+        return redirect()->route('utilisateur.profil', $user->id);
     }
+    public function addAttestation(Request $request)
+    {
+        $user = Auth::user();
 
+        $file = $request->file('attestation');
+        if($file)
+        {
+            $path = config('images.path');
+            $extension = $file->getClientOriginalExtension();
+
+            do{
+                $file_name = str_random(10).'.'.$extension;
+            }while(file_exists($path.'/'.$file_name));
+
+            if($file->move($path, $file_name))
+            {
+                $url=$path.'/'.$file_name;
+            }
+            if(Auth::user()->userable_type == "Entrepreneur")
+                $attestation = new AttestationEntrepreneur();
+            else 
+                $attestation = new AttestationOuvrier();
+            $attestation->photo_url= $url;
+            if(Auth::user()->userable_type == "Entrepreneur")
+                $attestation->entrepreneur_id = $user->userable->id;
+            else
+                $attestation->ouvrier_id = $user->userable->id;
+            $attestation->save();
+        }
+        return redirect()->route('utilisateur.profil', $user->id);
+    }
+    public function addDiplome(Request $request)
+    {
+        $user = Auth::user();
+
+        $file = $request->file('diplome');
+        if($file)
+        {
+            $path = config('images.path');
+            $extension = $file->getClientOriginalExtension();
+
+            do{
+                $file_name = str_random(10).'.'.$extension;
+            }while(file_exists($path.'/'.$file_name));
+
+            if($file->move($path, $file_name))
+            {
+                $url=$path.'/'.$file_name;
+            }
+            $diplome = new Diplome;
+            $diplome->titre = $request->titre;
+            $diplome->photoDiplome= $url;
+            $diplome->ouvrier_id = $user->userable->id;
+            $diplome->save();
+        }
+        return redirect()->route('utilisateur.profil', $user->id);
+    }
+    public function changerProfession(Request $request)
+    {
+        $user = Auth::user();
+        $ouvrier = $user->userable;
+        $ouvrier->fonction = $request->profession;
+        $ouvrier->save();
+
+        return redirect()->route('utilisateur.profil', $user->id);
+    }
+    public function changerPrix(Request $request)
+    {
+        $user= Auth::user();
+        $ouvrier = $user->userable;
+        $ouvrier->prixApprox = $request->prix;
+        $ouvrier->save();
+
+        return redirect()->route('utilisateur.profil', $user->id);
+    }
 }

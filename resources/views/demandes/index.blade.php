@@ -6,7 +6,7 @@
         <div class="container">
 	        <div class="row">
 	            <div class="col-md-12">
-	            	<h1 class="page-header" style="color:black">Demandes d'emploi de {{$user->nom}}  {{$user->prenom}}</h1>
+	            	<h1 class="page-header" style="color:black; background:rgb(0,200,100); padding : 10px 10px 10px 10px; border-radius:10px;">Demandes d'emploi de {{$user->nom}}  {{$user->prenom}}</h1>
 	            	@forelse($demandes as $demande)
 	                <div class="panel panel-success">
 	                	<div class="panel-heading">Fonction : {{$demande->ouvrier->fonction}}</div>

@@ -36,7 +36,7 @@
                                     <input type="text" name="reputationMin" id="reputationMin" placeholder="Nombre d'etoiles minimal" class="form-control" />
                                 </div>
                                  <div class="form-group col-md-3">
-                                    <input type="text" name="reputationMax" id="reputationMax" placeholder="Nombre d'etoiles minimal" class="form-control" />
+                                    <input type="text" name="reputationMax" id="reputationMax" placeholder="Nombre d'etoiles maximal" class="form-control" />
                                 </div>
                                  
                             </div>  

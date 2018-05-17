@@ -14,7 +14,7 @@
 Route::get('/', function () {
 	$fonctions = App\TypeOuvrier::all();
     return view('welcome', compact('fonctions'));
-})->middleware('guest');
+})->name('welcome')->middleware('guest');
 
 Auth::routes();
 
@@ -27,7 +27,10 @@ Route::post('/profil/{id}', 'UtilisateurController@saveChange')->name('utilisate
 Route::post('/changeEntrepreneurInfo', 'UtilisateurController@changeEntrepreneurInfo')->name('ajouterInfoEntreprise');
 Route::post('/changeDispoEntrepreneur', 'UtilisateurController@changeEntrepreneurDispo')->name('changerDispoEntrepreneur');
 Route::post('/changePassword', 'UtilisateurController@changePassword')->name('changePassword');	
-RoutesAjouterAttestationEntrepreneu
+Route::post('/AjouterAttestation', 'UtilisateurController@addAttestation')->name('AjouterAttestation');
+Route::post('/ajouterDiplome', 'UtilisateurController@addDiplome')->name('ajouteDiplome');
+Route::post('changerProfession', 'UtilisateurController@changerProfession')->name('changerProfession');
+Route::post('changerPrix', 'UtilisateurController@changerPrix')->name('changerPrix');
 
 //cette route permettra a l'utilisateur de voir son/un profil
 Route::get('/profil/{id}', 'UtilisateurController@show')->name('utilisateur.profil');

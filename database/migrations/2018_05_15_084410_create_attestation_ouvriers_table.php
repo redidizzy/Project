@@ -17,7 +17,7 @@ class CreateAttestationOuvriersTable extends Migration
             $table->increments('id');
             $table->timestamps();
             $table->string('photo_url');
-            $table->integer('ouvrier_id')
+            $table->integer('ouvrier_id');
         });
     }
 

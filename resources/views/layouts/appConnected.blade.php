@@ -57,7 +57,7 @@
       
     
         <div id="logo" class="pull-left">
-          <h1><a href="#intro" class="scrollto">PFE</a></h1>
+          <h1><a href="#intro" class="scrollto">ECOntact</a></h1>
           
           <!-- Uncomment below if you prefer to use an image logo -->
           <!-- <a href="#intro"><img src="img/logo.png" alt="" title="" /></a>-->
@@ -132,7 +132,7 @@
         <div class="row">
 
           <div class="col-lg-3 col-md-6 footer-info">
-            <h3>PFE</h3>
+            <h3>ECOntact</h3>
             <p>Nous sommes ravis de pouvoir aider le peuple a aboutir leur projets personnel, suivez nous ! vous ne le regretterez pas </p>
           </div>
 
@@ -152,8 +152,8 @@
               A108 Adam Street <br>
               New York, NY 535022<br>
               United States <br>
-              <strong>Telephone:</strong> 0542658943<br>
-              <strong>Email:</strong> z.rediane24@gmail.com<br>
+              <strong>Telephone:</strong> 0542658943 - 0658778845<br>
+              <strong>Email:</strong> z.rediane24@gmail.com - tina98dib@gmail.com<br>
             </p>
 
             <div class="social-links text-center">
@@ -209,7 +209,10 @@
 
   <!-- Template Main Javascript File -->
   <script src="{{asset('templateFiles/js/main.js')}}"></script>
- <script src="{{asset('js/customize.js') }}"></script>  
+ <script src="{{asset('js/customize.js') }}"></script> 
+ <script type="text/javascript">
+  var APP_URL = {!! json_encode(config('app.url')) !!}
+</script> 
 
  @yield("script")
 

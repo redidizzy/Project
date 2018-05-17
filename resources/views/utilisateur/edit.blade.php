@@ -99,7 +99,7 @@
 
                                         @if ($errors->has('photo'))
                                             <span class="help-block">
-                                                <strong>{{ $errors->first('prenom') }}</strong>
+                                                <strong>{{ $errors->first('photo') }}</strong>
                                             </span>
                                         @endif
                                     </div>

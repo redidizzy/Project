@@ -17,7 +17,7 @@
             <div class="carousel-container">
               <div class="carousel-content">
                 <h2>Vous apprehendez de construire ?</h2>
-                <p>Pas de panique ! PFE est une plateforme qui est la specialement pour vous. Engagez le meilleur des entrepreneur ou creez votre propre equipe de construction en recherchant les ouvriers les plus competents dans tout domaine !</p>
+                <p>Pas de panique ! ECOntact est une plateforme qui est la specialement pour vous. Engagez le meilleur des entrepreneur ou creez votre propre equipe de construction en recherchant les ouvriers les plus competents dans tout domaine !</p>
                 <a href="#contact" class="btn-get-started scrollto">Commencer</a>
               </div>
             </div>
@@ -27,7 +27,7 @@
             <div class="carousel-container">
               <div class="carousel-content">
                 <h2>Recherchez du travail facilement !</h2>
-                <p>plombier ? menuisier ? ou quelconque ouvrier dans le domaine de la construction ? PFE vous permettra de <strong>trouver plus facilement du travail </strong>.</br> Inscivez vous en tant que ouvrier </p>
+                <p>plombier ? menuisier ? ou quelconque ouvrier dans le domaine de la construction ? ECOntact vous permettra de <strong>trouver plus facilement du travail </strong>.</br> Inscivez vous en tant que ouvrier </p>
                 <a href="#contact" class="btn-get-started scrollto">Commencer</a>
               </div>
             </div>
@@ -121,7 +121,7 @@
 
         <header class="section-header wow fadeInUp">
           <h3>Comment ca marche ?!</h3>
-          <p>PFE est une application web qui permet de faciliter le contact entre le client, l'entrepreneur et les ouvriers.</p>
+          <p>ECOntact est une application web qui permet de faciliter le contact entre le client, l'entrepreneur et les ouvriers.</p>
 
         </header>
 

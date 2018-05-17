@@ -9,7 +9,7 @@ class AttestationEntrepreneur extends Model
 	protected $guarded = [];
 	public function entrepreneur()
 	{
-		return $this->belongsTo('App\Entrepreneur');
+		return $this->belongsTo('App\Entrepreneur', 'entrepreneur_id');
 	}
     //
 }

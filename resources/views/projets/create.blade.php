@@ -63,7 +63,12 @@
                                     <label for="wilaya" class="col-md-4 control-label">Wilaya</label>
 
                                     <div class="col-md-6">
-                                        <input id="wilaya" type="number" class="form-control" name="wilaya" required>
+                                         <select id="wilaya" class="form-control" name="wilaya" required>
+                                        @foreach(config('variables.wilayas') as $nwil=>$wil)
+                                            <option value="{{$nwil}}" id="{{$nwil}}">{{$nwil}}-{{$wil}}</option>    
+                                        @endforeach
+                                        </select>
+
 
                                         @if ($errors->has('wilaya'))
                                             <span class="help-block">
@@ -78,7 +83,9 @@
                                     <label for="region" class="col-md-4 control-label">Region : </label>
 
                                     <div class="col-md-6">
-                                        <input id="region" type="text" class="form-control" name="region"  required>
+                                        <select name="region" id="region" class="form-control">
+                                        
+                                        </select>
 
                                         @if ($errors->has('region'))
                                             <span class="help-block">

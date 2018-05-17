@@ -1,5 +1,5 @@
 $(document).ready(function() {
-	
+
 
 
 	$("#wilaya").on("change", function(e){
@@ -8,7 +8,7 @@ $(document).ready(function() {
 		$("#region").append(first_option);
 		var region = $("#region");
 		var wilaya = $(this).val();
-		$.get(document.baseURI+'/ajax/getCommunes/'+wilaya, function(d){
+		$.get(APP_URL+'/ajax/getCommunes/'+wilaya, function(d){
 			d.forEach(function(commune){
 				var nouvel_commune = new Option(commune, commune, false, false);
 				region.append(nouvel_commune);
@@ -17,3 +17,6 @@ $(document).ready(function() {
 	});
 	
 });
+<div>
+	<p></p>
+</div>

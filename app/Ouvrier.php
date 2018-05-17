@@ -59,6 +59,10 @@ class Ouvrier extends Model
    {
    	return $query->where('diplome', $bool);
    }
+
+   public function attestations(){
+    return $this->hasMany('App\AttestationOuvrier');
+   }
 	
 	
 	public function diplomes()

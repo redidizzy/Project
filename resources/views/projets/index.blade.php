@@ -6,10 +6,10 @@
         <div class="container">
 	        <div class="row">
 	            <div class="col-md-12">
-	            	<h1 class="page-header">Projets de {{$user->nom}}</h1>
+	            	<h1 class="page-header" style="color:black; background:rgb(0,200,100); padding : 10px 10px 10px 10px; border-radius:10px;">Projets de {{$user->nom}} {{$user->prenom}}</h1>
 	            	@forelse($projets as $projet)
 	                <div class="panel panel-success">
-	                	<div class="panel-heading">Projet de {{$projet->type->designation}}</div>
+	                	<div class="panel-heading" >Projet de {{$projet->type->designation}}</div>
 	                	<div class="panel-body">
 	                		<ul>
 	                			<li>Description : {{$projet->description}}</li>
