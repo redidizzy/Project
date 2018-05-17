@@ -12,6 +12,7 @@
 	                	<div class="panel-heading">Fonction : {{$demande->ouvrier->fonction}}</div>
 	                	<div class="panel-body">
 	                		<p>Le contenu : </br></br>{{$demande->contenu}}</p>
+							<p><small>cree le : {{$demande->created_at}} </small>
 	    
 	                		@if(Auth::user()->id == $user->id)
 		                	<div class="col-md-4">

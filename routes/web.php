@@ -58,4 +58,4 @@ Route::get('/offres/{id}/edit', 'OffreController@edit')->name('offres.edit');
 Route::delete('/offres/{id}/', 'OffreController@destroy')->name('offres.destroy');
 Route::post('/offres/{id}', 'OffreController@update')->name('offres.update');
 Route::get('/offres/{id}/postuler', 'OffreController@addPostulant')->name('offres.addPostulant');
-
+Route::get('/offres/{id}/postulants', 'OffreController@afficherPostulants')->name('offres.afficherPostulants');

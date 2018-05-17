@@ -133,7 +133,7 @@ class OffreController extends Controller
 	public function afficherPostulants($id)
 	
 	{
-		$postulants=DB::table('ouvriers')
+		$postulants=User::table('ouvriers')
 
             ->join('offre_emploi_ouvrier', 'ouvriers.id', '=', 'offre_emploi_ouvrier.ouvrier_id')
 

@@ -355,6 +355,7 @@
                       
                   </div>
                 </div>
+				
                   <div class="col-md-6 form-group{{ $errors->has('diplome') ? ' has-error' : '' }}">
 
                       

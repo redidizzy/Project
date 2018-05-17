@@ -18,7 +18,7 @@
 								@if(Auth::user()->userable_type === "Entrepreneur")
 								<div class="col-md-4">
 									<a href="{{route('offres.edit', $offre->id)}}" class="btn btn-success">Editer</a>
-									<a href="#" class="btn btn-success">Voir liste postulants</a>
+									<a href="{{route('offres.afficherPostulants',$offre->id) }} " class="btn btn-success">Voir liste postulants</a>
 									<form method="post" action = "{{route('offres.destroy', $offre->id)}}">
 										{{csrf_field()}}
 										<input type="hidden" value="DELETE" name="_method" />
