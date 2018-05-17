@@ -17,6 +17,7 @@ class DemandeController extends Controller
 	{
 		$this->middleware('auth');
 		$this->middleware('typeUser:Ouvrier');
+        $this->middleware('isBanned');
 	}
     /**
      * Display a listing of the resource.

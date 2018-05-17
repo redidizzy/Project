@@ -21,6 +21,7 @@ class ProjetsController extends Controller
     {
         $this->middleware('auth');
 		$this->middleware('typeUser:Client');
+        $this->middleware('isBanned');
         //TODO : ajout de middleware de verification : l'utilisateur est un client
     }
     public function index($id)

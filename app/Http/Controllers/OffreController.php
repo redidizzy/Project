@@ -18,6 +18,7 @@ class OffreController extends Controller
 		return $this->middleware('auth');
 		return $this->middleware('typeUser:Ouvrier',['except'=>'index']);
 		return $this->middleware('notEntrepreneur');
+        $this->middleware('isBanned');
 	}
     /**
      * Display a listing of the resource.

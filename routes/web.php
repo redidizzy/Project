@@ -35,6 +35,9 @@ Route::post('changerPrix', 'UtilisateurController@changerPrix')->name('changerPr
 //cette route permettra a l'utilisateur de voir son/un profil
 Route::get('/profil/{id}', 'UtilisateurController@show')->name('utilisateur.profil');
 
+//cette route servira aux signalements d'utilisateur
+Route::put('/signaler/{id}', 'UtilisateurController@signaler')->name('utilisateur.signaler');
+
 //ces routes concerneront la recherche
 Route::post('/rechercheRapide', 'RechercheController@rapide')->name('recherche.rapide');
 
@@ -70,14 +73,21 @@ Route::get('ajax/getCommunes/{id}', function($id){
 });
 
 //ces routes concerneront les offres
-// Route::resource('/{id}/offres', 'OffreController',['except' => ['create', 'update', 'destroy', 'edit']]);
-// Route::get('offres/create', 'OffreController@create')->name('offres.create');
-// Route::get('/offres/{id}/edit', 'OffreController@edit')->name('offres.edit');
-// Route::delete('/offres/{id}/', 'OffreController@destroy')->name('offres.destroy');
-// Route::post('/offres/{id}', 'OffreController@update')->name('offres.update');
-// Route::get('/offres/{id}/postuler', 'OffreController@postuler')->name('offres.postuler');
+Route::resource('/{id}/offres', 'OffreController',['except' => ['create', 'update', 'destroy', 'edit']]);
+Route::get('offres/create', 'OffreController@create')->name('offres.create');
+Route::get('/offres/{id}/edit', 'OffreController@edit')->name('offres.edit');
+Route::delete('/offres/{id}/', 'OffreController@destroy')->name('offres.destroy');
+Route::post('/offres/{id}', 'OffreController@update')->name('offres.update');
+Route::get('/offres/{id}/postuler', 'OffreController@postuler')->name('offres.postuler');
 
 //ces routes concerneront l'administration
 Route::get('/admin', 'AdminController@index')->name('admin.index');
-Route::get('/admin/{id}', 'AdminController@showAll')->name('admin.showAll');
+Route::post('/creerTypeProjet', 'AdminController@creerTypeProjet')->name('creerTypeProjet');
+Route::post('/creerTypeOuvrier', 'AdminController@creerTypeOuvrier')->name('creerTypeOuvrier');
+Route::get('/makeAdmin', 'AdminController@makeAdmin')->name('makeAdmin');
+Route::get('/ban/{id}', 'AdminController@ban')->name('ban');
+Route::get('/unban/{id}', 'AdminController@unban')->name('unban');
+Route::get('banned', function(){
+	return view('isBanned');
+})->name('banned');
 

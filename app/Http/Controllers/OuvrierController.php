@@ -10,6 +10,7 @@ class OuvrierController extends Controller
 	{
 		$this->middleware('typeUser:Entrepreneur');
 		$this->middleware('typeUser:Client');
+		$this->middleware('isBanned');
 	}
 	/*public function postuler($offre_id)
 	{

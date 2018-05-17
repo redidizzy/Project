@@ -18,6 +18,7 @@ class RechercheController extends Controller
 	public function __construct()
 	{
 		$this->middleware('auth');
+        $this->middleware('isBanned');
 	}
 	//le code commence vraiment a devenir illisible, envisager de commencer a faire des repository et a simplifier le code
 	public function rapide(Request $researchRequest)

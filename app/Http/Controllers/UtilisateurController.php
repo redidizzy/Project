@@ -8,6 +8,7 @@ use App\AttestationEntrepreneur;
 use App\AttestationOuvrier;
 use App\Diplome;
 use App\TypeOuvrier;
+use App\Signalement;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -16,6 +17,7 @@ class UtilisateurController extends Controller
 	public function __construct()
 	{
 		$this->middleware('auth');
+        $this->middleware('isBanned');
 	}
 	public function show($user_id)
 	{
@@ -176,6 +178,17 @@ class UtilisateurController extends Controller
         $ouvrier = $user->userable;
         $ouvrier->prixApprox = $request->prix;
         $ouvrier->save();
+
+        return redirect()->route('utilisateur.profil', $user->id);
+    }
+    public function signaler(Request $request, $user_id)
+    {
+        $user = User::find($user_id);
+
+        Signalement::create([
+            'user_id' => $user->id,
+            'motif' => $request->motif
+        ]);
 
         return redirect()->route('utilisateur.profil', $user->id);
     }

@@ -38,6 +38,7 @@
   <link href="{{asset('templateFiles/css/style.css')}}" rel="stylesheet">
 
   <link href="{{asset('rateit/rateit.css')}}" rel="stylesheet">
+  <link href="{{asset('dataTables/datatables.css')}}" rel="stylesheet">
 
 
   <!-- =======================================================
@@ -142,8 +143,9 @@
               <li><i class="ion-ios-arrow-right"></i> <a href="#">Acceuil</a></li>
               <li><i class="ion-ios-arrow-right"></i> <a href="#about">A propos de nous</a></li>
               <li><i class="ion-ios-arrow-right"></i> <a href="#services">Comment ca marche</a></li>
-			  <li> <i class="ion-ios-arrow-right"></i> <a href="{{route('admin.index')}}">Acceder a l'espace admin </a></li>
-              
+              @if(Auth::user()->is_admin)
+			        <li> <i class="ion-ios-arrow-right"></i> <a href="{{route('admin.index')}}">Acceder a l'espace admin </a></li>
+              @endif
             </ul>
           </div>
 

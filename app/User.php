@@ -30,4 +30,8 @@ class User extends Authenticatable
     {
         return $this->morphTo();
     }
+    public function signalements()
+    {
+        return $this->hasMany('App\Signalement');
+    }
 }

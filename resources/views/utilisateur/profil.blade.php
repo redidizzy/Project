@@ -9,7 +9,9 @@
             <div class="col-md-12 col-md-offset-2">
                 <div class="panel panel-success">
 
-                    <div class="panel-heading">Information General</div>
+                    <div class="panel-heading" id="heading-styling">
+                    <p>Information General</p> <div id="signaler"><a href="#" id="toggleSignaler">Signaler</a></div>
+                    </div>
 
                     <div class="panel-body">
                         <div class="row">
@@ -368,7 +370,37 @@
 
       </div>
     </div>
+    
     @endif 
+    @endif
+    @if($user->id != Auth::user()->id)
+    <div class="modal fade" id ="signalerUtilisateur" role="dialog">
+     <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            
+            <h4 class="modal-title">Signaler l'utilisateur</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+          <div class="modal-body">
+            <form action="{{route('utilisateur.signaler', $user->id)}}" method="POST" id="signalerForm" enctype="multipart/form-data">
+                {{csrf_field()}}
+                <input type="hidden" name="_method" value="PUT" />
+                <div class="form-group col-md-10">
+                   <textarea class="form-control" id="motif" name="motif" placeholder="Veuillez indiquer le motif de votre signalement"></textarea>
+                </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-success" id="signalerSubmit" >Confirmer</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
     @endif
 @endsection
  @section("script")   
@@ -443,6 +475,15 @@
             $("#changerPrix").fadeOut();
             $("#changerPrixForm").submit();
          });
+         $("#toggleSignaler").on("click", function(e){
+          e.preventDefault();
+          $("#signalerUtilisateur").modal();
+         });
+         $("#signalerSubmit").on("click", function(e){
+            e.preventDefault();
+            $("#signalerUtilisateur").fadeOut();
+            $("#signalerForm").submit();
+         })
     </script>
      <script src="{{asset('rateit\jquery.rateit.js')}}"></script>
 @endsection

@@ -8,6 +8,7 @@ class TypeOuvrier extends Model
 {
 	protected $primaryKey = "designation";
 	public $incrementing = false;
+	protected $guarded = [];
 	public function ouvriers()
 	{
 		return $this->hasMany('App\Ouvrier');

@@ -53,3 +53,21 @@
 {
 	margin-bottom: 20px;
 }
+.modal-dialog
+{
+	width : auto;
+	max-width:  95%;
+}
+th, td {
+    padding: 10px;
+}
+table
+{
+border-spacing: 10px;
+}
+#heading-styling
+{
+	display : flex;
+	justify-content: space-between;
+	padding-bottom: 0px;
+}
