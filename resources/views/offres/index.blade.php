@@ -6,7 +6,7 @@
         <div class="container">
 	        <div class="row">
 	            <div class="col-md-12">
-	            	<h1 class="page-header" style="color:rgb(0,255,128)">Offres d'emploi de {{$user->nom}}  {{$user->prenom}}</h1>
+	            	<h1 class="page-header" style="background-color:rgb(0,193,97);color:white">Offres d'emploi de {{$user->nom}}  {{$user->prenom}}</h1>
 	            	@forelse($offres as $offre)
 	                <div class="panel panel-success">
 	                	<div class="panel-heading">Poste : {{$offre->type->designation}}</div>
@@ -15,7 +15,7 @@
 							<p><small >cree le : {{$offre->created_at}} </small></p>
 	    
 	                		@if(Auth::user()->id == $user->id )
-								@if(Auth::user()->userable_type === "Entrepreneur")
+								
 								<div class="col-md-4">
 									<a href="{{route('offres.edit', $offre->id)}}" class="btn btn-success">Editer</a>
 									<a href="{{route('offres.afficherPostulants',$offre->id) }} " class="btn btn-success">Voir liste postulants</a>
@@ -27,14 +27,7 @@
 								</div>
 								
 
-								@elseif((Auth::user()->userable_type === "Ouvrier"))
-									
-									<div class="col-md-4">
 								
-										<a href="{{route('offres.addPostulant', $offre->id)}}" class="btn btn-success">Postuler</a>
-										
-									</div>
-								@endif
 		                	@endif
 							
 	                	</div>
@@ -47,7 +40,8 @@
 	                	</div>
 	                </div>
 	                @endforelse
-	                @if(Auth::user()->id == $user->id)
+	               
+					@if(Auth::user()->id == $user->id)
 	                <div class="col-md-3 pull-right">
 	                	<a class="btn btn-success btn-block" href="{{route('offres.create')}}">Ajouter offre d'emploi</a>
 	                </div>

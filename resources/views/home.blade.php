@@ -25,7 +25,7 @@
                 <h2>Mettez a jour votre profil !</h2>
                 <p>Ajoutez, modifiez vos informations personnelles et proffessionnelles ici !</p>
 
-                <a href="#" class="btn-get-started scrollto">Editer Profil</a> 
+                <a href="{{route('utilisateur.edit')}}" class="btn-get-started scrollto">Editer Profil</a> 
               </div>
             </div>
           </div>
@@ -36,7 +36,7 @@
               <div class="carousel-content">
                 <h2>Etes vous en manque de main d'oeuvre ?</h2>
                 <p>maçon ? charpentier ? ou quelconque ouvriers dans le domaine de la construction ? PFE vous permettra de <strong>trouver plus facilement des ouvriers </strong>.Vous pourrez meme poster des offres d'emploi.</p>
-                <a href="#inscription" class="btn-get-started scrollto">Rechercher</a>
+                <a href="{{route('demandes.demandePourEntreClient')}}" class="btn-get-started scrollto">Les demandes</a>
               </div>
             </div>
           </div>
@@ -74,7 +74,7 @@
                <h2>Mettez a jour votre profil !</h2>
                 <p>Ajoutez, modifiez vos informations personnelles et proffessionnelles ici !</p>
 
-                <a href="#" class="btn-get-started scrollto">Editer Profil</a> 
+                <a href="{{route('utilisateur.edit')}}" class="btn-get-started scrollto">Editer Profil</a> 
               </div>
             </div>
           </div>
@@ -83,8 +83,8 @@
             <div class="carousel-container">
               <div class="carousel-content">
                  <h2>Recherchez-vous du travail?!</h2>
-                <p>plombier ? menuisier ? ou quelconque ouvrier dans le domaine de la construction ? <strong>PFE</strong> vous permettra de trouver plus facilement ce qui vous convient .Vous pourrez poster des demandes d'emploi ou meme rechercher des projets ne necessitant pas d'entrepreneur.</p>
-                <a href="#" class="btn-get-started scrollto">Trouver</a>
+                <p>plombier ? menuisier ? ou quelconque ouvrier dans le domaine de la construction ? <strong>PFE</strong> vous permettra de trouver plus facilement ce qui vous convient .Vous pourrez poster des demandes d'emploi ou meme rechercher des projets ne necessitant pas d'entrepreneur.</br>Mais vous pouvez aussi chercher une offre</br> qui vous convient !</p>
+                <a href="{{route('offres.offrePourOuvrier',Auth::user()->id)}} " class="btn-get-started scrollto">Offres</a>
               </div>
             </div>
           </div>
@@ -109,7 +109,7 @@
                <h2>Mettez a jour votre profil !</h2>
                 <p>Ajoutez, modifiez vos informations personnelles et proffessionnelles ici !</p>
 
-                <a href="#" class="btn-get-started scrollto">Editer Profil</a> 
+                <a href="{{route('utilisateur.edit')}}" class="btn-get-started scrollto">Editer Profil</a> 
               </div>
             </div>
           </div>
@@ -119,7 +119,6 @@
               <div class="carousel-content">
                 <h2>Vous apprehendez de construire ?</h2>
                 <p>Pas de panique ! PFE est une plateforme qui est la specialement pour vous. Engagez le meilleur des entrepreneurs!</p>
-                <a href="#inscription" class="btn-get-started scrollto">Trouver entrepreneur</a>
               </div>
             </div>
           </div>
@@ -129,7 +128,7 @@
               <div class="carousel-content">
                  <h2>Vous recherchez une equipe de travail ?</h2>
                 <p>Avec PFE vous pouvez creer votre propre equipe de construction en recherchant les ouvriers les plus competents dans tout domaine !</p>
-                <a href="#inscription" class="btn-get-started scrollto">Trouver ouvriers</a>
+                <a href="{{route('demandes.demandePourEntreClient')}}" class="btn-get-started scrollto">Trouver ouvriers</a>
               </div>
             </div>
           </div>

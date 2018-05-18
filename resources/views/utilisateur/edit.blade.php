@@ -42,7 +42,7 @@
                                 </div>
 
                                 <div class="form-group{{ $errors->has('dateNaiss') ? ' has-error' : '' }}">
-                                    <label for="dateNaiss" class="col-md-4 control-label">Prenom</label>
+                                    <label for="dateNaiss" class="col-md-4 control-label">Date de naissance</label>
 
                                     <div class="col-md-6">
                                         <input id="dateNaiss" type="date" class="form-control" name="dateNaiss" value="{{ $user->dateNaiss }}" required autofocus>

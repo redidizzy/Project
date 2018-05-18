@@ -53,7 +53,7 @@ class ProjetsController extends Controller
         $utilisateur = Auth::user()->userable->id;
        
         Projet::create([
-            'type_id' => TypeProjet::where('designation', '=', $request->type)->first()->id,
+            'type_id' => TypeProjet::where('designation', '=', $request->type)->first()->designation,
             'client_id' => $utilisateur,
             'description' => $request->description,
             'wilaya' => $request->wilaya,

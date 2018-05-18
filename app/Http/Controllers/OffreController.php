@@ -16,8 +16,8 @@ class OffreController extends Controller
 	public function __construct()
 	{
 		 $this->middleware('auth');
-		 //$this->middleware('typeUser:Ouvrier',['except'=>'index']);
-		 $this->middleware('typeUser:Entrepreneur');
+		 $this->middleware('typeUser:Ouvrier',['only'=>['offrePourOuvrier','addPostulant']]);
+		 $this->middleware('typeUser:Entrepreneur',['except'=>['offrePourOuvrier','addPostulant']]);
 	}
     /**
      * Display a listing of the resource.
@@ -71,10 +71,10 @@ class OffreController extends Controller
      */
     public function show($id)
     {
-		$offres = OffreEmploi::find($id);
+		/*$offres = OffreEmploi::find($id);
         $postulants = $offres->ouvriers->withPivot();
 		
-		return view('offre.index');
+		return view('offre.index');*/
     }
 
     /**
@@ -123,24 +123,35 @@ class OffreController extends Controller
 		return redirect()->route('offres.index', Auth::user()->id);
 		
     }
-	public function addPostulant($id)
+	public function addPostulant($id_offre,$id_postulant)
 	{
-		$utilisateur=Auth::user()->userable->id;
-		$offre = OffreEmploi::find($id);
-		$utilisateur->offre->attach($id);
-		return redirect()->route('offres.index',Auth::user()->id);
+		
+		
+		$offre = OffreEmploi::find($id_offre);
+		$offre->ouvriers()->attach($id_postulant);
+		return redirect()->route('offres.offrePourOuvrier',Auth::user()->id);
 	}
+
 	public function afficherPostulants($id)
 	
 	{
-		$postulants=User::table('ouvriers')
-
-            ->join('offre_emploi_ouvrier', 'ouvriers.id', '=', 'offre_emploi_ouvrier.ouvrier_id')
-
-            ->join('offre_emploi', 'offreEmploi.id', '=', 'offre_emploi_ouvrier.offreEmploi_id')
-
-            ->get();
-		return view('postulants.index',compact('postulants'));
+		
+		$offre = OffreEmploi::find($id);
+		$postulants = $offre->ouvriers;
+		return view('postulants.index',compact('offre','postulants'));
 	}
+	
+	public function offrePourOuvrier($id)
+    {
+        $user= User::find($id);
+		
+		
+		$typeUser = $user->userable->fonction;
+		
+		$offres= OffreEmploi::where('type_id', '=',$typeUser)->get();
+		
+		return view('offres.offrePourOuvrier',compact('offres'));
+		
+    }
 	
 }

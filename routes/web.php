@@ -49,7 +49,7 @@ Route::get('demandes/create', 'DemandeController@create')->name('demandes.create
 Route::get('/demandes/{id}/edit', 'DemandeController@edit')->name('demandes.edit');
 Route::delete('/demandes/{id}/', 'DemandeController@destroy')->name('demandes.destroy');
 Route::post('/demandes/{id}', 'DemandeController@update')->name('demandes.update');
-
+Route::get('/demandes/touteslesdemandes','DemandeController@demandePourEntreClient')->name('demandes.demandePourEntreClient');
 
 //ces routes concerneront les offres
 Route::resource('/{id}/offres', 'OffreController',['except' => ['create', 'update', 'destroy', 'edit']]);
@@ -57,5 +57,7 @@ Route::get('offres/create', 'OffreController@create')->name('offres.create');
 Route::get('/offres/{id}/edit', 'OffreController@edit')->name('offres.edit');
 Route::delete('/offres/{id}/', 'OffreController@destroy')->name('offres.destroy');
 Route::post('/offres/{id}', 'OffreController@update')->name('offres.update');
-Route::get('/offres/{id}/postuler', 'OffreController@addPostulant')->name('offres.addPostulant');
+
+Route::get('/offres/{offre}/postulants/{postulant}', 'OffreController@addPostulant')->name('offres.addPostulant');
 Route::get('/offres/{id}/postulants', 'OffreController@afficherPostulants')->name('offres.afficherPostulants');
+Route::get('/offres/{id}/offrepourouvrier', 'OffreController@offrePourOuvrier')->name('offres.offrePourOuvrier');
