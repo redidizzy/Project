@@ -112,4 +112,11 @@ class DemandeController extends Controller
        DemandeEmploi::find($id)->delete();
         return redirect()->route('demandes.index', Auth::user()->id); 
     }
+	
+	public function demandePourEntreClient()
+	{
+		$demandes= DemandeEmploi::all();
+		
+		return view('demandes.demandePourEntreClient',compact('demandes'));
+	}
 }

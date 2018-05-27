@@ -81,15 +81,12 @@ class Ouvrier extends Model
 	{
 		return $this->hasOne('App\TypeOuvrier');
 	}
-	
-	
-
-    
 	//pour recuperer les offres d'emploi en relation avec un ouvrier 
-	// public function offres()
-	// {
-	// 	return $this->belongsToMany('App\OffreEpmloi')->using('App\OffreOuvrier');
- }
+	public function offres()
+	{
+		return $this->belongsToMany('App\OffreEpmloi');
+	}
+
 	
 	
 	

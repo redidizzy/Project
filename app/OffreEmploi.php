@@ -14,7 +14,7 @@ class OffreEmploi extends Model
 	//pour recuperer les ouvriers postulants a une offre d'emploi
 	public function ouvriers()
 	{
-		return $this->belongsToMany('App\Ouvrier')->using('App\OffreOuvrier');
+		return $this->belongsToMany('App\Ouvrier');
 	}
 	
 	public function type()

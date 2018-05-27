@@ -28,8 +28,8 @@ Route::post('/changeEntrepreneurInfo', 'UtilisateurController@changeEntrepreneur
 Route::post('/changeDispoEntrepreneur', 'UtilisateurController@changeEntrepreneurDispo')->name('changerDispoEntrepreneur');
 Route::post('/changePassword', 'UtilisateurController@changePassword')->name('changePassword');	
 Route::post('/AjouterAttestation', 'UtilisateurController@addAttestation')->name('AjouterAttestation');
-Route::post('/ajouterDiplome', 'UtilisateurController@addDiplome')->name('ajouteDiplome');
 Route::post('changerProfession', 'UtilisateurController@changerProfession')->name('changerProfession');
+Route::post('/ajouterDiplome', 'UtilisateurController@addDiplome')->name('ajouteDiplome');
 Route::post('changerPrix', 'UtilisateurController@changerPrix')->name('changerPrix');
 
 //cette route permettra a l'utilisateur de voir son/un profil
@@ -64,7 +64,7 @@ Route::get('demandes/create', 'DemandeController@create')->name('demandes.create
 Route::get('/demandes/{id}/edit', 'DemandeController@edit')->name('demandes.edit');
 Route::delete('/demandes/{id}/', 'DemandeController@destroy')->name('demandes.destroy');
 Route::post('/demandes/{id}', 'DemandeController@update')->name('demandes.update');
-
+Route::get('/demandes/touteslesdemandes','DemandeController@demandePourEntreClient')->name('demandes.demandePourEntreClient');
 
 
 //Ces routes concernent tout ce qui est ajax
@@ -78,7 +78,10 @@ Route::get('offres/create', 'OffreController@create')->name('offres.create');
 Route::get('/offres/{id}/edit', 'OffreController@edit')->name('offres.edit');
 Route::delete('/offres/{id}/', 'OffreController@destroy')->name('offres.destroy');
 Route::post('/offres/{id}', 'OffreController@update')->name('offres.update');
-Route::get('/offres/{id}/postuler', 'OffreController@postuler')->name('offres.postuler');
+Route::get('/offres/{offre}/postulants/{postulant}', 'OffreController@addPostulant')->name('offres.addPostulant');
+Route::get('/offres/{id}/postulants', 'OffreController@afficherPostulants')->name('offres.afficherPostulants');
+Route::get('/offres/{id}/offrepourouvrier', 'OffreController@offrePourOuvrier')->name('offres.offrePourOuvrier');
+
 
 //ces routes concerneront l'administration
 Route::get('/admin', 'AdminController@index')->name('admin.index');
@@ -90,4 +93,6 @@ Route::get('/unban/{id}', 'AdminController@unban')->name('unban');
 Route::get('banned', function(){
 	return view('isBanned');
 })->name('banned');
+
+
 

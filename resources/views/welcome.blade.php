@@ -251,6 +251,25 @@
                 <input type="email" class="form-control" name="email" id="email" placeholder="Votre Email" data-rule="email" data-msg="Please enter a valid email" />
               </div>
             </div>
+			
+			<div class="form-row">
+              <div class="col-md-6 form-group{{ $errors->has('password') ? ' has-error' : '' }}">
+
+                 
+                      <input id="password" type="password" placeholder="Mot de Passe" class="form-control" name="password" required>
+
+                      @if ($errors->has('password'))
+                          <span class="help-block">
+                              <strong>{{ $errors->first('password') }}</strong>
+                          </span>
+                      @endif
+                 
+              </div>
+               <div class="col-md-6 form-group">
+                    <input id="password-confirm" type="password" placeholder="Confirmer Votre Mot de Passe" class="form-control" name="password_confirmation" required>
+                </div>
+            </div>
+			
             <div class="form-row">
               <div class="col-md-6 form-group{{ $errors->has('dateNaiss') ? ' has-error' : '' }}">
 
@@ -279,23 +298,7 @@
               </div>
             </div>
 
-            <div class="form-row">
-              <div class="col-md-6 form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-
-                 
-                      <input id="password" type="password" placeholder="Mot de Passe" class="form-control" name="password" required>
-
-                      @if ($errors->has('password'))
-                          <span class="help-block">
-                              <strong>{{ $errors->first('password') }}</strong>
-                          </span>
-                      @endif
-                 
-              </div>
-               <div class="col-md-6 form-group">
-                    <input id="password-confirm" type="password" placeholder="Confirmer Votre Mot de Passe" class="form-control" name="password_confirmation" required>
-                </div>
-            </div>
+            
             <div class="form-row">
               <div class="col-md-4 form-group{{ $errors->has('wilaya') ? ' has-error' : '' }}">
                     <select id="wilaya" class="form-control" name="wilaya" required>
@@ -378,10 +381,9 @@
 
                       
                   </div>
-                </div>
-                  
+                </div>                  
               </div>
-               
+
                     
                       <div class="text-center">
                           <button type="submit" class="btn btn-primary">
