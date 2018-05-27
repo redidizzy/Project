@@ -45,7 +45,9 @@
                         <?php
                         }
                         ?>
-                        
+                        @if(Auth::user()->id != $user->id)
+                         <div class="text-center">Noter: <span class="rateit"> </span> </div>
+                         @endif
                     </div>
                 </div>
             </div>
@@ -404,6 +406,7 @@
     @endif
 @endsection
  @section("script")   
+
     <script>
         $("#toggleInfoEntrModal").on("click", function(e){
             e.preventDefault();
