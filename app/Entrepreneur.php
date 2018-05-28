@@ -18,10 +18,15 @@ class Entrepreneur extends Model
 	}
 
 	
-	// public function offres()
-	// {
-	// 	return $this->hasMany('App\OffreEmploi');
-	// }
+	public function offres()
+	{
+	 	return $this->hasMany('App\OffreEmploi');
+	}
+
+  public function ratings()
+  {
+    return $this->hasMany('App\RatingEntrepreneur');
+  }
     
 
 }

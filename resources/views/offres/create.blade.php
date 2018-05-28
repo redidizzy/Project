@@ -35,7 +35,7 @@
                                     <label for="contenu" class="col-md-4 control-label">Contenu :</label></br>
 
                                     <div class="col-md-6">
-                                        <textarea id="contenu" class="form-control" name="contenu">Votre offre...</textarea>
+                                        <textarea id="contenu" class="form-control" name="contenu" placeholder = "decrivez brievement votre offre.."></textarea>
 
                                         @if ($errors->has('contenu'))
                                             <span class="help-block">

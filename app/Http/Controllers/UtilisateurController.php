@@ -9,6 +9,7 @@ use App\AttestationOuvrier;
 use App\Diplome;
 use App\TypeOuvrier;
 use App\Signalement;
+use App\RatingOuvrier;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -23,7 +24,17 @@ class UtilisateurController extends Controller
 	{
 		$user = User::find($user_id);
         $types = TypeOuvrier::all();
-		return view('utilisateur.profil', compact('user', 'types'));
+        $note = 0;
+        $noteUtilisateur = 0;
+        if($user->userable_type == "Entrepreneur" or $user->userable_type == "Ouvrier")
+        {
+            if($user->userable->ratings->first())
+            {
+                $note = $user->userable->finalRating();
+                $noteUtilisateur = $user->userable->ratings->where("user_id", Auth::user()->id)->first()->rating;
+            }
+        }
+		return view('utilisateur.profil', compact('user', 'types', 'note', 'noteUtilisateur'));
 	}
 	
 	public function showAll($user_id)
@@ -192,4 +203,29 @@ class UtilisateurController extends Controller
 
         return redirect()->route('utilisateur.profil', $user->id);
     }
+    public function rate($id, Request $request)
+    {
+        $user = User::find($id);
+
+        if($user->userable_type == "Ouvrier")
+        {
+            $rating = RatingOuvrier::where('ouvrier_id', $user->userable->id)
+                        ->where('user_id', Auth::user()->id)
+                        ->first();
+            if($rating)
+            {
+                $rating->rating = $request->newValue;
+                $rating->save();
+            }
+            else
+            {
+                RatingOuvrier::create([
+                    'ouvrier_id' => $user->userable->id,
+                    'user_id' => Auth::user()->id,
+                    'rating' => $request->newValue
+                ]);
+            }
+        }
+        return $user->userable->finalRating();     
+    }   
 }

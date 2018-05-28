@@ -71,6 +71,7 @@ Route::get('/demandes/touteslesdemandes','DemandeController@demandePourEntreClie
 Route::get('ajax/getCommunes/{id}', function($id){
 	return config('variables.communes.'.$id);
 });
+Route::post('/ajax/rate/{id}', 'UtilisateurController@rate');
 
 //ces routes concerneront les offres
 Route::resource('/{id}/offres', 'OffreController',['except' => ['create', 'update', 'destroy', 'edit']]);

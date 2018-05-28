@@ -84,10 +84,22 @@ class Ouvrier extends Model
 	//pour recuperer les offres d'emploi en relation avec un ouvrier 
 	public function offres()
 	{
-		return $this->belongsToMany('App\OffreEpmloi');
+		return $this->belongsToMany('App\OffreEmploi');
 	}
-
-	
+  public function ratings()
+  {
+    return $this->hasMany('App\RatingOuvrier');
+  }
+  public function finalRating()
+  {
+    $x = 0;
+    foreach($this->ratings as $r)
+    {
+      $x += $r->rating;
+    }
+    return ($this->ratings->count() == 0 ) ? 0 : $x / $this->ratings->count();
+  }
+}
 	
 	
 

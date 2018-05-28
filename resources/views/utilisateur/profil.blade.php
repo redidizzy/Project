@@ -3,13 +3,13 @@
 
 @section('content')
 
-    <div class="retouches">
+    <div class="retouches" id="csrf" data-csrf="{{csrf_field()}}">
         <div class="container">
         <div class="row">
             <div class="col-md-12 col-md-offset-2">
                 <div class="panel panel-success">
 
-                    <div class="panel-heading" id="heading-styling">
+                    <div class="panel-heading" id="heading-styling" data-id="{{$user->id}}">
                     <p>Information General</p> <div id="signaler"><a href="#" id="toggleSignaler">Signaler</a></div>
                     </div>
 
@@ -45,8 +45,8 @@
                         <?php
                         }
                         ?>
-                        @if(Auth::user()->id != $user->id)
-                         <div class="text-center">Noter: <span class="rateit"> </span> </div>
+                        @if(Auth::user()->id != $user->id && ($user->userable_type == "Entrepreneur" || $user->userable_type == "Ouvrier"))
+                         <div class="text-center">Noter: <span class="rateit" id="rateitAjax" data-rateit-value= "{{$noteUtilisateur}}" > </span> </div>
                          @endif
                     </div>
                 </div>
@@ -60,7 +60,7 @@
 
                                 <div class="panel-body">
                                     <ul>    
-                                        <li>Reputation : <span class="rateit" id="essai" data-rateit-value="{{$user->userable->reputation}}" data-rateit-readonly="true" data-rateit-ispreset="true" ></span></li>
+                                        <li>Reputation : <span class="rateit" id="note" data-rateit-value="{{$note}}" data-rateit-readonly="true" data-rateit-ispreset="true" ></span></li>
                                         <li>Experience : <a href="#" id="toggleVoirAttestations">{{$user->userable->attestations->count()}} attestations {{$user->userable_type =="Entrepreneur" ? 'de bonne execution' : ($user->userable_type=="Ouvrier" ? 'd\'affiliation a la CNAS' : '')}}</a></li>
                                     
                                         @if($user->userable_type === "Entrepreneur")
@@ -486,7 +486,23 @@
             e.preventDefault();
             $("#signalerUtilisateur").fadeOut();
             $("#signalerForm").submit();
-         })
+         });
+         $.ajaxSetup({
+           headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }
+        });
+         $("#rateitAjax").bind('rated reset', function(event, value){
+            if(!value)
+              value = 0;
+            var data = {
+              "newValue" : value
+            };
+            var user_id = $("#heading-styling").attr("data-id");
+            $.post(APP_URL+"/ajax/rate/"+user_id, data, function(d){
+              $("#note").rateit("value", d);
+            });
+         });
     </script>
      <script src="{{asset('rateit\jquery.rateit.js')}}"></script>
 @endsection
