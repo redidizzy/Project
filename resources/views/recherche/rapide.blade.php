@@ -31,6 +31,7 @@
 	                	</div>
 	                </div>
 	                @endforelse
+	                <div class="links-pagination">{{ $links }} </div>
 	            </div>
 	        </div>
 	    </div>

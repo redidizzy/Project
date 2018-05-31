@@ -9,8 +9,7 @@
                     <div class="panel-heading">Rechercher un entrepreneur</div>
 
                     <div class="panel-body">
-                        <form class="form-horizontal" method="POST"  action="{{route('doRecherche.entrepreneur')}}">
-                            {{ csrf_field() }}
+                        <form class="form-horizontal" method="GET"  action="{{route('doRecherche.entrepreneur')}}">
                             <div class="form-row">
 
                                 <div class="form-group col-md-4">
@@ -84,12 +83,17 @@
           <div class="col-lg-4 col-md-6 box wow bounceInUp" data-wow-duration="1.4s">
             <div class="icon"><i class="ion-ios-analytics-outline"></i></div>
             <h4 class="title"><a href="">Disponibilite</a></h4>
-            <p class="description">Est-ce que l'entrepreneur est disponible ? </p> <!-- a mettre a jour !-->
+            <p class="description">L'entrepreneur est disponible :
+              <ul>
+                <li> Du : {{ $entrepreneur->dateDebutDispo }} </li>
+                <li> Au : {{ $entrepreneur->dateFinDispo }} </li>
+              </ul> 
+            </p> 
           </div>
           <div class="col-lg-4 col-md-6 box wow bounceInUp" data-wow-duration="1.4s">
             <div class="icon"><i class="ion-ios-bookmarks-outline"></i></div>
             <h4 class="title"><a href="">Nombre d'etoiles</a></h4>
-            <p class="description">Les gens ont note cette entrepreneur avec <span class="rateit" id="essai" data-rateit-value="{{$entrepreneur->reputation}}" data-rateit-readonly="true" data-rateit-ispreset="true" ></span></p>
+            <p class="description">Les gens ont note cette entrepreneur avec <span class="rateit" id="essai" data-rateit-value="{{$entrepreneur->finalRating()}}" data-rateit-readonly="true" data-rateit-ispreset="true" ></span></p>
 
           </div>
           <div class="col-lg-4 col-md-6 box wow bounceInUp" data-wow-duration="1.4s">
@@ -100,12 +104,17 @@
           <div class="col-lg-4 col-md-6 box wow bounceInUp" data-wow-delay="0.1s" data-wow-duration="1.4s">
             <div class="icon"><i class="ion-ios-speedometer-outline"></i></div>
             <h4 class="title"><a href="">Experience</a></h4>
-            <p class="description">Cet entrepreneur a {{$entrepreneur->exeprience}} attestations d'affiliation a la CNAS</p>
+            <p class="description">Cet entrepreneur a {{$entrepreneur->attestations->count()}} attestations d'affiliation a la CNAS</p>
           </div>
           <div class="col-lg-4 col-md-6 box wow bounceInUp" data-wow-delay="0.1s" data-wow-duration="1.4s">
             <div class="icon"><i class="ion-ios-barcode-outline"></i></div>
             <h4 class="title"><a href="">Contactez le</a></h4>
-            <p class="description">Appelez le  au {{$entrepreneur->user->numTel}} ou envoyez lui une adresse e-mail au {{$entrepreneur->user->email}}</p>
+            <p class="description">
+              <ul>
+                <li>Appelez le  au {{$entrepreneur->user->numTel}} </li>
+                <li>envoyez lui une adresse e-mail au {{$entrepreneur->user->email}}</li>
+              </ul>
+              </p>
           </div>
           <div class="col-lg-4 col-md-6 box wow bounceInUp" data-wow-delay="0.1s" data-wow-duration="1.4s">
             <div class="icon"><i class="ion-ios-people-outline"></i></div>
@@ -120,6 +129,8 @@
             
 
         @endforeach
+
+        <div class="links-pagination">{{ $links }} </div>
 
     </div>
 </div>

@@ -35,38 +35,49 @@ class RechercheController extends Controller
 				//pour ce faire, l'utilisateur devra logiquement rechercher le projet par type
 				$type = TypeProjet::where('designation', '=', $recherche)->first();
 				$resultats = collect();
+                $links = null;
 				//la puissance d'eloquent visible dans  cette instruction :
 				if($type != null)
-					$resultats = $type->projets;
+                {
+					$resultats = $type->projets()->paginate(5);
+
+                    $links = $resultats->appends(compact('recherche'))->render();
+                }
 
 				// on retourne la vue recherche/rapide.blade.php
-				return view('recherche.rapide', compact('resultats'));
+				return view('recherche.rapide', compact('resultats', 'links'));
 				break;
 
 			case 'Ouvrier':
 				//dans le cas d'un ouvrier, la recherche rapide concernera aussi les projets
 				$type = TypeProjet::where('designation', '=', $recherche)->first();
-				$resultats = $type->projets;
-				return view('recherche.rapide', compact('resultats'));
+                $resultats = collect();
+                $links = null;
+
+                if($type!=null){
+				    $resultats = $type->projets()->paginate(5);
+                    $links = $resultats->appends(compact('recherce'))->render();
+                }
+
+
+				return view('recherche.rapide', compact('resultats','links'));
 				break;
 			case 'Client':
 				//dans le cas d'un client, la recherche rapide concernera les entrepreneurs
 				$entrepreneurs = collect();
-				foreach(Entrepreneur::dispo() as $d)
-				{
-					if($d->user->nom == $recherche or $d->user->prenom == $recherche)
-					$entrepreneurs->push($d->user);
-				}
+				$entrepreneurs = User::where('nom', $recherche)->orWhere('prenom', $recherche)->paginate(5);
+                $links = $entrepreneurs->appends(compact('recherche'))->render();
 				
-				return view('recherche.rapide.entrepreneur', compact('entrepreneurs'));
+				return view('recherche.rapide.entrepreneur', compact('entrepreneurs', 'links'));
 		}
 		
 	}
     public function rechercheDeProjet()
     {
-    	$projets = Projet::all();
+    	$projets = Projet::paginate(5);
+        $links = $projets->render();
     	$types = TypeProjet::all();
-    	return view('recherche.projet', compact('projets', 'types'));
+    	return view('recherche.projet', compact('projets', 'types', 'links'));
     }
     public function rechercheDeProjetFiltre(Request $recherche)
     {
@@ -112,14 +123,30 @@ class RechercheController extends Controller
             $resultat= $resultat->necessiteEntrepreneur(1);
         else
             $resultat = $resultat->necessiteEntrepreneur(0);
-    	return view('recherche.projet', ['projets' => $resultat->get(), 'types' => TypeProjet::all()]);
+
+        $resultat = $resultat->paginate(5);
+        $appends = [
+            'nom' => $recherche->nom, 
+            'prenom' => $recherche->prenom,
+            'superficieMin' => $recherche->superficieMin,
+            'superficieMax' => $recherche->superficieMax,
+            'budgetMin' => $recherche->budgetMin,
+            'budgetMax' => $recherche->budgetMax,
+            'wilaya' => $recherche->wilaya,
+            'region' => $recherche->region
+        ];
+        if(isset($recherche->type))
+            $appends['type'] = $recherche->type; 
+        $links = $resultat->appends($appends)->render();
+    	return view('recherche.projet', ['projets' => $resultat, 'types' => TypeProjet::all(), 'links' => $links]);
     }
     public function rechercheOuvrier()
     {
-        $ouvriers = Ouvrier::all();
+        $ouvriers = Ouvrier::paginate(5);
+        $links = $ouvriers->render();
         $types = TypeOuvrier::all();
 
-        return view('recherche.ouvrier', compact('ouvriers', 'types'));
+        return view('recherche.ouvrier', compact('ouvriers', 'types', 'links'));
     }
     public function rechercheOuvrierFiltre(Request $recherche)
     {
@@ -170,18 +197,38 @@ class RechercheController extends Controller
         }
         if(isset($recherche->diplome))
         {
-            $resultat = $resultat->diplome(1);
+            $resultat = $resultat->diplome();
         }
 
-        return view('recherche.ouvrier', ['ouvriers' => $resultat->get(), 'types' => TypeOuvrier::all()]);
+        $resultat = $resultat->paginate(5);
+
+        $appends = [
+            'nom' => $recherche->nom, 
+            'prenom' => $recherche->prenom,
+            'wilaya' => $recherche->wilaya,
+            'region' => $recherche->region,
+            'reputationMin' => $recherche->reputationMin,
+            'reputationMax' => $recherche->reputationMax,
+            'prixApproxMin' => $recherche->prixApproxMin,
+            'prixApproxMax' => $recherche->prixApproxMax,
+            'experienceMin' => $recherche->experienceMin,
+            'experienceMax' => $recherche->experienceMax,
+            'type' => $recherche->type,
+            'diplome' => $recherche->diplome          
+        ];
+
+        $links = $resultat->appends($appends)->render();
+
+        return view('recherche.ouvrier', ['ouvriers' => $resultat, 'types' => TypeOuvrier::all(), 'links' => $links]);
 
     }
     public function rechercheEntrepreneur()
     {
-        $entrepreneurs = Entrepreneur::all();
-        return view('recherche.entrepreneur', compact('entrepreneurs'));
+        $entrepreneurs = Entrepreneur::paginate(5);
+        $links = $entrepreneurs->render();
+        return view('recherche.entrepreneur', compact('entrepreneurs', 'links'));
     }
-    public function rechercheEntrepreneurFiltre()
+    public function rechercheEntrepreneurFiltre(Request $recherche)
     {
         $resultat = new Entrepreneur;
         if($recherche->nom != null)
@@ -202,11 +249,11 @@ class RechercheController extends Controller
         }
         if($recherche->dispoMin != null)
         {
-            $resultat = $resultat->dispo('>=', $recherche->dispoMin);
+            $resultat = $resultat->dateDispoMin($recherche->dispoMin);
         }
-        if($recherche->DispoMax != null)
+        if($recherche->dispoMax != null)
         {
-            $resultat = $resultat->prixApprox('<=', $recherche->dispoMax);
+            $resultat = $resultat->dateDispoMax($recherche->dispoMax);
         }
          if($recherche->experienceMin != null)
         {
@@ -223,16 +270,27 @@ class RechercheController extends Controller
         if($recherche->wilaya != null)
         {
             $resultat = $resultat->wilaya($recherche->wilaya);
-        }
-        if(isset($recherche->type) and $recherche->type != null)
-        {
-            $resultat = $resultat->fonction($recherche->type);
-        }
-        if(isset($recherche->diplome))
-        {
-            $resultat = $resultat->diplome(1);
-        }
+        }   
 
-        return view('recherche.ouvrier', ['ouvriers' => $resultat->get(), 'types' => TypeOuvrier::all()]);
+        //dd($resultat->toSql());
+        $resultat = $resultat->paginate(5);
+
+
+
+        $appends = [
+            'nom' => $recherche->nom, 
+            'prenom' => $recherche->prenom,
+            'wilaya' => $recherche->wilaya,
+            'region' => $recherche->region,
+            'reputationMin' => $recherche->reputationMin,
+            'reputationMax' => $recherche->reputationMax,
+            'experienceMin' => $recherche->experienceMin,
+            'experienceMax' => $recherche->experienceMax,
+            'dateDispoMin' => $recherche->dateDispoMin,
+            'dateDispoMax' => $recherche->dateDispoMax       
+        ];
+
+        $links = $resultat->appends($appends)->render();
+        return view('recherche.entrepreneur', ['entrepreneurs' => $resultat, 'types' => TypeOuvrier::all(), 'links' => $links]);
     }
 }

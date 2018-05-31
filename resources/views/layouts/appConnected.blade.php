@@ -65,8 +65,7 @@
           <!-- <a href="#intro"><img src="img/logo.png" alt="" title="" /></a>-->
         </div>
         <div id="recherche" class="col-md-4">
-        <form method="POST" class="form-inline" action="{{route('recherche.rapide')}}">
-                {{csrf_field()}}
+        <form method="GET" class="form-inline" action="{{route('recherche.rapide')}}">
                 <input type="text" name="recherche"  class="form-control" />
 
                 <input type="submit" value="Rechercher" class = "btn btn-success"/>

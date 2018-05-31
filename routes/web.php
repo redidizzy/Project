@@ -39,16 +39,16 @@ Route::get('/profil/{id}', 'UtilisateurController@show')->name('utilisateur.prof
 Route::put('/signaler/{id}', 'UtilisateurController@signaler')->name('utilisateur.signaler');
 
 //ces routes concerneront la recherche
-Route::post('/rechercheRapide', 'RechercheController@rapide')->name('recherche.rapide');
+Route::get('/rechercheRapide', 'RechercheController@rapide')->name('recherche.rapide');
 
 Route::get('/recherche/projets', 'RechercheController@rechercheDeProjet')->name('recherche.projet');
-Route::post('/recherche/projets', 'RechercheController@rechercheDeProjetFiltre')->name('doRecherche.projet');
+Route::get('/recherche/projets/filtre', 'RechercheController@rechercheDeProjetFiltre')->name('doRecherche.projet');
 
 Route::get('/recherche/ouvriers', 'RechercheController@rechercheOuvrier')->name('recherche.ouvrier');
-Route::post('/recherche/ouvriers', 'RechercheController@RechercheOuvrierFiltre')->name('doRecherche.ouvrier');
+Route::get('/recherche/filtre', 'RechercheController@RechercheOuvrierFiltre')->name('doRecherche.ouvrier');
 
 Route::get('/recherche/entrepreneurs', 'RechercheController@rechercheEntrepreneur')->name('recherche.entrepreneur');
-Route::post('/recherche/entrepreneurs', 'RechercheController@RechercheEntrepreneurFiltre')->name('doRecherche.entrepreneur');
+Route::get('/recherche/entrepreneurs/filtre', 'RechercheController@RechercheEntrepreneurFiltre')->name('doRecherche.entrepreneur');
 
 //ces routes concerneront les projets
 Route::resource('/{id}/projets', 'ProjetsController',['except' => ['create', 'update', 'destroy', 'edit']]);

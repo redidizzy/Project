@@ -9,8 +9,7 @@
                     <div class="panel-heading">Rechercher un projet</div>
 
                     <div class="panel-body">
-                        <form class="form-horizontal" method="POST"  action="{{route('doRecherche.projet')}}">
-                            {{ csrf_field() }}
+                        <form class="form-horizontal" method="GET"  action="{{route('doRecherche.projet')}}">
                             <div class="form-row">
                                 <div class="form-group col-md-4">
                                     <select name="type" class="form-control">
@@ -85,7 +84,7 @@
               <div class="col-lg-4 col-md-6 box wow bounceInUp" data-wow-duration="1.4s">
                 <div class="icon"><i class="ion-ios-paper-outline"></i></div>
                 <h4 class="title"><a href="">Adresse</a></h4>
-                <p class="description">{{$projet->adresse}}-{{$projet->region}}-{{$projet->wilaya}}</p>
+                <p class="description">{{$projet->adresse}}-{{$projet->region}}-{{config('variables.wilayas.'.$projet->wilaya)}}</p>
               </div>
               <div class="col-lg-4 col-md-6 box wow bounceInUp" data-wow-delay="0.1s" data-wow-duration="1.4s">
                 <div class="icon"><i class="ion-ios-speedometer-outline"></i></div>
@@ -110,7 +109,7 @@
             
 
         @endforeach
-
+        <div class="links-pagination">{{ $links }} </div>
     </div>
 </div>
 @endsection

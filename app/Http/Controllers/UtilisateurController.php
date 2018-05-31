@@ -10,6 +10,7 @@ use App\Diplome;
 use App\TypeOuvrier;
 use App\Signalement;
 use App\RatingOuvrier;
+use App\RatingEntrepreneur;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -26,15 +27,25 @@ class UtilisateurController extends Controller
         $types = TypeOuvrier::all();
         $note = 0;
         $noteUtilisateur = 0;
+        $ratings = collect();
+
+        
+        
+
         if($user->userable_type == "Entrepreneur" or $user->userable_type == "Ouvrier")
         {
+            $ratings = $user->userable->ratings;
+            
             if($user->userable->ratings->first())
             {
                 $note = $user->userable->finalRating();
-                $noteUtilisateur = $user->userable->ratings->where("user_id", Auth::user()->id)->first()->rating;
+                if($user->userable->ratings->where("user_id", Auth::user()->id)->first())
+                    $noteUtilisateur = $user->userable->ratings->where("user_id", Auth::user()->id)->first()->rating;
+
+
             }
         }
-		return view('utilisateur.profil', compact('user', 'types', 'note', 'noteUtilisateur'));
+		return view('utilisateur.profil', compact('user', 'types', 'note', 'noteUtilisateur', 'ratings'));
 	}
 	
 	public function showAll($user_id)
@@ -215,12 +226,34 @@ class UtilisateurController extends Controller
             if($rating)
             {
                 $rating->rating = $request->newValue;
+                $rating->comment = $request->commentaire;
                 $rating->save();
             }
             else
             {
                 RatingOuvrier::create([
                     'ouvrier_id' => $user->userable->id,
+                    'user_id' => Auth::user()->id,
+                    'rating' => $request->newValue,
+                    'comment' => $request->commentaire
+                ]);
+            }
+        }
+        else
+        {
+            $rating = RatingEntrepreneur::where('entrepreneur_id', $user->userable->id)
+                        ->where('user_id', Auth::user()->id)
+                        ->first();
+            if($rating)
+            {
+                $rating->rating = $request->newValue;
+                $rating->comment = $request->commentaire;
+                $rating->save();
+            }
+            else
+            {
+                RatingEntrepreneur::create([
+                    'entrepreneur_id' => $user->userable->id,
                     'user_id' => Auth::user()->id,
                     'rating' => $request->newValue
                 ]);

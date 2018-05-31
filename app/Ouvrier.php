@@ -38,15 +38,24 @@ class Ouvrier extends Model
     }
     public function scopeReputation($query, $operateur, $reputation)
     {
-    	return $query->where('reputation', $operateur, $reputation);
-   }
+    	return $query->whereHas('ratings', function($q) use($reputation, $operateur){
+        $q->groupBy('ouvrier_id')->havingRaw('AVG(rating) '.$operateur . $reputation);
+      });
+    }
    public function scopePrixApprox($query, $operateur, $prixApprox)
    {
-   		return $query->where('prixApprox'. $operateur, $prixApprox);
+   		return $query->where('prixApprox', $operateur, $prixApprox);
    }
    public function scopeExperience($query, $operateur, $experience)
    {
-   		return $query->where('experience', $operateur, $experience);
+      if($experience == 0 and $operateur == '>=')
+        return $query;
+      else if($experience == 0 and $operateur == '<=')
+        return $query->whereDoesntHave('attestations');
+      else
+   		 return $query->whereHas('attestations', function($q) use ($experience, $operateur) {
+         $q->groupBy('id')->havingRaw('Count(*)'. $operateur . $experience);
+       });
    }
    public function scopeRegion($query, $region)
    {
@@ -60,9 +69,9 @@ class Ouvrier extends Model
    			$x->where('wilaya', $wilaya);
    		});
    }
-   public function scopeDiplome($query, $bool)
+   public function scopeDiplome($query)
    {
-   	return $query->where('diplome', $bool);
+   	return $query->whereHas('diplomes');
    }
 
    public function attestations(){

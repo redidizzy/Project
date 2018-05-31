@@ -9,7 +9,7 @@
 					
 	            	@forelse($entrepreneurs as $entrepreneur)
 
-	                <div class="panel panel-success">
+	                <div class="panel panel-success" style="height : 500px;">
 	                	<div class="panel-heading"><a href="{{route('utilisateur.profil', $entrepreneur->id)}}">{{$entrepreneur->nom}} {{$entrepreneur->prenom}}</a></div>
 	                	<div class="panel-body">
 	                		<ul class="floatLeft col-md-6">
@@ -40,6 +40,7 @@
 	                	</div>
 	                </div>
 	                @endforelse
+	                <div class="links-pagination">{{ $links }} </div>
 	            </div>
 	        </div>
 	    </div>

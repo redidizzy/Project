@@ -9,8 +9,8 @@
                     <div class="panel-heading">Rechercher un ouvrier</div>
 
                     <div class="panel-body">
-                        <form class="form-horizontal" method="POST"  action="{{route('doRecherche.ouvrier')}}">
-                            {{ csrf_field() }}
+                        <form class="form-horizontal" method="GET"  action="{{route('doRecherche.ouvrier')}}">
+                           
                             <div class="form-row">
                                 <div class="form-group col-md-4">
                                     <select name="type" class="form-control">
@@ -129,6 +129,7 @@
 
         @endforeach
 
+      <div class="links-pagination">{{ $links }} </div>
     </div>
 </div>
 <script src="{{ asset('js/JQuery.js') }}"></script>

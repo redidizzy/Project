@@ -10,7 +10,7 @@
                 <div class="panel panel-success">
 
                     <div class="panel-heading" id="heading-styling" data-id="{{$user->id}}">
-                    <p>Information General</p> <div id="signaler"><a href="#" id="toggleSignaler">Signaler</a></div>
+                    <p>Information General</p> {!!$user->id != Auth::user()->id ? '<div id="signaler"><a href="#" id="toggleSignaler">Signaler</a></div>' : ''!!}
                     </div>
 
                     <div class="panel-body">
@@ -105,10 +105,24 @@
                         @endif
                     </div>
                 @endif
-
+            <div class= "panel panel-info">
+              <div class="panel-heading">Commentaires</div>
+                <div class="panel-body">
+                  @forelse($ratings as $rating)
+                    <div class="panel panel-default">
+                      <div class="panel-heading" style="display:flex; justify-content: space-between;"><div>{{$rating->username}}</div><div class="rateit" data-rateit-value="{{$rating->rating}}" data-rateit-readonly="true" ></div></div>
+                      <div class="panel-body">
+                        <blockquote>{{$rating->comment}}</blockquote>
+                      </div>
+                    </div>
+                      <hr>
+                  @empty
+                  Il n'y a aucun commentaire pour cette utilisateur
+                  @endforelse
+                </div>
+              </div>
             </div>
         </div>
-
     <div class="modal fade" id ="ajouterEntrepriseInfoModal" role="dialog">
      <div class="modal-dialog">
 
@@ -404,6 +418,34 @@
       </div>
     </div>
     @endif
+    @if($user->userable_type == "Entrepreneur" or $user->userable_type == "Ouvrier")
+    <div class="modal fade" id ="commenterModal" role="dialog">
+     <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            
+            <h4 class="modal-title">Commenter</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+          <div class="modal-body">
+            <form method="POST" id="commenter" enctype="multipart/form-data">
+                {{csrf_field()}}
+                <div class="form-group col-md-10">
+                   <textarea class="form-control" id="commentaire" name="commentaire" placeholder="Veuillez justifier votre note..."></textarea>
+                </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-success" id="commentSubmit" >Confirmer</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    @endif
 @endsection
  @section("script")   
 
@@ -492,14 +534,26 @@
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
           }
         });
+         var x = 0;
          $("#rateitAjax").bind('rated reset', function(event, value){
-            if(!value)
+            x = value;
+            $("#commenterModal").modal();
+           
+         });
+         $("#commentSubmit").on("click", function(e){
+          e.preventDefault();
+
+          // var value = $("#note").rateit("value");
+          var value = x;
+           if(!value)
               value = 0;
             var data = {
-              "newValue" : value
+              "newValue" : value,
+              "commentaire" : $("#commentaire").val()
             };
             var user_id = $("#heading-styling").attr("data-id");
             $.post(APP_URL+"/ajax/rate/"+user_id, data, function(d){
+               $("#commenterModal").modal("hide");
               $("#note").rateit("value", d);
             });
          });
