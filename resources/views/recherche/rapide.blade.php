@@ -29,6 +29,9 @@
 	                	<div class="panel-body">
 	                		nous n'avons trouve aucun element satisfaisant vos criteres
 	                	</div>
+	                	<div class="panel-footer clearfix">
+	                        <a href="{{url()->previous()}}" class="btn btn-success floatRight">Retour</a>
+	                    </div>
 	                </div>
 	                @endforelse
 	                <div class="links-pagination">{{ $links }} </div>

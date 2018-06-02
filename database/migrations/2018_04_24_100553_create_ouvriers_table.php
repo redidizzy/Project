@@ -18,7 +18,7 @@ class CreateOuvriersTable extends Migration
             $table->integer('experience');
             $table->double('reputation');
             $table->string('fonction', 191);
-            $table->string('prixApprox');
+            $table->integer('prixApprox');
             $table->foreign('fonction')
                 ->references('designation')
                 ->on('type_ouvriers')

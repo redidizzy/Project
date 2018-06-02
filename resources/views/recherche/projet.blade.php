@@ -29,25 +29,46 @@
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-3">
-                                    <input type="text" name="superficieMin" id="superficieMin" placeholder="Superficie minimal du terrain" class="form-control" />
+                                    <input type="number" name="superficieMin" id="superficieMin" placeholder="Superficie minimal du terrain" class="form-control" />
                                 </div>
                                  <div class="form-group col-md-3">
-                                    <input type="text" name="superficieMax" id="superficieMax" placeholder="Superficie maximal du terrain" class="form-control" />
+                                    <input type="number" name="superficieMax" id="superficieMax" placeholder="Superficie maximal du terrain" class="form-control" />
                                 </div>
                                  <div class="form-group col-md-3">
-                                    <input type="text" name="budgetMin" id="budgetMin" placeholder="Budget minimal du proprietaire" class="form-control" />
+                                    <input type="number" name="budgetMin" id="budgetMin" placeholder="Budget minimal du proprietaire" class="form-control" />
                                 </div>
                                  <div class="form-group col-md-3">
-                                    <input type="text" name="budgetMax" id="budgetMax" placeholder="Budget maximal du proprietaire" class="form-control" />
+                                    <input type="number" name="budgetMax" id="budgetMax" placeholder="Budget maximal du proprietaire" class="form-control" />
                                 </div>
                             </div>   
-                            <div class="form-row">  
-                                 <div class="form-group col-md-6">
-                                    <input type="text" name="wilaya" id="wilaya" placeholder="Wilaya" class="form-control" />
-                                </div>           
-                                 <div class="form-group col-md-6">
-                                    <input type="text" name="region" id="region" placeholder="Region" class="form-control" />
-                                </div> 
+                             <div class="form-row">
+                              <div class="col-md-6 form-group{{ $errors->has('wilaya') ? ' has-error' : '' }}">
+                                    <select id="wilaya" class="form-control" name="wilaya" required>
+                                      <option value="0" selected hidden disabled>Choisir une wilaya</option>
+                                    @foreach(config('variables.wilayas') as $nwil=>$wil)
+                                        <option value="{{$nwil}}" id="{{$nwil}}">{{$nwil}}-{{$wil}}</option>
+                                    @endforeach
+                                    </select>
+                                    @if ($errors->has('wilaya'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('wilaya') }}</strong>
+                                        </span>
+                                    @endif
+                              </div>
+                              <div class="col-md-6 form-group{{ $errors->has('region') ? ' has-error' : '' }}">
+
+                                  
+                                      <select name="region" id="region" class="form-control">
+                                        <option value="0" selected hidden disabled>Choisir Une commune</option>
+                                      </select>
+
+                                      @if ($errors->has('region'))
+                                          <span class="help-block">
+                                              <strong>{{ $errors->first('region') }}</strong>
+                                          </span>
+                                      @endif
+                                  
+                              </div>
                             </div>
                             <div class="form-grop col-md-6 panel-center">
                                 <input type="submit" value="Rechercher" class="btn btn-success btn-block" />

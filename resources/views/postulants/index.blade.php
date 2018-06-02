@@ -6,21 +6,21 @@
         <div class="container">
 	        <div class="row">
 	            <div class="col-md-12">
-	            	<h1 class="page-header" style="background-color: rgb(0,193,97);color:white">Liste des postulants </h1>
+	            	<h1 class="page-header" class="page-header" style="color:black; background:rgb(0,200,100); padding : 10px 10px 10px 10px; border-radius:10px;">Liste des postulants </h1>
 					
 	            	@forelse($postulants as $postulant)
 					
 	                <div class="panel panel-success">
-					
+						<div class="panel-heading">
+							<a href="{{route('utilisateur.profil', $postulant->user->id)}}">{{$postulant->user->nom}} {{$postulant->user->prenom}}</a>
+						</div>
 	                	<div class="panel-body">
 	                		<ul>
-	                			<li>Nom : {{$postulant->user->nom}}</li>
-	                			<li>Prenom : {{$postulant->user->prenom}}</li>
 								<li>Email : {{$postulant->user->email}} </li>
 								 <li>Wilaya : {{$postulant->user->wilaya}}</li>
                                 <li>Region : {{$postulant->user->region}}</li>
                                 <li>Numero de telephone : {{$postulant->user->numTel}}</li>
-								<li>Experience : {{$postulant->experience}}</li>
+								<li>Experience : {{$postulant->attestations->count()}} Attestations d'affiliation a la CNAS</li>
 	                		</ul>
 	                		
 	                	</div>

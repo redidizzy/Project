@@ -82,3 +82,7 @@ border-spacing: 10px;
 	border : solid olive 1px;
 	margin-bottom : 20px;
 }
+.box
+{
+	word-break: break-word;
+}

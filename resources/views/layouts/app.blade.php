@@ -164,5 +164,9 @@
 
  <script src="{{asset('js/customize.js') }}"></script>
 
+ <script type="text/javascript">
+  var APP_URL = {!! json_encode(config('app.url')) !!}
+</script> 
+
 </body>
 </html>

@@ -3,66 +3,51 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\User;
-use App\AttestationEntrepreneur;
-use App\AttestationOuvrier;
-use App\Diplome;
-use App\TypeOuvrier;
-use App\Signalement;
-use App\RatingOuvrier;
-use App\RatingEntrepreneur;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+
+use App\Http\Repositories\UserRepository;
 
 class UtilisateurController extends Controller
 {
-	public function __construct()
+    protected $userRepository;
+	public function __construct(UserRepository $userRepository)
 	{
 		$this->middleware('auth');
         $this->middleware('isBanned');
+        $this->userRepository = $userRepository;
+        $this->middleware('typeUser:Entrepreneur', ['only' => ['changeEntrepreneurInfo', 'changeEntrepreneurDispo']]);
 	}
 	public function show($user_id)
 	{
-		$user = User::find($user_id);
-        $types = TypeOuvrier::all();
-        $note = 0;
-        $noteUtilisateur = 0;
-        $ratings = collect();
-
-        
+		$user = $this->userRepository->utilisateurNumero($user_id);
+        $types = $this->userRepository->toutLesTypesOuvrier();
         
 
-        if($user->userable_type == "Entrepreneur" or $user->userable_type == "Ouvrier")
+        if(!$user)
         {
-            $ratings = $user->userable->ratings;
-            
-            if($user->userable->ratings->first())
-            {
-                $note = $user->userable->finalRating();
-                if($user->userable->ratings->where("user_id", Auth::user()->id)->first())
-                    $noteUtilisateur = $user->userable->ratings->where("user_id", Auth::user()->id)->first()->rating;
+            return view('errors.error')->with(['msg' => 'L\'Utilisateur que vous souhaitez consulter n\'existe pas !', 'titre' => 'Utilisateur Non-Existant']);
+        }        
+        $ratings = $this->userRepository->getReputation($user);
+        $noteUtilisateur = $this->userRepository->getNoteDeUtilisateurConnecte($user);
+        $note = $this->userRepository->getNoteFinal($user);  
 
-
-            }
-        }
 		return view('utilisateur.profil', compact('user', 'types', 'note', 'noteUtilisateur', 'ratings'));
 	}
 	
-	public function showAll($user_id)
-	{
-		$user = User::find($user_id);
-		$utilisateurs = User::all();
-		return view('admin.index', compact('utilisateurs','user'));
-	}
+	// public function showAll($user_id)
+	// {
+	// 	$user = $this->userRepository->utilisateurNumero($user_id);
+	// 	$utilisateurs = User::all();
+	// 	return view('admin.index', compact('utilisateurs','user'));
+	// }
 	
 	public function edit()
 	{
-		$user = Auth::user();
+		$user = $this->userRepository->utilisateurConnecte();
 		return view('utilisateur.edit', compact('user'));
 	}
     public function saveChange(Request $request)
     {
-    	$user = Auth::user();
         
     	if($request->hasFile('photo'))
     	{
@@ -82,56 +67,33 @@ class UtilisateurController extends Controller
     		}
 
     	}
-    	$user->nom = $request->nom;
-    	$user->prenom = $request->prenom;
-    	$user->dateNaiss = $request->dateNaiss;
-    	$user->wilaya = $request->wilaya;
-    	$user->region = $request->region;
-    	$user->photoProfil = $url;
-    	$user->numTel = $request->numTel;
 
-    	$user->save();
-
-    	return redirect(route('utilisateur.profil', $user->id));
+        $utilisateur_id = $this->userRepository->changerInfos($request, $url);
+    	
+    	return redirect(route('utilisateur.profil', $utilisateur_id));
 
     }
+
+
     public function changeEntrepreneurInfo(Request $request)
     {
-        $user = Auth::user();
-
-        $user->userable->nom_entreprise = $request->nom_entreprise;
-        $user->userable->description_entreprise = $request->description_entreprise;
-        $user->userable->materiel = $request->materiel;
-
-        $user->userable->save();
-
-        return redirect()->route('utilisateur.profil', $user->id);
+        
+        $utilisateur_id = $this->userRepository->changerInfosEntrepreneur($request);
+        return redirect()->route('utilisateur.profil', $utilisateur_id);
     }
     public function changeEntrepreneurDispo(Request $request)
     {
-        $user = Auth::user();
-        $user->userable->dateDebutDispo = $request->dateDebutDispo;
-        $user->userable->dateFinDispo = $request->dateFinDispo;
-
-        $user->userable->save();
-
-        return redirect()->route('utilisateur.profil', $user->id);
+        $utilisateur_id = $this->userRepository->changerEntrepreneurDispo($request);
+        return redirect()->route('utilisateur.profil', $utilisateur_id);
     }
     public function changePassword(Request $request)
     {
-        $user = Auth::user();
-
-        if(Hash::check($request->oldPassword, $user->password) and $request->newPassword == $request->rnewPassword)
-        {
-            $user->password = bcrypt($request->newPassword);
-            $user->save();
-        }
-        return redirect()->route('utilisateur.profil', $user->id);
+        $utilisateur_id = $this->userRepository->changerPass($request);
+        return redirect()->route('utilisateur.profil', $utilisateur_id);
     }
     public function addAttestation(Request $request)
     {
-        $user = Auth::user();
-
+        $utilisateur_id = $this->userRepository->utilisateurConnecte()->id;
         $file = $request->file('attestation');
         if($file)
         {
@@ -146,23 +108,13 @@ class UtilisateurController extends Controller
             {
                 $url=$path.'/'.$file_name;
             }
-            if(Auth::user()->userable_type == "Entrepreneur")
-                $attestation = new AttestationEntrepreneur();
-            else 
-                $attestation = new AttestationOuvrier();
-            $attestation->photo_url= $url;
-            if(Auth::user()->userable_type == "Entrepreneur")
-                $attestation->entrepreneur_id = $user->userable->id;
-            else
-                $attestation->ouvrier_id = $user->userable->id;
-            $attestation->save();
+            $utilisateur_id = $this->userRepository->ajoutAttestation($request, $url);
         }
-        return redirect()->route('utilisateur.profil', $user->id);
+        return redirect()->route('utilisateur.profil', $utilisateur_id);
     }
     public function addDiplome(Request $request)
     {
-        $user = Auth::user();
-
+        $utilisateur_id = $this->userRepository->utilisateurConnecte()->id;
         $file = $request->file('diplome');
         if($file)
         {
@@ -177,88 +129,31 @@ class UtilisateurController extends Controller
             {
                 $url=$path.'/'.$file_name;
             }
-            $diplome = new Diplome;
-            $diplome->titre = $request->titre;
-            $diplome->photoDiplome= $url;
-            $diplome->ouvrier_id = $user->userable->id;
-            $diplome->save();
+            $utilisateur_id = $this->userRepository->ajoutDiplome($request, $url);
         }
-        return redirect()->route('utilisateur.profil', $user->id);
+        return redirect()->route('utilisateur.profil', $utilisateur_id);
     }
     public function changerProfession(Request $request)
     {
-        $user = Auth::user();
-        $ouvrier = $user->userable;
-        $ouvrier->fonction = $request->profession;
-        $ouvrier->save();
+       $utilisateur_id = $this->userRepository->changerProfession($request);
 
-        return redirect()->route('utilisateur.profil', $user->id);
+        return redirect()->route('utilisateur.profil', $utilisateur_id);
     }
     public function changerPrix(Request $request)
     {
-        $user= Auth::user();
-        $ouvrier = $user->userable;
-        $ouvrier->prixApprox = $request->prix;
-        $ouvrier->save();
+        $utilisateur_id = $this->userRepository->changerPrix($request);
 
-        return redirect()->route('utilisateur.profil', $user->id);
+        return redirect()->route('utilisateur.profil', $utilisateur_id);
     }
     public function signaler(Request $request, $user_id)
     {
-        $user = User::find($user_id);
+        $utilisateur_id = $this->userRepository->signaler($request, $user_id);
 
-        Signalement::create([
-            'user_id' => $user->id,
-            'motif' => $request->motif
-        ]);
-
-        return redirect()->route('utilisateur.profil', $user->id);
+        return redirect()->route('utilisateur.profil', $utilisateur_id);
     }
     public function rate($id, Request $request)
     {
-        $user = User::find($id);
-
-        if($user->userable_type == "Ouvrier")
-        {
-            $rating = RatingOuvrier::where('ouvrier_id', $user->userable->id)
-                        ->where('user_id', Auth::user()->id)
-                        ->first();
-            if($rating)
-            {
-                $rating->rating = $request->newValue;
-                $rating->comment = $request->commentaire;
-                $rating->save();
-            }
-            else
-            {
-                RatingOuvrier::create([
-                    'ouvrier_id' => $user->userable->id,
-                    'user_id' => Auth::user()->id,
-                    'rating' => $request->newValue,
-                    'comment' => $request->commentaire
-                ]);
-            }
-        }
-        else
-        {
-            $rating = RatingEntrepreneur::where('entrepreneur_id', $user->userable->id)
-                        ->where('user_id', Auth::user()->id)
-                        ->first();
-            if($rating)
-            {
-                $rating->rating = $request->newValue;
-                $rating->comment = $request->commentaire;
-                $rating->save();
-            }
-            else
-            {
-                RatingEntrepreneur::create([
-                    'entrepreneur_id' => $user->userable->id,
-                    'user_id' => Auth::user()->id,
-                    'rating' => $request->newValue
-                ]);
-            }
-        }
-        return $user->userable->finalRating();     
+       $utilisateur = $this->userRepository->noter($id, $request);
+        return $this->userRepository->getNoteFinal($utilisateur);     
     }   
 }

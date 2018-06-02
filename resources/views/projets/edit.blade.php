@@ -62,30 +62,47 @@
                                     </div>
                                 </div>
 
-                                    <div class="form-group{{ $errors->has('wilaya') ? ' has-error' : '' }}">
+                                     <div class="form-group{{ $errors->has('wilaya') ? ' has-error' : '' }}">
                                     <label for="wilaya" class="col-md-4 control-label">Wilaya</label>
 
                                     <div class="col-md-6">
-                                        <input id="wilaya" type="number" value="{{$projet->wilaya}}" class="form-control" name="wilaya" required>
+                                        <select id="wilaya" class="form-control" name="wilaya" required>
+                                        @foreach(config('variables.wilayas') as $nwil=>$wil)
+                                            @if($projet->wilaya == $nwil)
+                                            <option value="{{$nwil}}" id="{{$nwil}}" selected>{{$nwil}}-{{$wil}}</option>
+                                            @else
+                                            <option value="{{$nwil}}" id="{{$nwil}}">{{$nwil}}-{{$wil}}</option>
+                                            @endif
+                                        @endforeach
+                                        </select>
 
                                         @if ($errors->has('wilaya'))
                                             <span class="help-block">
                                                 <strong>{{ $errors->first('wilaya') }}</strong>
                                             </span>
                                         @endif
-
                                     </div>
                                 </div>
 
                                 <div class="form-group{{ $errors->has('region') ? ' has-error' : '' }}">
-                                    <label for="region" class="col-md-4 control-label">Region : </label>
+                                    <label for="region" class="col-md-4 control-label">Region</label>
 
                                     <div class="col-md-6">
-                                        <input id="region" type="text" value="{{$projet->region}}"class="form-control" name="region"  required>
+
+                                        <select name="region" id="region" class="form-control">
+                                        @foreach(config('variables.communes.'.$projet->wilaya) as $commune)
+                                            @if($commune == $projet->region)
+                                            <option value="{{$commune}}" id="{{$commune}}" selected>{{$commune}}</option>
+                                            @else
+                                            <option value="{{$commune}}" id="{{$commune}}">{{$commune}}</option>
+                                            @endif
+                                        @endforeach   
+
+                                        </select>
 
                                         @if ($errors->has('region'))
                                             <span class="help-block">
-                                                <strong>{{ $errors->first('Description') }}</strong>
+                                                <strong>{{ $errors->first('region') }}</strong>
                                             </span>
                                         @endif
                                     </div>

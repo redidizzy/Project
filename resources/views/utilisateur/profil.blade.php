@@ -28,7 +28,7 @@
                                 <li>Type d'utilisateur : {{$user->userable_type}}</li>
                             </ul>
                             <div class="col-md-4 col-md-offset-2">
-                                <img src="{{asset($user->photoProfil)}}" style="height : 200px; " />
+                                <img src="{{asset($user->photoProfil)}}" id="photoProfil" style="height : 200px; " />
                             </div>
                         </div>
                         
@@ -45,7 +45,7 @@
                         <?php
                         }
                         ?>
-                        @if(Auth::user()->id != $user->id && ($user->userable_type == "Entrepreneur" || $user->userable_type == "Ouvrier"))
+                        @if(Auth::user()->id != $user->id && ($user->userable_type == "Entrepreneur" || $user->userable_type == "Ouvrier") and $user->userable_type != Auth::user()->userable_type)
                          <div class="text-center">Noter: <span class="rateit" id="rateitAjax" data-rateit-value= "{{$noteUtilisateur}}" > </span> </div>
                          @endif
                     </div>
@@ -66,12 +66,20 @@
                                         @if($user->userable_type === "Entrepreneur")
                                             <li>Nom de l'entreprise : {{$user->userable->nom_entreprise}}</li>
                                             <li>Description de l'entreprise: {{$user->userable->description_entreprise}}</li>
-                                            <li>Vous etes actuellement disponible du : {{$user->userable->dateDebutDispo}} au : {{$user->userable->dateFinDispo}}</li>
+                                            <li>Vous etes actuellement disponible
+                                              <ul> 
+                                                  <li>DU :{{$user->userable->dateDebutDispo->format('d/m/Y')}}</li>
+                                                  <li>AU : {{$user->userable->dateFinDispo->format('d/m/Y')}}</li>
+                                              </ul>
+
+                                            </li>
                                             <li>Materiel : {{$user->userable->materiel}} </li>
+                                            <li>Cet entrepreneur a : {{$user->userable->offres->count()}} offres d'emploi <a href="{{route('offres.index', $user->id)}}">(Voir !)</a></li>
                                         @else
                                             <li>Diplomes : <a href="#" id ="toggleVoirDiplomes">{{$user->userable->diplomes->count()}}(Afficher)</a></li>
                                             <li>Profession : {{$user->userable->fonction}}</li>
-                                            <li>Prix Journalier Moyen : {{$user->userable->prixApprox}}</li>
+                                            <li>Prix Journalier Moyen : {{$user->userable->prixApprox}} DA</li>
+                                            <li>Cet ouvrier a : {{$user->userable->demandes->count()}} demandes d'emploi <a href ="{{route('demandes.index', $user->id)}}">(Voir !)</a></li>
                                         @endif
 
                                     </ul>
@@ -107,9 +115,9 @@
                 @endif
             <div class= "panel panel-info">
               <div class="panel-heading">Commentaires</div>
-                <div class="panel-body">
+                <div class="panel-body" id="commentaires">
                   @forelse($ratings as $rating)
-                    <div class="panel panel-default">
+                    <div class="panel panel-default commentaire" data-id="{{$rating->user->id}}">
                       <div class="panel-heading" style="display:flex; justify-content: space-between;"><div>{{$rating->username}}</div><div class="rateit" data-rateit-value="{{$rating->rating}}" data-rateit-readonly="true" ></div></div>
                       <div class="panel-body">
                         <blockquote>{{$rating->comment}}</blockquote>
@@ -117,7 +125,7 @@
                     </div>
                       <hr>
                   @empty
-                  Il n'y a aucun commentaire pour cette utilisateur
+                  <span id="mess">Il n'y a aucun commentaire pour cette utilisateur</span>
                   @endforelse
                 </div>
               </div>
@@ -262,10 +270,11 @@
             <button type="button" class="close" data-dismiss="modal">&times;</button>
           </div>
           <div class="modal-body">
+            <ul id="attestationsImages">
             @foreach($user->userable->attestations as $attestation)
-            
-                <img src="{{asset($attestation->photo_url)}}" style="width:100px;" />
+                <li><img src="{{asset($attestation->photo_url)}}" style="width:100px;" /></li>
             @endforeach
+            </ul>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -349,7 +358,7 @@
             <form action="{{route('changerPrix')}}" method="POST" id="changerPrixForm" enctype="multipart/form-data">
                 {{csrf_field()}}
                 <div class="form-group col-md-10">
-                    <input type="number" name="prix" placeholder="votre nouveau prix journalier" class="form-control" />
+                    <input type="number" name="prix" placeholder="votre nouveau prix journalier en DA" class="form-control" />
                 </div>
                 
             </form>
@@ -374,10 +383,12 @@
             <button type="button" class="close" data-dismiss="modal">&times;</button>
           </div>
           <div class="modal-body">
+            <ul id="diplomesImages">
             @foreach($user->userable->diplomes as $diplome)
             
-                <img src="{{asset($diplome->photoDiplome)}}" style="width:300px;" />
+                <li><img src="{{asset($diplome->photoDiplome)}}" style="width:300px;" /></li>
             @endforeach
+            </ul>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -553,10 +564,42 @@
             };
             var user_id = $("#heading-styling").attr("data-id");
             $.post(APP_URL+"/ajax/rate/"+user_id, data, function(d){
-               $("#commenterModal").modal("hide");
+              $("#commenterModal").modal("hide");
               $("#note").rateit("value", d);
+              var creerElement = true;
+
+              $(".commentaire").each(function(){
+                if($(this).attr("data-id") == $('body').attr("data-id"))
+                {
+                  $(this).find("blockquote").text(data.commentaire);
+                  $(this).find(".rateit").first().rateit('value',data.newValue);
+                  creerElement = false;
+                }
+              });
+
+              if(creerElement == true)
+              {
+               $("#mess").text("");
+                var div1 = $('<div class="panel panel-default commentaire" data-id="'+$("body").attr("data-id")+'"></div>');
+                var div2 = $('<div class="panel-heading" style="display:flex; justify-content: space-between;"></div>');
+                var div3 = $('<div>'+$("body").attr('data-name')+'</div>');
+                var rateItElement = $('<div class="rateit" data-rateit-readonly="true" ></div>');
+                rateItElement.rateit();
+                rateItElement.rateit('value', data.newValue);
+                var div4 = $('<div class="panel-body"><blockquote>'+data.commentaire+'</blockquote></div>');
+
+                div2.append(div3)
+                div2.append(rateItElement);
+                div1.append(div2);
+                div1.append(div4);
+                $("#commentaires").prepend(div1);
+              }
+
             });
          });
+         var attestationsViewer = new Viewer(document.getElementById("attestationsImages"));
+         var attestationsViewer = new Viewer(document.getElementById("diplomesImages"));
+         var photoProfilViewer = new Viewer(document.getElementById("photoProfil"));
     </script>
      <script src="{{asset('rateit\jquery.rateit.js')}}"></script>
 @endsection

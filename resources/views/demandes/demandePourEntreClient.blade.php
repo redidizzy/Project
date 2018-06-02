@@ -5,14 +5,17 @@
         <div class="container">
 	        <div class="row">
 	            <div class="col-md-12">
-	            	<h1 class="page-header" style="background-color:rgb(0,193,97);color:white">Demandes d'emploi </h1>
+	            	<h1 class="page-header" style="color:black; background:rgb(0,200,100); padding : 10px 10px 10px 10px; border-radius:10px;">Demandes d'emploi </h1>
 	            	@forelse($demandes as $demande)
 	                <div class="panel panel-success">
 					
-	                	<div class="panel-heading">Demande de : {{$demande->ouvrier->user->nom}}  {{$demande->ouvrier->user->prenom}}</div>
+	                	<div class="panel-heading" id="heading-styling">
+	                		<div>Demande de : {{$demande->ouvrier->user->nom}}  {{$demande->ouvrier->user->prenom}}</div>
+	                		<div><small >cree le : {{$demande->created_at}} </small></div> 
+	                	</div>
 	                	<div class="panel-body">
 	                		<p>Le contenu : </br></br>{{$demande->contenu}}</p>
-							<p><small >cree le : {{$demande->created_at}} </small></p>
+	                	</div>
 							<div class="panel-footer">
 							<h5>Contactez moi</h5>
 							
@@ -21,7 +24,7 @@
 							
 							</div>
 				
-						</div>
+						
 
 	                </div>
 	               
@@ -31,6 +34,9 @@
 	                	<div class="panel-body">
 	                		Nous n'avons trouve aucune demande.
 	                	</div>
+	                	<div class="panel-footer clearfix">
+                        <a href="{{url()->previous()}}" class="btn btn-success floatRight">Retour</a>
+                    </div>
 	                </div>
 	                @endforelse
 	                

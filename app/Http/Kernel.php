@@ -61,6 +61,7 @@ class Kernel extends HttpKernel
 		'notOuvrier' =>\App\Http\Middleware\RedirectIfNotOuvrier::class,
 		'notEntrepreneur' =>\App\Http\Middleware\RedirectIfNotEntrepreneur::class,
         'isBanned' => \App\Http\Middleware\isBanned::class,
+        'isAdmin' => \App\Http\Middleware\IsAdmin::class
 		
     ];
 }

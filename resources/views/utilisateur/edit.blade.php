@@ -130,8 +130,16 @@
                                     <label for="region" class="col-md-4 control-label">Region</label>
 
                                     <div class="col-md-6">
+
                                         <select name="region" id="region" class="form-control">
-                                        
+                                        @foreach(config('variables.communes.'.$user->wilaya) as $commune)
+                                            @if($commune == $user->region)
+                                            <option value="{{$commune}}" id="{{$commune}}" selected>{{$commune}}</option>
+                                            @else
+                                            <option value="{{$commune}}" id="{{$commune}}">{{$commune}}</option>
+                                            @endif
+                                        @endforeach   
+
                                         </select>
 
                                         @if ($errors->has('region'))

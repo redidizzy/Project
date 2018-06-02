@@ -37,8 +37,11 @@
 	                <div class="panel panel-danger">
 	                	<div class="panel-heading">Aucun resultat</div>
 	                	<div class="panel-body">
-	                		nous n'avons trouve aucun element satisfaisant vos criteres
+	                		nous n'avons trouve aucun projet
 	                	</div>
+	                	<div class="panel-footer clearfix">
+                       		 <a href="{{url()->previous()}}" class="btn btn-success floatRight">Retour</a>
+                    	</div>
 	                </div>
 	                @endforelse
 	                @if(Auth::user()->id == $user->id)

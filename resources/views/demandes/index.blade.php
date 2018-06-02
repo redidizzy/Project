@@ -10,10 +10,13 @@
 
 	            	@forelse($demandes as $demande)
 	                <div class="panel panel-success">
-	                	<div class="panel-heading">Fonction : {{$demande->ouvrier->fonction}}</div>
+	                	<div class="panel-heading" id ="heading-styling">
+	                		<div>Fonction : {{$demande->ouvrier->fonction}}</div>
+	                		<div><small>cree le : {{$demande->created_at}} </small></div>
+	                	</div>
 	                	<div class="panel-body">
 	                		<p>Le contenu : </br></br>{{$demande->contenu}}</p>
-							<p><small>cree le : {{$demande->created_at}} </small>
+							
 	    
 	                		@if(Auth::user()->id == $user->id)
 		                	<div class="col-md-4">
@@ -26,6 +29,13 @@
 		                	</div>
 		                	@endif
 	                	</div>
+	                	<div class="panel-footer">
+							<h5>Contactez moi</h5>
+							
+							Numero de telephone : {{$demande->ouvrier->user->numTel}}</br>
+							Email : {{$demande->ouvrier->user->email}}
+							
+						</div>
 	                </div>
 	                @empty
 	                <div class="panel panel-danger">
@@ -33,6 +43,9 @@
 	                	<div class="panel-body">
 	                		Nous n'avons trouve aucune demande.
 	                	</div>
+	                	<div class="panel-footer clearfix">
+                        	<a href="{{url()->previous()}}" class="btn btn-success floatRight">Retour</a>
+                   		 </div>
 	                </div>
 	                @endforelse
 	                @if(Auth::user()->id == $user->id)

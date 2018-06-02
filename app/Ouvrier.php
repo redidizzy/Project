@@ -108,6 +108,17 @@ class Ouvrier extends Model
     }
     return ($this->ratings->count() == 0 ) ? 0 : $x / $this->ratings->count();
   }
+  public function dejaPostule($offre)
+  {
+    $result = false;
+
+    foreach($offre->ouvriers as $x)
+    {
+      if($x->pivot->ouvrier_id = $this->id)
+        $result=true;
+    }
+    return $result;
+  }
 }
 	
 	

@@ -37,35 +37,92 @@
                             <div class="form-row">
                                
                                  <div class="form-group col-md-3">
-                                    <input type="text" name="reputationMin" id="reputationMin" placeholder="Nombre d'etoiles minimal" class="form-control" />
+                                   <select name="reputationMin" id="reputaionMin" class="form-control">
+                                      <option disabled selected hidden>Nombre d'etoiles minimal</option>
+                                      <option value="0">0</option>
+                                      <option value="1">1</option>
+                                      <option value="2">2</option>
+                                      <option value="3">3</option>
+                                      <option value="4">4</option>
+                                      <option value="5">5</option>
+                                    </select>
                                 </div>
                                  <div class="form-group col-md-3">
-                                    <input type="text" name="reputationMax" id="reputationMax" placeholder="Nombre d'etoiles maximal" class="form-control" />
+                                    <select name="reputationMax" id="reputaionMax" class="form-control">
+                                    <option disabled selected hidden>Nombre d'etoiles maximal</option>
+                                      <option value="0">0</option>
+                                      <option value="1">1</option>
+                                      <option value="2">2</option>
+                                      <option value="3">3</option>
+                                      <option value="4">4</option>
+                                      <option value="5">5</option>
+                                    </select>
                                 </div>
                                  <div class="form-group col-md-3">
-                                    <input type="text" name="prixApproxMin" id="prixApproxMin" placeholder="Prix journalier minimal" class="form-control" />
+                                    <input type="number" name="prixApproxMin" id="prixApproxMin" placeholder="Prix journalier minimal en DA" class="form-control" />
                                 </div>
                                  <div class="form-group col-md-3">
-                                    <input type="text" name="prixApproxMax" id="prixApproxMax" class="form-control" placeholder = "Prix journalier maximal"/>
+                                    <input type="number" name="prixApproxMax" id="prixApproxMax" class="form-control" placeholder = "Prix journalier maximal en DA"/>
                                 </div>
                             </div>  
                             <div class="form-row">
                                
                               <div class="form-group col-md-6">
-                                  <input type="text" name="experienceMin" id="experienceMin" placeholder="Nombre d'attestations d'affiliation a la CNAS minimal" class="form-control" />
+                                  <input type="number" name="experienceMin" id="experienceMin" placeholder="Nombre d'attestations d'affiliation a la CNAS minimal" class="form-control" />
                               </div>
                                <div class="form-group col-md-6">
-                                  <input type="text" name="experienceMax" id="experienceMax" placeholder="Nombre d'attestations d'affiliation a la CNAS maximal" class="form-control" />
+                                  <input type="number" name="experienceMax" id="experienceMax" placeholder="Nombre d'attestations d'affiliation a la CNAS maximal" class="form-control" />
                               </div>
                             
                             </div>    
-                            <div class="form-row">  
-                                 <div class="form-group col-md-6">
-                                    <input type="text" name="wilaya" id="wilaya" placeholder="Wilaya" class="form-control" />
-                                </div>           
-                                 <div class="form-group col-md-6">
-                                    <input type="text" name="region" id="region" placeholder="Region" class="form-control" />
-                                </div> 
+                             <div class="form-row">
+                                <div class="col-md-6 form-group{{ $errors->has('wilaya') ? ' has-error' : '' }}">
+                                      <select id="wilaya" class="form-control" name="wilaya" required>
+                                        <option value="0" selected hidden disabled>Choisir une wilaya</option>
+                                      @foreach(config('variables.wilayas') as $nwil=>$wil)
+                                          <option value="{{$nwil}}" id="{{$nwil}}">{{$nwil}}-{{$wil}}</option>
+                                      @endforeach
+                                      </select>
+                                      @if ($errors->has('wilaya'))
+                                          <span class="help-block">
+                                              <strong>{{ $errors->first('wilaya') }}</strong>
+                                          </span>
+                                      @endif
+                                </div>
+                                <div class="col-md-6 form-group{{ $errors->has('region') ? ' has-error' : '' }}">
+
+                                    
+                                        <select name="region" id="region" class="form-control">
+                                          <option value="0" selected hidden disabled>Choisir Une commune</option>
+                                        </select>
+
+                                        @if ($errors->has('region'))
+                                            <span class="help-block">
+                                                <strong>{{ $errors->first('region') }}</strong>
+                                            </span>
+                                        @endif
+                                    
+                                </div>
+                              </div>
+                             <div class="form-row">
+                              <div class="form-group col-md-5">
+                                <select name="tri" class="form-control">
+                                  <option disabled hidden selected> Trier par : </option>
+                                  <option value = "experience" id ="budget">Experience</option>
+                                  <option value = "reputation" id="reputation">Reputation</option> 
+                                  <option value = "prixApprox" id="prixApprox">Prix journalier</option> 
+                                  <option value = "nom" id="nom" >Nom</option>
+                                  <option value = "prenom" id="prenom" >Prenom</option>
+                                  <option value = "nbDiplome" id="nbDiplome" >Nombre de diplomes</option>
+
+                                </select>
+                              </div>
+                              <div class="form-group col-md-5">
+                                <select name="asc" class="form-control">
+                                  <option value = "1" id ="budget">Ascendant</option>
+                                  <option value = "0" id="reputation">Descendant</option> 
+                                </select>
+                              </div>
                             </div>
                             <div class="form-grop col-md-6 panel-center">
                                 <input type="submit" value="Rechercher" class="btn btn-success btn-block" />
@@ -98,7 +155,7 @@
           <div class="col-lg-4 col-md-6 box wow bounceInUp" data-wow-duration="1.4s">
             <div class="icon"><i class="ion-ios-bookmarks-outline"></i></div>
             <h4 class="title"><a href="">Nombre d'etoiles</a></h4>
-            <p class="description">Les gens ont note cette ouvrier avec <span class="rateit" id="essai" data-rateit-value="{{$ouvrier->reputation}}" data-rateit-readonly="true" data-rateit-ispreset="true" ></span></p>
+            <p class="description">Les gens ont note cette ouvrier avec <span class="rateit" id="essai" data-rateit-value="{{$ouvrier->finalRating()}}" data-rateit-readonly="true" data-rateit-ispreset="true" ></span></p>
           </div>
           <div class="col-lg-4 col-md-6 box wow bounceInUp" data-wow-duration="1.4s">
             <div class="icon"><i class="ion-ios-paper-outline"></i></div>
@@ -118,7 +175,7 @@
           <div class="col-lg-4 col-md-6 box wow bounceInUp" data-wow-delay="0.1s" data-wow-duration="1.4s">
             <div class="icon"><i class="ion-ios-people-outline"></i></div>
             <h4 class="title"><a href="">Localisation</a></h4>
-            <p class="description">Cette ouvrier habite a {{$ouvrier->user->adresse}}-{{$ouvrier->user->region}}-{{$ouvrier->user->wilaya}}</p>
+            <p class="description">Cette ouvrier habite a {{$ouvrier->user->adresse}}-{{$ouvrier->user->region}}-{{config('variables.wilayas.'.$ouvrier->user->wilaya)}}</p>
           </div>
 
         </div>

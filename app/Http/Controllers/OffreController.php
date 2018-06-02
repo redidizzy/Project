@@ -4,20 +4,23 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Ouvrier;
-use App\TypeOuvrier;
-use App\Client;
-use App\User;
-use Auth;
-use App\OffreEmploi;
+
+use App\Http\Repositories\UserRepository;
+use App\Http\Repositories\OffreRepository;
+
 class OffreController extends Controller
 {
-	
-	public function __construct()
+	protected $userRepository;
+    protected $offreRepository;
+	public function __construct(UserRepository $userRepository, OffreRepository $offreRepository)
 	{
         $this->middleware('isBanned');
 		$this->middleware('auth');
-		$this->middleware('typeUser:Ouvrier,Entrepreneur',['only'=>['offrePourOuvrier','addPostulant']]);
+		//$this->middleware('typeUser:Ouvrier,Entrepreneur',['only'=>['offrePourOuvrier']]);
+        $this->middleware('typeUser:Ouvrier', ['only' => ['addPostulant']]);
+        $this->middleware('typeUser:Entrepreneur', ['only' =>['create', 'store', 'update', 'edit', 'destroy', 'afficherPostulants']]);
+        $this->userRepository = $userRepository;
+        $this->offreRepository = $offreRepository;
 	}
     /**
      * Display a listing of the resource.
@@ -26,14 +29,16 @@ class OffreController extends Controller
      */
     public function index($id)
     {
-		
-        $offres= User::find($id)->userable->offres;
-		$user= User::find($id);
+		$user= $this->userRepository->utilisateurNumero($id);
+        if(!$user)
+            return view('errors.error')->with(['msg' => 'L\'Utilisateur que vous souhaitez consulter n\'existe pas !', 'titre' => 'Utilisateur Non-Existant']);
+        if($user->userable_type != 'Entrepreneur')
+             return view('errors.error')->with(['msg' => 'L\'Utilisateur n\'est pas un Entrepreneur et ne peut donc pas avoir d\'offres d\'emploi', 'titre' => 'Erreur']);
+
+        $offres= $this->offreRepository->getOffresEntrepreneur($user->userable);
 		return view('offres.index',compact('offres','user'));
 		
     }
-	
-	
     /**
      * Show the form for creating a new resource.
      *
@@ -41,7 +46,7 @@ class OffreController extends Controller
      */
     public function create()
     {
-		$types = TypeOuvrier::all();
+		$types = $this->offreRepository->toutLesTypesOuvriers();
         return view ('offres.create', compact('types'));
     }
 
@@ -53,30 +58,9 @@ class OffreController extends Controller
      */
     public function store(Request $request)
     {
-       $utilisateur=Auth::user()->userable->id;
-	   OffreEmploi::create([
-			'type_id' => TypeOuvrier::find($request->type)->designation,
-			'entrepreneur_id' => $utilisateur,
-			'contenu' => $request->contenu
-		]);
-	   
-	   return redirect()->route('offres.index', Auth::user()->id);
+       $utilisateur_id = $this->offreRepository->creerOffre($request);
+	   return redirect()->route('offres.index', $utilisateur_id);
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-		/*$offres = OffreEmploi::find($id);
-        $postulants = $offres->ouvriers->withPivot();
-		
-		return view('offre.index');*/
-    }
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -85,8 +69,8 @@ class OffreController extends Controller
      */
     public function edit($id)
     {
-		$offre=OffreEmploi::find($id);
-		$types = TypeOuvrier::all();
+		$offre= $this->offreRepository->getOffre($id);
+		$types = $this->offreRepository->toutLesTypesOuvriers();
 		
         return view('offres.edit',compact('offre','types'));
     }
@@ -100,15 +84,8 @@ class OffreController extends Controller
      */
     public function update(Request $request, $id)
     {
-		
-        $offre=OffreEmploi::find($id);
-		
-		$offre->type_id = TypeOuvrier::where('designation', '=', $request->type)->first()->designation;
-		$offre->contenu = $request->contenu;
-		
-		$offre->save();
-		return redirect()->route('offres.index',Auth::user()->id);
-		
+        $utilisateur_id = $this->offreRepository->changerOffre($request, $id);
+		return redirect()->route('offres.index', $utilisateur_id);	
     }
 
     /**
@@ -119,36 +96,30 @@ class OffreController extends Controller
      */
     public function destroy($id)
     {
-        OffreEmploi::find($id)->delete();
-		return redirect()->route('offres.index', Auth::user()->id);
+        $utilisateur_id = $this->offreRepository->supprimerOffre($id);
+		return redirect()->route('offres.index', $utilisateur_id);
 		
     }
-	public function addPostulant($id_offre,$id_postulant)
+	public function addPostulant($id_offre)
 	{
 		
 		
-		$offre = OffreEmploi::find($id_offre);
-		$offre->ouvriers()->attach($id_postulant);
-		return redirect()->route('offres.offrePourOuvrier',Auth::user()->id);
+		$this->offreRepository->postuler($id_offre);
+		return redirect()->back();
 	}
 
-	public function afficherPostulants($id)
-	
-	{
-		
-		$offre = OffreEmploi::find($id);
-		$postulants = $offre->ouvriers;
-		return view('postulants.index',compact('offre','postulants'));
-	}
-	
-	public function offrePourOuvrier($id)
+    public function afficherPostulant($id)
     {
-        $user= User::find($id);
-		
-		
-		$typeUser = $user->userable->fonction;
-		
-		$offres= OffreEmploi::where('type_id', '=',$typeUser)->get();
+        
+        $offre = $this->offreRepository->getOffre($id);
+       
+        $postulants = $this->offreRepository->getPostulants($offre);
+        return view('postulants.index',compact('offre','postulants'));
+    }
+	//a voir
+	public function offrePourOuvrier()
+    {
+        $offres = $this->offreRepository->getOffresPourOuvrier();
 		
 		return view('offres.offrePourOuvrier',compact('offres'));
 		

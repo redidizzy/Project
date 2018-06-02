@@ -4,20 +4,18 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Ouvrier;
-use App\TypeOuvrier;
-use App\Client;
-use App\User;
-use Auth;
-use App\DemandeEmploi;
+use App\Http\Repositories\DemandeRepository;
+use App\Http\Repositories\UserRepository;
 
 class DemandeController extends Controller
 {
-	public function __construct()
+    protected $demandeRepository, $userRepository;
+	public function __construct(DemandeRepository $demandeRepository, UserRepository $userRepository)
 	{
+        $this->demandeRepository = $demandeRepository; $this->userRepository = $userRepository;
 		$this->middleware('auth');
-		$this->middleware('typeUser:Ouvrier');
         $this->middleware('isBanned');
+        $this->middleware('typeUser:Ouvrier', ['only' => ['create', 'store', 'edit', 'update', 'destroy']]);
 	}
     /**
      * Display a listing of the resource.
@@ -26,9 +24,13 @@ class DemandeController extends Controller
      */
     public function index($id)
     {
-        //
-		$demandes= User::find($id)->userable->demandes;
-		$user= User::find($id);
+        $user= $this->userRepository->utilisateurNumero($id);
+        if(!$user)
+            return view('errors.error')->with(['msg' => 'L\'Utilisateur que vous souhaitez consulter n\'existe pas !', 'titre' => 'Utilisateur Non-Existant']);
+        if($user->userable_type != 'Ouvrier')
+             return view('errors.error')->with(['msg' => 'L\'Utilisateur n\'est pas un ouvrier et ne peut donc pas avoir de demandes d\'emploi', 'titre' => 'Erreur']);
+
+		$demandes= $this->demandeRepository->getDemandesOuvrier($user->userable);
 		return view('demandes.index',compact('demandes','user'));
     }
 
@@ -51,26 +53,8 @@ class DemandeController extends Controller
      */
     public function store(Request $request)
     {
-        $utilisateur = Auth::user()->userable->id;
-       
-        DemandeEmploi::create([
-            
-            'ouvrier_id' => $utilisateur,
-            'contenu' => $request->contenu
-        ]); 
-
-        return redirect()->route('demandes.index', Auth::user()->id);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+        $utilisateur_id = $this->demandeRepository->creerDemande($request);
+        return redirect()->route('demandes.index', $utilisateur_id);
     }
 
     /**
@@ -81,7 +65,7 @@ class DemandeController extends Controller
      */
     public function edit($id)
     {
-        $demande=DemandeEmploi::find($id);
+        $demande= $this->demandeRepository->demandeNumero($id);
 		return view('demandes.edit',compact('demande'));
     }
 
@@ -94,11 +78,8 @@ class DemandeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $demande= DemandeEmploi::find($id);
-		$demande->contenu = $request->contenu;
-		
-		$demande->save();
-		return redirect()->route('demandes.index', Auth::user()->id);
+        $utilisateur_id = $this->demandeRepository->changerDemande($request, $id);
+		return redirect()->route('demandes.index', $utilisateur_id);
     }
 
     /**
@@ -109,13 +90,13 @@ class DemandeController extends Controller
      */
     public function destroy($id)
     {
-       DemandeEmploi::find($id)->delete();
-        return redirect()->route('demandes.index', Auth::user()->id); 
+        $utilisateur_id = $this->demandeRepository->supprimerDemande($id);       
+        return redirect()->route('demandes.index', $utilisateur_id); 
     }
 	
 	public function demandePourEntreClient()
 	{
-		$demandes= DemandeEmploi::all();
+		$demandes= $this->demandeRepository->toutesLesDemandes();
 		
 		return view('demandes.demandePourEntreClient',compact('demandes'));
 	}

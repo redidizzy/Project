@@ -17,7 +17,7 @@
                                     <label for="contenu" class="col-md-4 control-label">Contenu :</label></br>
 
                                     <div class="col-md-6">
-                                        <textarea id="contenu" class="form-control" name="contenu">Votre demande...</textarea>
+                                        <textarea id="contenu" class="form-control" name="contenu" placeholder="Votre demande.."></textarea>
 
                                         @if ($errors->has('contenu'))
                                             <span class="help-block">

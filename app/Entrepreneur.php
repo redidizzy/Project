@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Entrepreneur extends Model
 {
 	protected $guarded = [];
+  protected $dates = ['dateDebutDispo', 'dateFinDispo']; 
+  
 	public function user()
 	{
 		return $this->morphOne('App\User', 'userable');
@@ -88,4 +90,8 @@ class Entrepreneur extends Model
    			$x->where('wilaya', $wilaya);
    		});
    }
+   // public function getDateFormat()
+   //  {
+   //      return 'd.m.Y';
+   //  }
 }

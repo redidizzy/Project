@@ -40,6 +40,7 @@
 
   <link href="{{asset('rateit/rateit.css')}}" rel="stylesheet">
   <link href="{{asset('dataTables/datatables.css')}}" rel="stylesheet">
+  <link rel="stylesheet" href="{{asset('viewerjs-1.1.0/dist/viewer.css')}}">
 
 
   <!-- =======================================================
@@ -50,7 +51,7 @@
   ======================================================= -->
 </head>
 
-<body>
+<body data-id="{{Auth::user()->id}}" data-name="{{Auth::user()->nom}} {{Auth::user()->prenom}}">
   <!--==========================
     Header
   ============================-->
@@ -65,12 +66,26 @@
           <!-- <a href="#intro"><img src="img/logo.png" alt="" title="" /></a>-->
         </div>
         <div id="recherche" class="col-md-4">
+        @if(Auth::user()->userable_type=='Entrepreneur' or Auth::user()->userable_type=="Ouvrier")
+        <form method="GET" class="form-inline" action="{{route('recherche.rapide')}}">
+
+                <select name="recherche" class="form-control">
+                <option selected disabled hidden>Type de projets recherche</option>
+                @foreach($typeProjets as $type)
+                <option value="{{$type->id}}">{{$type->designation}}</option>
+                @endforeach 
+
+                <input type="submit" value="Rechercher" class = "btn btn-success"/>
+
+        </form>
+        @else
         <form method="GET" class="form-inline" action="{{route('recherche.rapide')}}">
                 <input type="text" name="recherche"  class="form-control" />
 
                 <input type="submit" value="Rechercher" class = "btn btn-success"/>
 
-          </form>
+        </form>
+        @endif
         </div>
        
         <nav id="nav-menu-container">
@@ -84,6 +99,7 @@
                 <ul>
                   <li><a href="{{route('recherche.ouvrier')}}">Rechercher Ouvrier</a></li>
                   <li><a href="{{route('recherche.projet')}}">Rechercher Projet</a></li>
+                  <li><a href="{{route('demandes.demandePourEntreClient')}}">Voir tout les demandes d'emploi disponible</a></li>
                 </ul>
               </li> 
             @elseif(Auth::user()->userable_type === "Ouvrier")
@@ -95,6 +111,7 @@
                 <ul>
                   <li><a href="{{route('recherche.projet')}}">Rechercher Projet</a></li>
                   <li><a href="{{route('recherche.entrepreneur')}}">Rechercher Entrepreneur</a></li>
+                   <li><a href="{{route('offres.offrePourOuvrier')}}">Voir tout les offres d'emploi disponible</a></li>
                 </ul>
               </li> 
 
@@ -209,6 +226,7 @@
   <script src="{{asset('templateFiles/lib/touchSwipe/jquery.touchSwipe.min.js')}}"></script>
   <!-- Contact Form JavaScript File -->
   <script src="{{asset('templateFiles/contactform/contactform.js')}}"></script>
+  <script src="{{asset('viewerjs-1.1.0/dist/viewer.js')}}"></script>
 
   <!-- Template Main Javascript File -->
   <script src="{{asset('templateFiles/js/main.js')}}"></script>

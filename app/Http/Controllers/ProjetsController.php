@@ -1,34 +1,42 @@
 <?php
 
 namespace App\Http\Controllers;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
-use App\Projet;
-use App\TypeProjet;
-use App\Client;
 use App\User;
+
+use App\Http\Repositories\ProjetRepository;
+use App\Http\Repositories\UserRepository;
 
 class ProjetsController extends Controller
 {
+    protected $projetRepository, $userRepository;
+
+    public function __construct(ProjetRepository $projetRepository, UserRepository $userRepository)
+    {
+        $this->middleware('auth');
+		$this->middleware('typeUser:Client', ['only' => ['create', 'store', 'update', 'edit', 'destroy']]);
+        $this->middleware('isBanned');
+        $this->projetRepository = $projetRepository;
+        $this->userRepository = $userRepository;
+    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-
-    public function __construct()
-    {
-        $this->middleware('auth');
-		$this->middleware('typeUser:Client');
-        $this->middleware('isBanned');
-        //TODO : ajout de middleware de verification : l'utilisateur est un client
-    }
     public function index($id)
     {
-        $projets = User::find($id)->userable->projets;
-        $user = User::find($id);
+        $user = $this->userRepository->utilisateurNumero($id);
 
+        if(!$user)
+            return view('errors.error')->with(['msg' => 'L\'Utilisateur que vous souhaitez consulter n\'existe pas !', 'titre' => 'Utilisateur Non-Existant']);
+        if($user->userable_type != 'Client')
+             return view('errors.error')->with(['msg' => 'L\'Utilisateur n\'est pas un client et ne peut donc pas avoir de projets', 'titre' => 'Erreur']);
+
+        $projets = $this->projetRepository->getProjetDuClient($user->userable);
+
+        //dd($projets->get(1)->type);
         return view('projets.index', compact('projets', 'user'));
     }
 
@@ -39,7 +47,7 @@ class ProjetsController extends Controller
      */
     public function create()
     {
-        return view('projets.create',['types' => TypeProjet::all()]) ;
+        return view('projets.create',['types' => $this->projetRepository->toutLesTypes()]) ;
     }
 
     /**
@@ -50,34 +58,8 @@ class ProjetsController extends Controller
      */
     public function store(Request $request)
     {
-
-        $utilisateur = Auth::user()->userable->id;
-       
-        Projet::create([
-            'type_id' => TypeProjet::where('designation', '=', $request->type)->first()->designation,
-            'client_id' => $utilisateur,
-            'description' => $request->description,
-            'wilaya' => $request->wilaya,
-            'region' => $request->region,
-            'adresse' => $request->adresse,
-            'superficie' => $request->superficie,
-            'budget' => $request->budget,
-            'delai' => $request->delai,
-            'necessiteEntrepreneur' => isset($request->necessiteEntrepreneur)
-        ]); 
-
-        return redirect()->route('projets.index', Auth::user()->id);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //je ne pense pas qu'on en aura besoin
+        $utilisateur_id = $this->projetRepository->creerProjet($request);
+        return redirect()->route('projets.index', $utilisateur_id);
     }
 
     /**
@@ -88,8 +70,8 @@ class ProjetsController extends Controller
      */
     public function edit($id)
     {
-        $projet = Projet::find($id);
-        $types = TypeProjet::all();
+        $projet = $this->projetRepository->projetNumero($id);
+        $types = $this->projetRepository->toutLesTypes();
         return view('projets.edit', compact('projet', 'types'));
         
     }
@@ -103,20 +85,8 @@ class ProjetsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $projet = Projet::find($id);
-
-        $projet->type_id = TypeProjet::where('designation', '=', $request->type)->first()->id;
-        $projet->description = $request->description;
-        $projet->wilaya = $request->wilaya;
-        $projet->region = $request->region;
-        $projet->superficie = $request->superficie;
-        $projet->budget = $request->budget;
-        $projet->delai = $request->delai;
-        $projet->necessiteEntrepreneur = isset($request->necessiteEntrepreneur);
-
-        $projet->save();
-
-        return redirect()->route('projets.index', Auth::user()->id);
+        $utilisateur_id = $this->projetRepository->changerProjet($request, $id);
+        return redirect()->route('projets.index', $utilisateur_id);
     }
 
     /**
@@ -127,7 +97,7 @@ class ProjetsController extends Controller
      */
     public function destroy($id)
     {
-        Projet::find($id)->delete();
-        return redirect()->route('projets.index', Auth::user()->id);   
+        $utilisateur_id = $this->projetRepository->supprimerProjet($id);
+        return redirect()->route('projets.index', $utilisateur_id);   
     }
 }

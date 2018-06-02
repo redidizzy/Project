@@ -79,16 +79,16 @@ Route::get('offres/create', 'OffreController@create')->name('offres.create');
 Route::get('/offres/{id}/edit', 'OffreController@edit')->name('offres.edit');
 Route::delete('/offres/{id}/', 'OffreController@destroy')->name('offres.destroy');
 Route::post('/offres/{id}', 'OffreController@update')->name('offres.update');
-Route::get('/offres/{offre}/postulants/{postulant}', 'OffreController@addPostulant')->name('offres.addPostulant');
-Route::get('/offres/{id}/postulants', 'OffreController@afficherPostulants')->name('offres.afficherPostulants');
-Route::get('/offres/{id}/offrepourouvrier', 'OffreController@offrePourOuvrier')->name('offres.offrePourOuvrier');
+Route::get('/offres/{offre}/postulants/', 'OffreController@addPostulant')->name('offres.addPostulant');
+Route::get('/offres/offrepourouvrier', 'OffreController@offrePourOuvrier')->name('offres.offrePourOuvrier');
+Route::get('/offres/{offres}/ajout', 'OffreController@afficherPostulant')->name('offres.afficherLesPostulants');
 
 
 //ces routes concerneront l'administration
 Route::get('/admin', 'AdminController@index')->name('admin.index');
 Route::post('/creerTypeProjet', 'AdminController@creerTypeProjet')->name('creerTypeProjet');
 Route::post('/creerTypeOuvrier', 'AdminController@creerTypeOuvrier')->name('creerTypeOuvrier');
-Route::get('/makeAdmin', 'AdminController@makeAdmin')->name('makeAdmin');
+Route::get('/makeAdmin/{id}', 'AdminController@makeAdmin')->name('makeAdmin');
 Route::get('/ban/{id}', 'AdminController@ban')->name('ban');
 Route::get('/unban/{id}', 'AdminController@unban')->name('unban');
 Route::get('banned', function(){

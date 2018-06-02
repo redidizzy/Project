@@ -32,30 +32,87 @@
                             <div class="form-row">
                                
                                  <div class="form-group col-md-3">
-                                    <input type="text" name="reputationMin" id="reputationMin" placeholder="Nombre d'etoiles minimal" class="form-control" />
+                                    <select name="reputationMin" id="reputaionMin" class="form-control">
+                                      <option disabled selected hidden>Nombre d'etoiles minimal</option>
+                                      <option value="0">0</option>
+                                      <option value="1">1</option>
+                                      <option value="2">2</option>
+                                      <option value="3">3</option>
+                                      <option value="4">4</option>
+                                      <option value="5">5</option>
+                                    </select>
                                 </div>
                                  <div class="form-group col-md-3">
-                                    <input type="text" name="reputationMax" id="reputationMax" placeholder="Nombre d'etoiles maximal" class="form-control" />
+                                   <select name="reputationMax" id="reputaionMax" class="form-control">
+                                    <option disabled selected hidden>Nombre d'etoiles maximal</option>
+                                      <option value="0">0</option>
+                                      <option value="1">1</option>
+                                      <option value="2">2</option>
+                                      <option value="3">3</option>
+                                      <option value="4">4</option>
+                                      <option value="5">5</option>
+                                    </select>
                                 </div>
                                  
                             </div>  
                             <div class="form-row">
                                <div class="form-group col-md-6">
-                                  <input type="text" name="experienceMin" id="experienceMin" placeholder="Nombre d'attestations de bonne execution" class="form-control" />
+                                  <input type="number" name="experienceMin" id="experienceMin" placeholder="Nombre d'attestations de bonne execution" class="form-control" />
                               </div>
                                <div class="form-group col-md-6">
-                                  <input type="text" name="experienceMax" id="experienceMax" placeholder="Nombre d'attestations de bonne execution" class="form-control" />
+                                  <input type="number" name="experienceMax" id="experienceMax" placeholder="Nombre d'attestations de bonne execution" class="form-control" />
                               </div>
                              
                             
                             </div>    
-                            <div class="form-row">  
-                                 <div class="form-group col-md-6">
-                                    <input type="text" name="wilaya" id="wilaya" placeholder="Wilaya" class="form-control" />
-                                </div>           
-                                 <div class="form-group col-md-6">
-                                    <input type="text" name="region" id="region" placeholder="Region" class="form-control" />
-                                </div> 
+                             <div class="form-row">
+                              <div class="col-md-6 form-group{{ $errors->has('wilaya') ? ' has-error' : '' }}">
+                                    <select id="wilaya" class="form-control" name="wilaya" required>
+                                      <option value="0" selected hidden disabled>Choisir une wilaya</option>
+                                    @foreach(config('variables.wilayas') as $nwil=>$wil)
+                                        <option value="{{$nwil}}" id="{{$nwil}}">{{$nwil}}-{{$wil}}</option>
+                                    @endforeach
+                                    </select>
+                                    @if ($errors->has('wilaya'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('wilaya') }}</strong>
+                                        </span>
+                                    @endif
+                              </div>
+                              <div class="col-md-6 form-group{{ $errors->has('region') ? ' has-error' : '' }}">
+
+                                  
+                                      <select name="region" id="region" class="form-control">
+                                        <option value="0" selected hidden disabled>Choisir Une commune</option>
+                                      </select>
+
+                                      @if ($errors->has('region'))
+                                          <span class="help-block">
+                                              <strong>{{ $errors->first('region') }}</strong>
+                                          </span>
+                                      @endif
+                                  
+                              </div>
+                            </div>
+                            <div class="form-row">
+                              <div class="form-group col-md-5">
+                                <select name="tri" class="form-control">
+                                  <option disabled hidden selected> Trier par : </option>
+                                  <option value = "experience" id ="budget">experience</option>
+                                  <option value = "reputation" id="reputation">Reputation</option> 
+                                  <option value = "nom" id="nom" >Nom</option>
+                                  <option value = "prenom" id="prenom" >Prenom</option>
+                                  <option value= "dateDebutDispo" id="dateDispoMin">Date de Disponibilite Minimal</option>
+                                  <option value = "dateFinDispo" id="dateDispoMax">Date de Disponibilite Maximal</option>
+
+                                </select>
+                              </div>
+                              <div class="form-group col-md-5">
+                                <select name="asc" class="form-control">
+                                  <option value = "1" id ="budget" selected>Ascendant</option>
+                                  <option value = "0" id="reputation">Descendant</option> 
+                                </select>
+                              </div>
                             </div>
                             <div class="form-grop col-md-6 panel-center">
                                 <input type="submit" value="Rechercher" class="btn btn-success btn-block" />
@@ -85,8 +142,8 @@
             <h4 class="title"><a href="">Disponibilite</a></h4>
             <p class="description">L'entrepreneur est disponible :
               <ul>
-                <li> Du : {{ $entrepreneur->dateDebutDispo }} </li>
-                <li> Au : {{ $entrepreneur->dateFinDispo }} </li>
+                <li> Du : {{ $entrepreneur->dateDebutDispo->format('d/m/Y') }} </li>
+                <li> Au : {{ $entrepreneur->dateFinDispo->format('d/m/Y') }} </li>
               </ul> 
             </p> 
           </div>

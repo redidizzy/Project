@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Relations\Relation;
 
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -19,6 +20,7 @@ class AppServiceProvider extends ServiceProvider
             'Ouvrier' => \App\Ouvrier::class,
             'Client' => \App\Client::class
         ]);
+        view()->share('typeProjets', \App\TypeProjet::all());
         //
     }
 

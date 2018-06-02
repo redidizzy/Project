@@ -9,15 +9,24 @@
 	            	@forelse($offres as $offre)
 	                <div class="panel panel-success">
 					
-	                	<div class="panel-heading">Offre de : {{$offre->entrepreneur->user->nom}}  {{$offre->entrepreneur->user->prenom}}</div>
+	                	<div class="panel-heading" id="heading-styling">
+	                		<div>Offre de : {{$offre->entrepreneur->user->nom}}  {{$offre->entrepreneur->user->prenom}}</div>
+	                		<div><small >cree le : {{$offre->created_at}} </small></div>
+	                	</div>
 	                	<div class="panel-body">
-	                		<p>Le contenu : </br></br>{{$offre->contenu}}</p>
-							<p><small >cree le : {{$offre->created_at}} </small></p>
-								
-								<a class="btn btn-success btn-block col-sm-2" href="{{route('offres.addPostulant',[$offre->id,Auth::user()->userable->id])}}">Postuler</a>
-							
-							
+	                		<p>Le contenu : </br></br>{{$offre->contenu}}</p>	
 						</div>
+						@if(Auth::user()->userable_type == 'Ouvrier')
+	                	@if(Auth::user()->userable->dejaPostule($offre))
+	                		<div class="panel-footer clearfix">
+		                		<p class="alert alert-success floatRight">Vous avez deja postule a cette offre</a>
+		                	</div>
+	                	@else
+		                	<div class="panel-footer clearfix">
+		                		<a href="{{route('offres.addPostulant', $offre->id)}}" class="btn btn-success floatRight">Postuler</a>
+		                	</div>
+		                @endif
+	                	@endif
 
 	                </div>
 	               
