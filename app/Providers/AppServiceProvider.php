@@ -20,7 +20,8 @@ class AppServiceProvider extends ServiceProvider
             'Ouvrier' => \App\Ouvrier::class,
             'Client' => \App\Client::class
         ]);
-        view()->share('typeProjets', \App\TypeProjet::all());
+        if(Schema::hasTable('type_projets'))
+            view()->share('typeProjets', \App\TypeProjet::all());
         //
     }
 
