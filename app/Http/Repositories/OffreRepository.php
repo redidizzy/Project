@@ -11,7 +11,9 @@ use App\TypeOuvrier;
 class OffreRepository{
 	public function getOffresEntrepreneur($entrepreneur)
 	{
-		return $entrepreneur->offres;
+		$offres = $entrepreneur->offres()->paginate(5);
+		$resultat = [$offres, $offres->render()];
+		return $resultat;
 	}
 	public function toutLesTypesOuvriers()
 	{
@@ -60,8 +62,9 @@ class OffreRepository{
 		
 		
 		$typeUser = $user->userable->fonction;
+		$result = OffreEmploi::where('type_id', '=',$typeUser)->paginate(5);
 		
-		return OffreEmploi::where('type_id', '=',$typeUser)->get();
+		return ['offres'=>$result, 'links' =>$result->render()];
 	}
 	public function postuler($id_offre)
 	{

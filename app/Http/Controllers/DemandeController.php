@@ -31,7 +31,7 @@ class DemandeController extends Controller
              return view('errors.error')->with(['msg' => 'L\'Utilisateur n\'est pas un ouvrier et ne peut donc pas avoir de demandes d\'emploi', 'titre' => 'Erreur']);
 
 		$demandes= $this->demandeRepository->getDemandesOuvrier($user->userable);
-		return view('demandes.index',compact('demandes','user'));
+		return view('demandes.index',['user'=>$user, 'demandes'=>$demandes[0], 'links'=>$demandes[1]]);
     }
 
     /**
@@ -98,6 +98,6 @@ class DemandeController extends Controller
 	{
 		$demandes= $this->demandeRepository->toutesLesDemandes();
 		
-		return view('demandes.demandePourEntreClient',compact('demandes'));
+		return view('demandes.demandePourEntreClient',$demandes);
 	}
 }

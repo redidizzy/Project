@@ -48,6 +48,7 @@
                    		 </div>
 	                </div>
 	                @endforelse
+						<div class="links-pagination">{{ $links }} </div>
 	                @if(Auth::user()->id == $user->id)
 	                <div class="col-md-3 pull-right">
 	                	<a class="btn btn-success btn-block" href="{{route('demandes.create')}}">Ajouter demande d'emploi</a>

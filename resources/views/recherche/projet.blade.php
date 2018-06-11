@@ -81,7 +81,7 @@
         </div>
 
         <!-- ici, on affiche le resultat de la recherche, si il s'agit d'un get, on affichera tout simplement la liste total des projets -->
-        @foreach($projets as $projet)
+        @forelse($projets as $projet)
          <section id="services" class="resultats">
           <div class="container">
 
@@ -95,7 +95,7 @@
               <div class="col-lg-4 col-md-6 box wow bounceInUp" data-wow-duration="1.4s">
                 <div class="icon"><i class="ion-ios-analytics-outline"></i></div>
                 <h4 class="title"><a href="">Superficie</a></h4>
-                <p class="description">La superificie de ce projet est de {{$projet->superficie}} Km`</p>
+                <p class="description">La superificie de ce projet est de {{$projet->superficie}} m²</p>
               </div>
               <div class="col-lg-4 col-md-6 box wow bounceInUp" data-wow-duration="1.4s">
                 <div class="icon"><i class="ion-ios-bookmarks-outline"></i></div>
@@ -127,9 +127,17 @@
 
           </div>
         </section>
-            
-
-        @endforeach
+         @empty
+	        <div class="panel panel-danger">
+	            <div class="panel-heading">Aucun resultat</div>
+					<div class="panel-body">
+	              		nous n'avons trouve aucun projet
+	               	</div>
+	           	<div class="panel-footer clearfix">
+              		 <a href="{{url()->previous()}}" class="btn btn-success floatRight">Retour</a>
+				</div>
+            </div>
+	    @endforelse
         <div class="links-pagination">{{ $links }} </div>
     </div>
 </div>

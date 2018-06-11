@@ -1,4 +1,5 @@
-@extends(Auth::user() ? 'layouts.app' : 'layouts.appConnected')
+
+@extends('layouts.error')
 
 @section('content')
 <div class="retouches">
@@ -6,9 +7,9 @@
         <div class="row">
             <div class="col-md-12">
             	<div class="panel panel-danger">
-                	<div class="panel-heading">{{$titre}}</div>
+                	<div class="panel-heading">La page que vous recherchez est introuvable </div>
                 	<div class="panel-body">
-                		{{$msg}}
+                		La page que vous recherchez est introuvable
                 	</div>
                     <div class="panel-footer clearfix">
                         <a href="{{url()->previous()}}" class="btn btn-success floatRight">Retour</a>

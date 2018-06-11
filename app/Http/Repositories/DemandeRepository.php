@@ -11,7 +11,9 @@ use App\TypeOuvrier;
 class DemandeRepository{
 	public function getDemandesOuvrier($ouvrier)
 	{
-		return $ouvrier->demandes;
+		$demandes = $ouvrier->demandes()->paginate(5);
+		
+		return [$demandes, $demandes->render()];
 	}
 	public function creerDemande($request)
 	{
@@ -44,6 +46,7 @@ class DemandeRepository{
 	}
 	public function toutesLesDemandes()
 	{
-		return DemandeEmploi::all();
+		$demandes = DemandeEmploi::paginate(5);
+		return ['demandes'=>$demandes, 'links'=>$demandes->render()];
 	}
 }

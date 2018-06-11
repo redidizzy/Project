@@ -1,5 +1,3 @@
-	<!-- Ce template est destine aux gens ne s'etant pas encore connecte -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -48,7 +46,7 @@
   <!--==========================
     Header
   ============================-->
-  <header id="header">
+  <header id="header"style="background-color:black;">
     <div class="container-fluid">
 
       <div id="logo" class="pull-left">
@@ -59,14 +57,7 @@
 
       <nav id="nav-menu-container">
         <ul class="nav-menu">
-          <li class="menu-active"><a href="#intro">Accueil</a></li>
-
-
-          <li><a href="#services">Comment ca marche</a></li>
-          <li><a href="#about">A propos de nous</a></li>
-          <li><a href="#contact">S'inscrire</a></li>
-          <li><a href="#team">Se connecter</a></li>
-          <li><a href="#footer">Contactez nous !</a></li>
+          <li class="menu-active"><a href="{{route('home')}}">Accueil</a></li>
         </ul>
       </nav><!-- #nav-menu-container -->
     </div>

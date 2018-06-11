@@ -53,5 +53,10 @@ class AdminController extends Controller
 		return redirect()->route('admin.index');
 		
 	}
+	public function getSignalements($id)
+	{
+		$signalement = $this->userRepository->getSignalement($id);
+		return $signalement;
+	}
 	
 }

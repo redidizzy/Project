@@ -66,13 +66,17 @@
                                         @if($user->userable_type === "Entrepreneur")
                                             <li>Nom de l'entreprise : {{$user->userable->nom_entreprise}}</li>
                                             <li>Description de l'entreprise: {{$user->userable->description_entreprise}}</li>
-                                            <li>Vous etes actuellement disponible
+                                            @if(!$user->userable->dateDebutDispo or !$user->userable->dateFinDispo)
+											<li>Vous n'avez pas encore change de disponibilite</li>
+											@else
+											<li>Vous etes actuellement disponible
                                               <ul> 
                                                   <li>DU :{{$user->userable->dateDebutDispo->format('d/m/Y')}}</li>
                                                   <li>AU : {{$user->userable->dateFinDispo->format('d/m/Y')}}</li>
                                               </ul>
 
                                             </li>
+											@endif
                                             <li>Materiel : {{$user->userable->materiel}} </li>
                                             <li>Cet entrepreneur a : {{$user->userable->offres->count()}} offres d'emploi <a href="{{route('offres.index', $user->id)}}">(Voir !)</a></li>
                                         @else
@@ -194,6 +198,7 @@
 
       </div>
     </div> 
+	<form action="{{route('changePassword', $user->userable)}}" method="POST" id="ChangerMotDePassForm">
     <div class="modal fade" id ="ChangerMotDePassModal" role="dialog">
      <div class="modal-dialog">
 
@@ -205,32 +210,33 @@
             <button type="button" class="close" data-dismiss="modal">&times;</button>
           </div>
           <div class="modal-body">
-            <form action="{{route('changePassword', $user->userable)}}" method="POST" id="ChangerMotDePassForm">
+            
                 {{csrf_field()}}
                 <div class="form-row">
                     <div class="form-group col-md-10">
-                        <input type="password" name="oldPassword" id="oldPassword"  class="form-control" placeholder="Veuillez indiquer votre ancien mot de passe" />
+                        <input type="password" name="oldPassword" id="oldPassword"  class="form-control" required placeholder="Veuillez indiquer votre ancien mot de passe" />
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-5">
-                        <input type="password" name="newPassword" id="newPassword" class="form-control" placeholder ="Indiquer votre nouveau mot de passe" />
+                        <input type="password" name="newPassword" id="newPassword" class="form-control" required placeholder ="Indiquer votre nouveau mot de passe" />
                     </div>
                     <div class="form-group col-md-5">
-                        <input type="password" name="rnewPassword" id="rnewPassword" class="form-control" placeholder ="Veuillez confirmer votre nouveau mot de passe" />
+                        <input type="password" name="rnewPassword" id="rnewPassword" class="form-control" required placeholder ="Veuillez confirmer votre nouveau mot de passe" />
                     </div>
                 </div>
-            </form>
+            
           </div>
           <div class="modal-footer">
-            <button class="btn btn-success" id="submitPassword" >Confirmer</button>
+            <button class="btn btn-success" type="submit" id="submitPassword" >Confirmer</button>
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
           </div>
         </div>
 
       </div>
     </div>
-
+	</form>
+	<form action="{{route('AjouterAttestation', $user->userable)}}" method="POST" id="AjouterAttestationEntrepreneurForm" enctype="multipart/form-data">
     <div class="modal fade" id ="AjouterAttestationEntrepreneur" role="dialog">
      <div class="modal-dialog">
 
@@ -242,22 +248,23 @@
             <button type="button" class="close" data-dismiss="modal">&times;</button>
           </div>
           <div class="modal-body">
-            <form action="{{route('AjouterAttestation', $user->userable)}}" method="POST" id="AjouterAttestationEntrepreneurForm" enctype="multipart/form-data">
+            
                 {{csrf_field()}}
                 <div class="form-group col-md-10">
-                    <input type="file" name="attestation" id="attestation"  class="form-control"/>
+                    <input type="file" name="attestation" required id="attestation"  class="form-control"/>
                 </div>
                 
-            </form>
+            
           </div>
           <div class="modal-footer">
-            <button class="btn btn-success" id="AjouterAttestationEntrepreneurSubmit" >Confirmer</button>
+            <button class="btn btn-success" type="submit" id="AjouterAttestationEntrepreneurSubmit" >Confirmer</button>
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
           </div>
         </div>
 
       </div>
-    </div> 
+    </div>
+	</form>	
     @if($user->userable_type == "Entrepreneur" or $user->userable_type == "Ouvrier")
     <div class="modal fade" id ="voirAttestations" role="dialog">
      <div class="modal-dialog">
@@ -285,6 +292,7 @@
     </div> 
 
     <!-- pour l'ouvrier -->
+	<form action="{{route('ajouteDiplome', $user->userable)}}" method="POST" id="ajouterDiplomeForm" enctype="multipart/form-data">
     <div class="modal fade" id ="ajouterDiplome" role="dialog">
      <div class="modal-dialog">
 
@@ -299,20 +307,20 @@
             <form action="{{route('ajouteDiplome', $user->userable)}}" method="POST" id="ajouterDiplomeForm" enctype="multipart/form-data">
                 {{csrf_field()}}
                 <div class="form-group col-md-10">
-                    <input type="file" name="diplome" id="diplome"  class="form-control"/>
-                    <input type="text" name="titre" id="titre"  class="form-control" placeholder="Titre du diplome"/>
+                    <input type="file" name="diplome" id="diplome" required  class="form-control" />
                 </div>
                 
-            </form>
+           
           </div>
           <div class="modal-footer">
-            <button class="btn btn-success" id="ajouterDiplomeSubmit" >Confirmer</button>
+            <button type="submit" class="btn btn-success" id="ajouterDiplomeSubmit" >Confirmer</button>
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
           </div>
         </div>
 
       </div>
     </div>
+	 </form>
     <div class="modal fade" id ="changerProfession" role="dialog">
      <div class="modal-dialog">
 
@@ -344,6 +352,7 @@
 
       </div>
     </div>
+	<form action="{{route('changerPrix')}}" method="POST" id="changerPrixForm" enctype="multipart/form-data">
     <div class="modal fade" id ="changerPrix" role="dialog">
      <div class="modal-dialog">
 
@@ -355,22 +364,23 @@
             <button type="button" class="close" data-dismiss="modal">&times;</button>
           </div>
           <div class="modal-body">
-            <form action="{{route('changerPrix')}}" method="POST" id="changerPrixForm" enctype="multipart/form-data">
+            
                 {{csrf_field()}}
                 <div class="form-group col-md-10">
-                    <input type="number" name="prix" placeholder="votre nouveau prix journalier en DA" class="form-control" />
+                    <input type="number" name="prix" required placeholder="votre nouveau prix journalier en DA" class="form-control" />
                 </div>
                 
-            </form>
+            
           </div>
           <div class="modal-footer">
-            <button class="btn btn-success" id="changerPrixSubmit" >Confirmer</button>
+            <button class="btn btn-success" id="changerPrixSubmit" type="submit" >Confirmer</button>
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
           </div>
         </div>
 
       </div>
     </div>
+	</form>
     @if($user->userable_type == "Ouvrier")
     <div class="modal fade" id ="voirDiplomes" role="dialog">
      <div class="modal-dialog">
@@ -483,16 +493,7 @@
             e.preventDefault();
             $("#ChangerMotDePassModal").modal();
         });
-        $("#submitPassword").on("click", function(e){
-            e.preventDefault();
-            $("#ChangerMotDePassModal").fadeOut();
-            $("#ChangerMotDePassForm").submit();
-        });
-        $("#AjouterAttestationEntrepreneurSubmit").on("click", function(e){
-            e.preventDefault();
-            $("#AjouterAttestationEntrepreneur").fadeOut();
-            $("#AjouterAttestationEntrepreneurForm").submit();
-        });
+       
         $("#toggleAjouterAttestationEntrepreneur").on("click", function(e){
             e.preventDefault();
             $("#AjouterAttestationEntrepreneur").modal();
@@ -500,10 +501,6 @@
         $("#toggleVoirAttestations").on("click", function(e){
             e.preventDefault();
             $("#voirAttestations").modal();
-        });
-        $("#ajouterDiplomeSubmit").on("click", function(e){
-            e.preventDefault();
-            $("#ajouterDiplomeForm").submit();
         });
          $("#toggleAjouterDiplome").on("click", function(e){
             e.preventDefault();
@@ -526,11 +523,7 @@
             e.preventDefault();
             $("#changerPrix").modal()
          });
-         $("#changerPrixSubmit").on("click", function(e){
-            e.preventDefault();
-            $("#changerPrix").fadeOut();
-            $("#changerPrixForm").submit();
-         });
+        
          $("#toggleSignaler").on("click", function(e){
           e.preventDefault();
           $("#signalerUtilisateur").modal();
@@ -597,9 +590,10 @@
 
             });
          });
+		 var photoProfilViewer = new Viewer(document.getElementById("photoProfil"));
          var attestationsViewer = new Viewer(document.getElementById("attestationsImages"));
-         var attestationsViewer = new Viewer(document.getElementById("diplomesImages"));
-         var photoProfilViewer = new Viewer(document.getElementById("photoProfil"));
+		 var attestationsViewer = new Viewer(document.getElementById("diplomesImages"));
+         
     </script>
      <script src="{{asset('rateit\jquery.rateit.js')}}"></script>
 @endsection

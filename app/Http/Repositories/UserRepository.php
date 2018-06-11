@@ -71,7 +71,8 @@ class UserRepository{
     	$user->dateNaiss = $request->dateNaiss;
     	$user->wilaya = $request->wilaya;
     	$user->region = $request->region;
-    	$user->photoProfil = $url;
+		if($url)
+			$user->photoProfil = $url;
     	$user->numTel = $request->numTel;
 
     	$user->save();
@@ -121,7 +122,7 @@ class UserRepository{
 	{
 		$user = Auth::user();
 		$diplome = new Diplome;
-        $diplome->titre = $request->titre;
+        $diplome->titre = "diplome";
         $diplome->photoDiplome= $url;
         $diplome->ouvrier_id = $user->userable->id;
         $diplome->save();
@@ -558,4 +559,8 @@ class UserRepository{
 
         return $return;
     }
+	public function getSignalement($id)
+	{
+		return User::find($id)->signalements;
+	}
 }

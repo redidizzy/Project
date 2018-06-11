@@ -5,12 +5,12 @@
     <div class="retouches">
         <div class="container">
             <div class="row">
-                <div class="col-md-8 panel-center">
+                <div class="col-md-10 panel-center">
                     <div class="panel panel-default ">
                         <div class="panel-heading text-center">Creer une offre d'emploi </div>
 
                         <div class="panel-body">
-                            <form class="form-horizontal" style="margin-left : 30%;" method="POST"  action="{{ route('offres.store', Auth::user()->id) }}">
+                            <form class="form-horizontal" style="margin-left : 20%;" method="POST"  action="{{ route('offres.store', Auth::user()->id) }}">
                                 {{ csrf_field() }}
 								
 								<div class="form-group{{ $errors->has('type') ? ' has-error' : '' }}">
@@ -35,7 +35,7 @@
                                     <label for="contenu" class="col-md-4 control-label">Contenu :</label></br>
 
                                     <div class="col-md-6">
-                                        <textarea id="contenu" class="form-control" name="contenu" placeholder = "decrivez brievement votre offre.."></textarea>
+                                        <textarea id="contenu" rows="10" style="width : 500px;" class="form-control" name="contenu" placeholder = "decrivez brievement votre offre.."></textarea>
 
                                         @if ($errors->has('contenu'))
                                             <span class="help-block">

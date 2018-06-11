@@ -36,7 +36,7 @@ class OffreController extends Controller
              return view('errors.error')->with(['msg' => 'L\'Utilisateur n\'est pas un Entrepreneur et ne peut donc pas avoir d\'offres d\'emploi', 'titre' => 'Erreur']);
 
         $offres= $this->offreRepository->getOffresEntrepreneur($user->userable);
-		return view('offres.index',compact('offres','user'));
+		return view('offres.index',['user' => $user, 'offres' => $offres[0], 'links' => $offres[1]]);
 		
     }
     /**
@@ -112,16 +112,18 @@ class OffreController extends Controller
     {
         
         $offre = $this->offreRepository->getOffre($id);
-       
+		
+		if(!$offre)
+			return view('errors.error')->with(['msg' => 'L\'offre que vous souhaitez consulter n\'existe pas', 'titre' => 'Offre Introuvable']);
+	   
         $postulants = $this->offreRepository->getPostulants($offre);
         return view('postulants.index',compact('offre','postulants'));
     }
-	//a voir
 	public function offrePourOuvrier()
     {
         $offres = $this->offreRepository->getOffresPourOuvrier();
 		
-		return view('offres.offrePourOuvrier',compact('offres'));
+		return view('offres.offrePourOuvrier',$offres);
 		
     }
 	

@@ -10,7 +10,7 @@
 	                <div class="panel panel-success">
 					
 	                	<div class="panel-heading" id="heading-styling">
-	                		<div>Demande de : {{$demande->ouvrier->user->nom}}  {{$demande->ouvrier->user->prenom}}</div>
+	                		<div>Demande de : <a href="{{route('utilisateur.profil', $demande->ouvrier->user->id)}}">{{$demande->ouvrier->user->nom}}  {{$demande->ouvrier->user->prenom}}</a></div>
 	                		<div><small >cree le : {{$demande->created_at}} </small></div> 
 	                	</div>
 	                	<div class="panel-body">
@@ -23,11 +23,11 @@
 							Email : {{$demande->ouvrier->user->email}}
 							
 							</div>
-				
-						
+				 
 
 	                </div>
 	               
+						
 	                @empty
 	                <div class="panel panel-danger">
 	                	<div class="panel-heading">Aucun resultat</div>
@@ -39,7 +39,7 @@
                     </div>
 	                </div>
 	                @endforelse
-	                
+	                <div class="links-pagination">{{ $links }} </div>
 				</div>	
 			</div>
 		</div>

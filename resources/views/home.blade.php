@@ -35,7 +35,7 @@
             <div class="carousel-container">
               <div class="carousel-content">
                 <h2>Etes vous en manque de main d'oeuvre ?</h2>
-                <p>maçon ? charpentier ? ou quelconque ouvriers dans le domaine de la construction ? PFE vous permettra de <strong>trouver plus facilement des ouvriers </strong>.Vous pourrez meme poster des offres d'emploi.</p>
+                <p>maçon ? charpentier ? ou quelconque ouvriers dans le domaine de la construction ? ECOntact vous permettra de <strong>trouver plus facilement des ouvriers </strong>.Vous pourrez meme poster des offres d'emploi.</p>
                 <a href="{{route('demandes.demandePourEntreClient')}}" class="btn-get-started scrollto">Les demandes</a>
               </div>
             </div>
@@ -45,9 +45,9 @@
             <div class="carousel-container">
               <div class="carousel-content">
 			  <h2>Soif de projets ?</h2>
-                <p>Vous etes entrepreneur et vous voullez trouver des projets rapidement ? c'est simple ! PFE vous dispose d'un systeme de recherche de projet efficace qui vous permettra de trouver les projets les plus interessent selon vos critères</p>
+                <p>Vous etes entrepreneur et vous voullez trouver des projets rapidement ? c'est simple ! ECOntact vous dispose d'un systeme de recherche de projet efficace qui vous permettra de trouver les projets les plus interessent selon vos critères</p>
 
-                <a href="#" class="btn-get-started scrollto">Trouver un projet</a>
+                <a href="{{route('recherche.projet')}}" class="btn-get-started scrollto">Trouver un projet</a>
                 
 
               </div>
@@ -83,7 +83,7 @@
             <div class="carousel-container">
               <div class="carousel-content">
                  <h2>Recherchez-vous du travail?!</h2>
-                <p>plombier ? menuisier ? ou quelconque ouvrier dans le domaine de la construction ? <strong>PFE</strong> vous permettra de trouver plus facilement ce qui vous convient .Vous pourrez poster des demandes d'emploi ou meme rechercher des projets ne necessitant pas d'entrepreneur.</br>Mais vous pouvez aussi chercher une offre</br> qui vous convient !</p>
+                <p>plombier ? menuisier ? ou quelconque ouvrier dans le domaine de la construction ? <strong>ECOntact</strong> vous permettra de trouver plus facilement ce qui vous convient .Vous pourrez poster des demandes d'emploi ou meme rechercher des projets ne necessitant pas d'entrepreneur.</br>Mais vous pouvez aussi chercher une offre</br> qui vous convient !</p>
                 <a href="{{route('offres.offrePourOuvrier',Auth::user()->id)}} " class="btn-get-started scrollto">Offres</a>
               </div>
             </div>
@@ -118,7 +118,7 @@
             <div class="carousel-container">
               <div class="carousel-content">
                 <h2>Vous apprehendez de construire ?</h2>
-                <p>Pas de panique ! PFE est une plateforme qui est la specialement pour vous. Engagez le meilleur des entrepreneurs!</p>
+                <p>Pas de panique ! ECOntact est une plateforme qui est la specialement pour vous. Engagez le meilleur des entrepreneurs!</p>
               </div>
             </div>
           </div>
@@ -127,7 +127,7 @@
             <div class="carousel-container">
               <div class="carousel-content">
                  <h2>Vous recherchez une equipe de travail ?</h2>
-                <p>Avec PFE vous pouvez creer votre propre equipe de construction en recherchant les ouvriers les plus competents dans tout domaine !</p>
+                <p>Avec ECOntact vous pouvez creer votre propre equipe de construction en recherchant les ouvriers les plus competents dans tout domaine !</p>
                 <a href="{{route('demandes.demandePourEntreClient')}}" class="btn-get-started scrollto">Trouver ouvriers</a>
               </div>
             </div>

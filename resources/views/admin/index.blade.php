@@ -111,8 +111,6 @@
 								<tr>
 									<td>{{$type->designation}}</td>
 									<td>{{$type->description}}</td>
-									<td><a href="#" class="btn btn-warning">Modifier</a></td>
-								<td><a href="#" class="btn btn-danger">Supprimer</a></td>
 								</tr>
 							@endforeach
 							</tbody>
@@ -131,7 +129,7 @@
 			<div class="modal-content">
 				<div class="modal-header">
 				
-					<h4 class="modal-title">Liste des types d'ouvriers</h4>
+					<h4 class="modal-title">Liste des types de projets</h4>
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 				</div>
 			<div class="modal-body">
@@ -147,8 +145,6 @@
 								<tr>
 									<td>{{$type->designation}}</td>
 									<td>{{$type->description}}</td>
-									<td><a href="#" class="btn btn-warning">Modifier</a></td>
-									<td><a href="#" class="btn btn-danger">Supprimer</a></td>
 								</tr>
 							@endforeach
 							</tbody>
@@ -259,12 +255,13 @@
 									<td>{{$utilisateur->dateNaiss}}</td>
 									<td>{{$utilisateur->created_at}}</td>
 									<td>{{$utilisateur->userable_type}}</td>
-									<td>{{$utilisateur->signalements->count()}}<a href="#" id="voirMotif">(Voir motifs)</a></td>
+									<td>{{$utilisateur->signalements->count()}}<a href="#" class="voirMotif" data-id="{{$utilisateur->id}}">(Voir motifs)</a></td>
 									<td><a href="{{route('ban', $utilisateur->id)}}" class="btn btn-danger">Bannir</a></td>
 								</tr>
 							@endforeach
 							</tbody>
 						</table>
+						<div id="motifs" class="collapse"></div>
 					
 			</div>
 			<div class="modal-footer">
@@ -313,7 +310,7 @@
 									<td>{{$utilisateur->dateNaiss}}</td>
 									<td>{{$utilisateur->created_at}}</td>
 									<td>{{$utilisateur->userable_type}}</td>
-									<td><a href="{{route('unban', $utilisateur->id)}}" class="btn btn-info">Debannir</a></td>
+									<td><a href="{{route('unban', $utilisateur->id)}}" class="btn btn-info">Debloquer</a></td>
 								</tr>
 							@endforeach
 							</tbody>
@@ -373,6 +370,24 @@
 		$("#toggleVoirUtilisateurBannisModal").on("click", function(e){
 			e.preventDefault();
 			$("#listerUtilisateursBannisModal").modal();
-		})
+		});
+		$(".voirMotif").on("click", function(e) {
+			e.preventDefault();
+			$.get(APP_URL+"/admin/voirMotifs/"+$(this).attr("data-id"), null, function(d){
+				$("#motifs").collapse("hide");
+				$("#motifs").html("");
+				d.forEach(function(item){
+					var  element = "<div class='panel panel-default'><div class='panel-heading'>Motif</div><div class='panel-body'>"+item.motif+"</div></div>";
+					
+					$("#motifs").append(element);
+					
+				});
+				
+				setTimeout(function(){
+					$("#motifs").collapse("show");
+				}, 500);
+			});
+			
+		});
     </script>
 @endsection

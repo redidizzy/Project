@@ -94,6 +94,6 @@ Route::get('/unban/{id}', 'AdminController@unban')->name('unban');
 Route::get('banned', function(){
 	return view('isBanned');
 })->name('banned');
-
+Route::get('/admin/voirMotifs/{id}', 'AdminController@getSignalements');
 
 

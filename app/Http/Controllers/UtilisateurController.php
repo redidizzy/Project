@@ -48,7 +48,7 @@ class UtilisateurController extends Controller
 	}
     public function saveChange(Request $request)
     {
-        
+        $url = null;
     	if($request->hasFile('photo'))
     	{
     		$img = $request->file('photo');
@@ -67,7 +67,8 @@ class UtilisateurController extends Controller
     		}
 
     	}
-
+		
+		
         $utilisateur_id = $this->userRepository->changerInfos($request, $url);
     	
     	return redirect(route('utilisateur.profil', $utilisateur_id));

@@ -240,15 +240,15 @@
             {{csrf_field()}}
             <div class="form-row">
               <div class="form-group col-md-6">
-                <input type="text" name="nom" class="form-control" id="nom" placeholder="Votre Nom" data-rule="minlen:3" data-msg="Veuillez rentrer au moins 3 caracteres" />
+                <input type="text" value = "{{old('nom')}}"name="nom" class="form-control" id="nom" placeholder="Votre Nom" data-rule="minlen:3" data-msg="Veuillez rentrer au moins 3 caracteres" />
               </div>
                <div class="form-group col-md-6">
-                <input type="text" name="prenom" class="form-control" id="prenom" placeholder="Votre Prenom" data-rule="minlen:3" data-msg="Veuillez rentrer au moins 3 caracteres" />
+                <input type="text" name="prenom" value = "{{old('prenom')}}" class="form-control" id="prenom" placeholder="Votre Prenom" data-rule="minlen:3" data-msg="Veuillez rentrer au moins 3 caracteres" />
               </div>
             </div>
             <div class = "form-row">
               <div class="form-group col-md-12">
-                <input type="email" class="form-control" name="email" id="email" placeholder="Votre Email" data-rule="email" data-msg="Please enter a valid email" />
+                <input type="email" class="form-control" value = "{{old('email')}}" name="email" id="email" placeholder="Votre Email" data-rule="email" data-msg="Please enter a valid email" />
               </div>
             </div>
 			
@@ -275,7 +275,7 @@
 
                 
 
-                    <input id="dateNaiss" type="date" class="form-control" name="dateNaiss" value="{{ old('dateNaiss') }}" required autofocus>
+                    <input id="dateNaiss" type="date"  class="form-control" name="dateNaiss" value="{{ old('dateNaiss') }}" required autofocus>
 
                     @if ($errors->has('dateNaiss'))
                         <span class="help-block">
@@ -328,7 +328,7 @@
                   
               </div>
               <div class="col-md-4 form-group {{ $errors->has('adresse') ? 'has-error' : '' }}">
-                <input type="text" name="adresse" id="adresse" placeholder="votre adresse" class="form-control" />
+                <input type="text" name="adresse" value = "{{old('adresse')}}" id="adresse" placeholder="votre adresse" class="form-control" />
               </div>
             </div>
             <div class="form-row">
@@ -351,15 +351,15 @@
             <div id="Info_Entrepreneur" class="collapse">
               <div class="form-row">
                 <div class="col-md-6 form-group {{$errors->has('nomEntreprise') ? 'has-error' : '' }}">
-                  <input type="text" name="nomEntreprise" id="e" class="form-control" placeholder="Le nom de votre entreprise" />
+                  <input type="text" name="nomEntreprise" value = "{{old('nomEntreprise')}}" id="e" class="form-control" placeholder="Le nom de votre entreprise" />
                 </div>
                 <div class="col-md-6 form-group {{$errors->has('materiel') ? 'has-error' : '' }}">
-                  <textarea class="form-control" name="materiel" id="materiel" placeholder="Decrivez aux gens le materiel dont vous possedez !"></textarea>
+                  <textarea class="form-control" name="materiel" value = "{{old('materiel')}}" id="materiel" placeholder="Decrivez aux gens le materiel dont vous possedez !"></textarea>
                 </div>
               </div>
               <div class="form-row">
                 <div class="col-md-12 form-group {{$errors->has('descEntreprise') ? 'has-error' : '' }}">
-                   <textarea class="form-control" name="descEntreprise" id="descEntreprise" placeholder="Decrivez brievement aux gens votre entreprise et ses employes"></textarea>
+                   <textarea class="form-control" name="descEntreprise" value = "{{old('descEntreprise')}}" id="descEntreprise" placeholder="Decrivez brievement aux gens votre entreprise et ses employes"></textarea>
                  </div>
                </div>
             </div>

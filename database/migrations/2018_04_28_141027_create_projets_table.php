@@ -14,7 +14,7 @@ class CreateProjetsTable extends Migration
     public function up()
     {
         Schema::create('projets', function (Blueprint $table) {
-            $table->integer('type_id');
+            $table->integer('type_id')->nullable();
             $table->integer('client_id');
             $table->text('description');
             $table->double('superficie');

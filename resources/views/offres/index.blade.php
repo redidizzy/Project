@@ -35,7 +35,7 @@
 							
 	                	</div>
 	                	@if(Auth::user()->userable_type == 'Ouvrier')
-	                	@if(Auth::user()->userable->offres->first())
+	                	@if(Auth::user()->userable->dejaPostule($offre))
 	                		<div class="panel-footer clearfix">
 		                		<p class="alert alert-success floatRight">Vous avez deja postule a cette offre</a>
 		                	</div>
@@ -57,12 +57,13 @@
                     	</div>
 	                </div>
 	                @endforelse
-	               
+	                <div class="links-pagination">{{ $links }} </div>
 					@if(Auth::user()->id == $user->id)
 	                <div class="col-md-3 pull-right">
 	                	<a class="btn btn-success btn-block" href="{{route('offres.create')}}">Ajouter offre d'emploi</a>
 	                </div>
 	                @endif
+					
 	            </div>
 	        </div>
 	    </div>

@@ -80,19 +80,14 @@ class RegisterController extends Controller
             /** @todo indiquer le reste des types possible et finir le formulaire*/
             case 'Entrepreneur' : 
                 $utilisateur = Entrepreneur::create([
-                    'experience' => 0,
                     'materiel' => $data['materiel'],
-                    'reputation' => 0,
                     'nom_entreprise' => $data['nomEntreprise'],
                     'description_entreprise' => $data['descEntreprise']
 
                 ]);
-                
                 break;
             case 'Ouvrier' :
                 $utilisateur= Ouvrier::create([
-                    'experience' => 0,
-                    'reputation' => 0,
                     'fonction' => $data['fonction'],
                     'prixApprox' => 0
                 ]);

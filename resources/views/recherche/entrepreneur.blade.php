@@ -140,12 +140,16 @@
           <div class="col-lg-4 col-md-6 box wow bounceInUp" data-wow-duration="1.4s">
             <div class="icon"><i class="ion-ios-analytics-outline"></i></div>
             <h4 class="title"><a href="">Disponibilite</a></h4>
+			@if(!$entrepreneur->dateDebutDispo or !$entrepreneur->dateFinDispo)
+				<p class="description">Cet entrepreneur n'a pas encore change de disponibilite</p>
+			@else
             <p class="description">L'entrepreneur est disponible :
               <ul>
                 <li> Du : {{ $entrepreneur->dateDebutDispo->format('d/m/Y') }} </li>
                 <li> Au : {{ $entrepreneur->dateFinDispo->format('d/m/Y') }} </li>
               </ul> 
             </p> 
+			@endif
           </div>
           <div class="col-lg-4 col-md-6 box wow bounceInUp" data-wow-duration="1.4s">
             <div class="icon"><i class="ion-ios-bookmarks-outline"></i></div>

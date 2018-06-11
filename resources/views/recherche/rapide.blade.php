@@ -9,7 +9,7 @@
 
 	            	@forelse($resultats as $resultat)
 	                <div class="panel panel-success">
-	                	<div class="panel-heading">Projet de {{$resultat->client->user->nom}} {{$resultat->client->user->prenom}}</div>
+	                	<div class="panel-heading">Projet de <a href="{{route('utilisateur.profil', $resultat->client->user->id)}}">{{$resultat->client->user->nom}} {{$resultat->client->user->prenom}}</a></div>
 	                	<div class="panel-body">
 	                		<ul>
 	                			<li>Description : {{$resultat->description}}</li>
@@ -18,7 +18,7 @@
 	                			<li>Region : {{$resultat->region}}</li>
 	                			<li>budget : {{$resultat->budget}}</li>
 	                			<li>Delai : {{$resultat->delai}}</li>
-	                			<li>{!!$resultat->necessiteEntrepreneur ? '<strong>Ce projet necessite un entrepreneur</strong>' : '' !!}</li>
+	                			<li>{!! $resultat->necessiteEntrepreneur ? '<strong>Ce projet necessite un entrepreneur</strong>' : '<strong>Ce projet ne necessite pas un entrepreneur</strong>' !!}</li>
 
 	                		</ul>
 	                	</div>

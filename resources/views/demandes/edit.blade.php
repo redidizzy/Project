@@ -5,12 +5,12 @@
     <div class="retouches">
         <div class="container">
             <div class="row">
-                <div class="col-md-8 panel-center">
+                <div class="col-md-10 panel-center">
                     <div class="panel panel-default ">
                         <div class="panel-heading text-center">Editer la demande</div>
 
                         <div class="panel-body">
-                            <form class="form-horizontal" style="margin-left : 30%;" method="POST"  action="{{ route('demandes.update', $demande->id) }}">
+                            <form class="form-horizontal" style="margin-left : 20%;" method="POST"  action="{{ route('demandes.update', $demande->id) }}">
                                 {{ csrf_field() }}
 
                                 
@@ -19,7 +19,7 @@
                                     <label for="contenu" class="col-md-4 control-label">Contenu : </label></br>
 
                                     <div class="col-md-6">
-                                        <textarea id="contenu" class="form-control" name="contenu">{{$demande->contenu}}</textarea>
+                                        <textarea id="contenu" class="form-control" rows="10" style="width : 500px;" name="contenu">{{$demande->contenu}}</textarea>
 
                                         @if ($errors->has('contenu'))
                                             <span class="help-block">

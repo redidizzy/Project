@@ -15,9 +15,7 @@ class CreateOuvriersTable extends Migration
     {
         Schema::create('ouvriers', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('experience');
-            $table->double('reputation');
-            $table->string('fonction', 191);
+            $table->string('fonction', 191)->nullable();
             $table->integer('prixApprox');
             $table->foreign('fonction')
                 ->references('designation')
